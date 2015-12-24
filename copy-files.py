@@ -11,7 +11,7 @@ from os.path import isfile, join, split
 import shutil
 
 # Set up default file locations for configs and logs
-CONFIG_FILE = '"C:/Git/CopyAnime/CopyAnime.json"'
+CONFIG_FILE = 'C:/Git/CopyAnime/CopyAnime.json'
 LOG_FILE = 'D:/Downloads/fileCopy.log'
 PLEX_LIBRARY = {'Anime': 2, 'Movies': 1, 'Music': 4, 'TV Shows': 3}
 PLEX_SCANNER = ('C:/Program Files (x86)/Plex/Plex Media Server/'
