@@ -12,6 +12,7 @@ from os.path import isfile, join
 # Set up default file locations for configs and logs
 CONFIG_FILE = 'D:/Downloads/CopyAnime.json'
 LOG_FILE = 'D:/Downloads/fileCopy.log'
+PLEX_LIBRARY = 'Anime'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files,'
@@ -25,6 +26,9 @@ argParser.add_argument('-s', '--scan', help='Directory to scan')
 argParser.add_argument('-c', '--config', help='Configuration file',
                        default=CONFIG_FILE)
 argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
+argParser.add_argument('-p', '--plex',
+                       help='Plex library to scan based on new files.',
+                       default=PLEX_LIBRARY)
 
 logLevel = logging.DEBUG
 FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
