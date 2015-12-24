@@ -93,7 +93,7 @@ def main():
 
         # Trigger plex scan in either the entire library or the specific
         # folder associated with the specified file
-        scanPlex(args.plex, destinations)
+        scanPlex(args.plexlibrary, destinations)
 
 
 def moveFiles(matches, moveDir, scanDir):
