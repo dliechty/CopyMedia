@@ -22,15 +22,17 @@ argParser = argparse.ArgumentParser(description='Copy/transform large files,'
                                     ' then trigger plex media server to scan'
                                     ' destination folder.')
 
-argParser.add_argument('-f', '--file', help='File to process')
+argParser.add_argument('-f', '--file', help='File to process. '
+                       'If not specified, then all files within'
+                       ' the scan directory are checked.')
 argParser.add_argument('-d', '--dest',
                        help='Destination parent directory')
 argParser.add_argument('-s', '--scan', help='Directory to scan')
 argParser.add_argument('-c', '--config', help='Configuration file',
                        default=CONFIG_FILE)
 argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
-argParser.add_argument('-p', '--plex',
-                       help='Plex library to scan based on new files.',
+argParser.add_argument('-p', '--plexlibrary',
+                       help='Plex library name to scan based on new files.',
                        default='Anime')
 
 logLevel = logging.INFO

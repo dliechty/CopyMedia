@@ -45,11 +45,12 @@ folder.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -f FILE, --file FILE  File to process
+  -f FILE, --file FILE  File to process. If not specified, then all files
+                        within the scan directory are checked.
   -d DEST, --dest DEST  Destination parent directory
   -s SCAN, --scan SCAN  Directory to scan
   -c CONFIG, --config CONFIG
                         Configuration file
   -l LOG, --log LOG     Log file
-  -p PLEX, --plex PLEX  Plex library to scan based on new files.
+  -p PLEX, --plex PLEX  Plex library name to scan based on new files.
 ```
