@@ -32,3 +32,22 @@ Possible tags are:
 - destination : the name of the destination folder.
 - regex : the pattern that is used to match the file name
 - replace : the pattern to use to transform the file name when it is copied to the destination
+
+
+Here is the usage text:
+
+```
+usage: copy-files.py [-h] [-f FILE] [-d DEST] [-s SCAN] [-c CONFIG] [-l LOG]
+
+Copy/transform large files, then trigger plex media server to scan destination
+folder.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILE, --file FILE  File to process
+  -d DEST, --dest DEST  Destination parent directory
+  -s SCAN, --scan SCAN  Directory to scan
+  -c CONFIG, --config CONFIG
+                        Configuration file
+  -l LOG, --log LOG     Log file
+```
