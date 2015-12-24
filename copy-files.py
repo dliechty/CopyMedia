@@ -2,10 +2,12 @@
 
 import argparse
 import logging
+import subprocess
+import platform
 
 # Set up default file locations for configs and logs
-CONFIG_FILE = 'D:\\Downloads\\CopyAnime.json'
-LOG_FILE = 'D:\\Downloads\\fileCopy.log'
+CONFIG_FILE = 'D:/Downloads/CopyAnime.json'
+LOG_FILE = 'D:/Downloads/fileCopy.log'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files,'
@@ -29,10 +31,18 @@ def main():
     global logFile
     args = argParser.parse_args()
 
-    logging.basicConfig(filename=args.log,
+    logging.basicConfig(filename=getPath(args.log),
                         level=logLevel, format=FORMAT, filemode='a')
 
     logging.debug('Using configuration file: %s', args.config)
+
+
+def getPath(path):
+    '''Convert path to cygwin format if running on a cygwin platform'''
+
+    if 'CYGWIN' in platform.system():
+        path = subprocess.getoutput('cygpath ' + path)
+    return path
 
 if __name__ == '__main__':
     main()
