@@ -38,6 +38,7 @@ Here is the usage text:
 
 ```
 usage: copy-files.py [-h] [-f FILE] [-d DEST] [-s SCAN] [-c CONFIG] [-l LOG]
+                     [-p PLEX]
 
 Copy/transform large files, then trigger plex media server to scan destination
 folder.
@@ -50,4 +51,5 @@ optional arguments:
   -c CONFIG, --config CONFIG
                         Configuration file
   -l LOG, --log LOG     Log file
+  -p PLEX, --plex PLEX  Plex library to scan based on new files.
 ```
