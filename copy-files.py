@@ -140,12 +140,17 @@ def scanPlex(plexLibrary, destinations):
     command = [PLEX_SCANNER, '--scan', '--refresh', '--section',
                str(PLEX_LIBRARY[plexLibrary]), '--directory', '']
 
+    startupinfo = subprocess.STARTUPINFO()
+    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    startupinfo.wShowWindow = subprocess.SW_HIDE
+
     for destination in destinations:
         command[-1] = destination
         logging.debug('Initiating Plex Scan on [%s]...', destination)
         process = subprocess.Popen(command,
                                    stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT)
+                                   stderr=subprocess.STDOUT,
+                                   startupinfo=startupinfo)
         for line in iter(process.stdout.readline, b''):
             logging.debug(line.decode('ascii').strip())
 
