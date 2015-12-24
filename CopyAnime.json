@@ -1,0 +1,49 @@
+{
+    "scanDir":"D:/Downloads",
+    "moveDir": "Z:/Shared Videos/Anime",
+    "series": [
+        {
+            "name": "Shinmai Maou no Testament BURST",
+            "regex": "(.*)(Shinmai Maou no Testament BURST)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\3S02E\\4\\5"
+        },
+        {
+            "name": "World Trigger",
+            "regex": "(.*)(World Trigger)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "World Trigger",
+            "regex": "(.*)(World Trigger)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "One-Punch Man",
+            "destination":"One Punch Man",
+            "regex": "(.*)(One-Punch Man)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Rakudai Kishi no Cavalry",
+            "regex": "(.*)(Rakudai Kishi no Cavalry)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Lance N' Masques",
+            "regex": "(.*)(Lance N' Masques)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Garo - The Crimson Moon",
+            "regex": "(.*)(Garo - The Crimson Moon)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Comet Lucifer",
+            "regex": "(.*)(Comet Lucifer)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Gakusen Toshi Asterisk",
+            "regex": "(.*)(Gakusen Toshi Asterisk)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Taimadou Gakuen 35 Shiken Shoutai",
+            "regex": "(.*)(Taimadou Gakuen 35 Shiken Shoutai)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\3S01E\\4\\5"
+        }
+    ]
+}
