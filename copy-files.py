@@ -7,13 +7,15 @@ import platform
 import json
 import re
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, split
 import shutil
 
 # Set up default file locations for configs and logs
-CONFIG_FILE = 'D:/Downloads/CopyAnime.json'
+CONFIG_FILE = '"C:/Git/CopyAnime/CopyAnime.json"'
 LOG_FILE = 'D:/Downloads/fileCopy.log'
-PLEX_LIBRARY = 'Anime'
+PLEX_LIBRARY = {'Anime': 2, 'Movies': 1, 'Music': 4, 'TV Shows': 3}
+PLEX_SCANNER = ('C:/Program Files (x86)/Plex/Plex Media Server/'
+                'Plex Media Scanner.exe')
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files,'
@@ -29,9 +31,9 @@ argParser.add_argument('-c', '--config', help='Configuration file',
 argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
 argParser.add_argument('-p', '--plex',
                        help='Plex library to scan based on new files.',
-                       default=PLEX_LIBRARY)
+                       default='Anime')
 
-logLevel = logging.DEBUG
+logLevel = logging.INFO
 FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 
 
@@ -76,7 +78,8 @@ def main():
         # specified or whether we need to scan a directory
         files = []
         if hasFile:
-            files.append(args.file)
+            scanDir, fileName = split(args.file)
+            files.append(fileName)
         else:
             files = [f for f in listdir(scanDir) if isfile(join(scanDir, f))]
 
@@ -84,15 +87,17 @@ def main():
         matches = matchFiles(files, config['series'])
 
         # Move matching files to their respective destination directories
-        moveFiles(matches, moveDir, scanDir)
+        destinations = moveFiles(matches, moveDir, scanDir)
 
         # Trigger plex scan in either the entire library or the specific
         # folder associated with the specified file
-        scanPlex(hasFile)
+        scanPlex(args.plex, destinations)
 
 
 def moveFiles(matches, moveDir, scanDir):
     '''Move matching files to their respective destination directory'''
+
+    destinations = set()
 
     for fileName, configEntry in matches:
 
@@ -118,13 +123,31 @@ def moveFiles(matches, moveDir, scanDir):
         logging.info('Successfully moved [%s] to [%s]',
                      join(scanDir, fileName), join(dest, destFileName))
 
+        destinations.add(dest)
 
-def scanPlex(matches):
+    return destinations
+
+
+def scanPlex(plexLibrary, destinations):
     '''Trigger plex scan on either an entire library if more than one match
         was found or on the specific directory associated with a single match.
     '''
 
-    # TODO
+    # Establish command template. For each destination, replace the last
+    # entry in the list with the destination path. No need to clone list.
+    command = [PLEX_SCANNER, '--scan', '--refresh', '--section',
+               str(PLEX_LIBRARY[plexLibrary]), '--directory', '']
+
+    for destination in destinations:
+        command[-1] = destination
+        logging.debug('Initiating Plex Scan on [%s]...', destination)
+        process = subprocess.Popen(command,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT)
+        for line in iter(process.stdout.readline, b''):
+            logging.debug(line.decode('ascii').strip())
+
+        logging.info('Plex Scan on [%s] complete.', destination)
 
 
 def matchFiles(files, series):
@@ -138,7 +161,7 @@ def matchFiles(files, series):
             if show['regex']:
                 if re.match(show['regex'], f):
                     matches.append((f, show))
-                    logging.info('++++++ File [%s] matches entry [%s]',
+                    logging.info('File [%s] matches series [%s]',
                                  f, show['name'])
             else:
                 logging.error('[%s] has no regex pattern defined.',
