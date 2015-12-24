@@ -31,8 +31,6 @@ FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 
 
 def main():
-    global configFile
-    global logFile
     args = argParser.parse_args()
 
     logging.basicConfig(filename=getPath(args.log),
@@ -64,23 +62,56 @@ def main():
             moveDir = config['moveDir']
         logging.debug('Destination Parent Directory: [%s]', moveDir)
 
+        # Build list of files based on whether a single file has been
+        # specified or whether we need to scan a directory
         files = []
         if hasFile:
             files.append(args.file)
         else:
             files = [f for f in listdir(scanDir) if isfile(join(scanDir, f))]
 
-        for f in files:
-            for show in config['series']:
-                logging.debug('Checking [%s] against [%s] using pattern [%s]',
-                              f, show['name'], show['regex'])
-                if show['regex']:
-                    if re.match(show['regex'], f):
-                        logging.info('++++++ File [%s] matches entry [%s]',
-                                     f, show['name'])
-                else:
-                    logging.error('[%s] has no regex pattern defined.',
-                                  show['name'])
+        # Find matching files
+        matches = matchFiles(files, config['series'])
+
+        # Move matching files to their respective destination directories
+        moveFiles(matches)
+
+        # Trigger plex scan in either the entire library or the specific
+        # folder associated with the specified file
+        scanPlex(hasFile)
+
+
+def moveFiles(matches):
+    '''Move matching files to their respective destination directory'''
+
+    # TODO
+
+
+def scanPlex(matches):
+    '''Trigger plex scan on either an entire library if more than one match
+        was found or on the specific directory associated with a single match.
+    '''
+
+    # TODO
+
+
+def matchFiles(files, series):
+    '''Find matching files given a list of files and a list of series.'''
+
+    matches = []
+    for f in files:
+        for show in series:
+            logging.debug('Checking [%s] against [%s] using pattern [%s]',
+                          f, show['name'], show['regex'])
+            if show['regex']:
+                if re.match(show['regex'], f):
+                    matches.append((f, show))
+                    logging.info('++++++ File [%s] matches entry [%s]',
+                                 f, show['name'])
+            else:
+                logging.error('[%s] has no regex pattern defined.',
+                              show['name'])
+    return matches
 
 
 def getPath(path):
