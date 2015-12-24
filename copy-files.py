@@ -8,6 +8,7 @@ import json
 import re
 from os import listdir
 from os.path import isfile, join
+import shutil
 
 # Set up default file locations for configs and logs
 CONFIG_FILE = 'D:/Downloads/CopyAnime.json'
@@ -56,15 +57,20 @@ def main():
             logging.debug('Scanning file [%s]', args.file)
         else:
             scanDir = args.scan
-            if config['scanDir']:
+            if 'scanDir' in config:
                 scanDir = config['scanDir']
             logging.debug('Scanning Directory: [%s]', scanDir)
 
         # Retrieve destination parent directory
         moveDir = args.dest
-        if config['moveDir']:
+        if 'moveDir' in config:
             moveDir = config['moveDir']
-        logging.debug('Destination Parent Directory: [%s]', moveDir)
+        if moveDir:
+            logging.debug('Destination Parent Directory: [%s]', moveDir)
+        else:
+            logging.exception('Destination directory must be specified, '
+                              'either on the command line or in the '
+                              'configuration file.')
 
         # Build list of files based on whether a single file has been
         # specified or whether we need to scan a directory
@@ -78,17 +84,39 @@ def main():
         matches = matchFiles(files, config['series'])
 
         # Move matching files to their respective destination directories
-        moveFiles(matches)
+        moveFiles(matches, moveDir, scanDir)
 
         # Trigger plex scan in either the entire library or the specific
         # folder associated with the specified file
         scanPlex(hasFile)
 
 
-def moveFiles(matches):
+def moveFiles(matches, moveDir, scanDir):
     '''Move matching files to their respective destination directory'''
 
-    # TODO
+    for fileName, configEntry in matches:
+
+        # Determine destination fileName if a replace attribute
+        # was specified
+        destFileName = fileName
+        if 'replace' in configEntry:
+            destFileName = re.sub(configEntry['regex'],
+                                  configEntry['replace'], fileName)
+            logging.debug('New name for [%s] will be [%s]',
+                          fileName, destFileName)
+
+        # Build destination directory path
+        if 'destination' in configEntry:
+            dest = join(moveDir, configEntry['destination'])
+        else:
+            dest = join(moveDir, configEntry['name'])
+
+        # Move file to destination folder, renaming on the way
+        logging.debug('Moving [%s] to [%s]...',
+                      join(scanDir, fileName), join(dest, destFileName))
+        shutil.move(join(scanDir, fileName), join(dest, destFileName))
+        logging.info('Successfully moved [%s] to [%s]',
+                     join(scanDir, fileName), join(dest, destFileName))
 
 
 def scanPlex(matches):
