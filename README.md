@@ -1,4 +1,4 @@
-# Copy-Anime
+# Copy Anime
 This is a small Python script to copy/transform large file downloads and auto-trigger a folder scan in a plex media server to the correct folder.
 
 The general workflow is expected to be that a torrent is downloaded based on an auto-initiated RSS update, the video file lands in the destination folder, the torrent application auto-triggers the python script, the video file ends up in the correct location within your plex library, and then plex is told to scan the destination folder for changes.
