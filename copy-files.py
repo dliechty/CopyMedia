@@ -6,7 +6,7 @@ import subprocess
 import platform
 import json
 import re
-from os import listdir
+from os import listdir, path, makedirs
 from os.path import isfile, join, split
 import shutil
 
@@ -117,6 +117,11 @@ def moveFiles(matches, moveDir, scanDir):
             dest = join(moveDir, configEntry['destination'])
         else:
             dest = join(moveDir, configEntry['name'])
+
+        # Create destination directory if it doesn't already exist
+        if not path.exists(dest):
+            logging.info('Destination does not exist; creating [%s]', dest)
+            makedirs(dest)
 
         # Move file to destination folder, renaming on the way
         logging.debug('Moving [%s] to [%s]...',
