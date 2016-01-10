@@ -54,6 +54,18 @@
             "destination":"Luck and Logic"
         },
         {
+            "name": "Dimension W",
+            "regex": "(.*)(Dimension W)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Hai to Gensou no Grimgar",
+            "regex": "(.*)(Hai to Gensou no Grimgar)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Koukaku no Pandora",
+            "regex": "(.*)(Koukaku no Pandora)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Taimadou Gakuen 35 Shiken Shoutai",
             "regex": "(.*)(Taimadou Gakuen 35 Shiken Shoutai)( - )(\\d{1,})(.*)",
             "replace": "\\1\\2\\3S01E\\4\\5"
