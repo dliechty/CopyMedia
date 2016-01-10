@@ -49,6 +49,11 @@
             "regex": "(.*)(GATE)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Luck & Logic",
+            "regex": "(.*)(Luck & Logic)( - )(\\d{1,})(.*)",
+            "destination":"Luck and Logic"
+        },
+        {
             "name": "Taimadou Gakuen 35 Shiken Shoutai",
             "regex": "(.*)(Taimadou Gakuen 35 Shiken Shoutai)( - )(\\d{1,})(.*)",
             "replace": "\\1\\2\\3S01E\\4\\5"
