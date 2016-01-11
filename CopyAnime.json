@@ -66,6 +66,14 @@
             "regex": "(.*)(Koukaku no Pandora)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Ao no Kanata no Four Rhythm",
+            "regex": "(.*)(Ao no Kanata no Four Rhythm)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Saijaku Muhai no Bahamut",
+            "regex": "(.*)(Saijaku Muhai no Bahamut)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Taimadou Gakuen 35 Shiken Shoutai",
             "regex": "(.*)(Taimadou Gakuen 35 Shiken Shoutai)( - )(\\d{1,})(.*)",
             "replace": "\\1\\2\\3S01E\\4\\5"
