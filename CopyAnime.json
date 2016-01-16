@@ -62,8 +62,9 @@
             "regex": "(.*)(Hai to Gensou no Grimgar)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "Koukaku no Pandora",
-            "regex": "(.*)(Koukaku no Pandora)( - )(\\d{1,})(.*)"
+            "name": "Pandora of the Crimson Shell",
+            "regex": "(.*)(Koukaku no Pandora)( - )(\\d{1,})(.*)",
+            "replace": "\\1Pandora of the Crimson Shell\\3\\4\\5"
         },
         {
             "name": "Ao no Kanata no Four Rhythm",
