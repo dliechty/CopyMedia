@@ -58,8 +58,9 @@
             "regex": "(.*)(Dimension W)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "Hai to Gensou no Grimgar",
-            "regex": "(.*)(Hai to Gensou no Grimgar)( - )(\\d{1,})(.*)"
+            "name": "Grimgar of Fantasy and Ash",
+            "regex": "(.*)(Hai to Gensou no Grimgar)( - )(\\d{1,})(.*)",
+            "replace": "\\1Grimgar of Fantasy and Ash\\3\\4\\5"
         },
         {
             "name": "Pandora of the Crimson Shell",
