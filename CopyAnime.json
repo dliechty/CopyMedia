@@ -68,16 +68,18 @@
             "replace": "\\1Pandora of the Crimson Shell\\3\\4\\5"
         },
         {
-            "name": "Ao no Kanata no Four Rhythm",
-            "regex": "(.*)(Ao no Kanata no Four Rhythm)( - )(\\d{1,})(.*)"
+            "name": "Four Rhythm Across the Blue",
+            "regex": "(.*)(Ao no Kanata no Four Rhythm)( - )(\\d{1,})(.*)",
+            "replace": "\\1Four Rhythm Across the Blue\\3\\4\\5"
         },
         {
             "name": "Saijaku Muhai no Bahamut",
             "regex": "(.*)(Saijaku Muhai no Bahamut)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "Kono Subarashii Sekai ni Shukufuku wo!",
-            "regex": "(.*)(Kono Subarashii Sekai ni Shukufuku wo!)( - )(\\d{1,})(.*)"
+            "name": "KonoSuba – God’s blessing on this wonderful world!!",
+            "regex": "(.*)(Kono Subarashii Sekai ni Shukufuku wo!)( - )(\\d{1,})(.*)",
+            "replace": "\\1KonoSuba – God’s blessing on this wonderful world!!\\3\\4\\5"
         },
         {
             "name": "Taimadou Gakuen 35 Shiken Shoutai",
