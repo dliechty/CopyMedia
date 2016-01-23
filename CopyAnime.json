@@ -50,8 +50,7 @@
         },
         {
             "name": "Luck & Logic",
-            "regex": "(.*)(Luck & Logic)( - )(\\d{1,})(.*)",
-            "destination":"Luck and Logic"
+            "regex": "(.*)(Luck & Logic)( - )(\\d{1,})(.*)"
         },
         {
             "name": "Dimension W",
