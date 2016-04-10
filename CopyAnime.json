@@ -54,6 +54,10 @@
             "regex": "(.*)(Dimension W)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Endride",
+            "regex": "(.*)(Endride)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Grimgar of Fantasy and Ash",
             "regex": "(.*)(Hai to Gensou no Grimgar)( - )(\\d{1,})(.*)",
             "replace": "\\1Grimgar of Fantasy and Ash\\3\\4\\5"
@@ -81,6 +85,10 @@
             "name": "Taimadou Gakuen 35 Shiken Shoutai",
             "regex": "(.*)(Taimadou Gakuen 35 Shiken Shoutai)( - )(\\d{1,})(.*)",
             "replace": "\\1\\2\\3S01E\\4\\5"
-        }
+        },
+        {
+            "name": "Concrete Revolutio",
+            "regex": "(.*)(Concrete Revolutio)( - )(\\d{1,})(.*)"
+        },
     ]
 }
