@@ -90,5 +90,9 @@
             "name": "Concrete Revolutio",
             "regex": "(.*)(Concrete Revolutio)( - )(\\d{1,})(.*)"
         },
+        {
+            "name": "Sakamoto desu ga",
+            "regex": "(.*)(Sakamoto desu ga)( - )(\\d{1,})(.*)"
+        }
     ]
 }
