@@ -93,6 +93,10 @@
         {
             "name": "Sakamoto desu ga",
             "regex": "(.*)(Sakamoto desu ga)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Heavy Object",
+            "regex": "(.*)(Heavy Object)( - )(\\d{1,})(.*)"
         }
     ]
 }
