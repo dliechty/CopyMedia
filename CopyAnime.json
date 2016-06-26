@@ -1,6 +1,6 @@
 {
-    "scanDir":"D:/Downloads",
-    "moveDir": "Z:/Shared Videos/Anime",
+    "scanDir":"/mnt/raid1/private/downloads",
+    "moveDir": "/mnt/raid1/public/plex/Anime",
     "series": [
         {
             "name": "Shinmai Maou no Testament BURST",
