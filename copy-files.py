@@ -39,7 +39,7 @@ argParser.add_argument('torrentid', help='Torrent Id')
 argParser.add_argument('torrentname', help='Torrent Name')
 argParser.add_argument('torrentpath', help='Torrent Path')
 
-logLevel = logging.DEBUG
+logLevel = logging.INFO
 FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 
 
