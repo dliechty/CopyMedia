@@ -39,7 +39,7 @@ argParser.add_argument('torrentid', help='Torrent Id')
 argParser.add_argument('torrentname', help='Torrent Name')
 argParser.add_argument('torrentpath', help='Torrent Path')
 
-logLevel = logging.INFO
+logLevel = logging.DEBUG
 FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 
 
@@ -149,30 +149,12 @@ def scanPlex(plexLibrary, destinations):
     command = [PLEX_SCANNER, '--scan', '--refresh', '--section',
                str(PLEX_LIBRARY[plexLibrary]), '--directory', '']
 
-    startupinfo = subprocess.STARTUPINFO()
-    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    startupinfo.wShowWindow = subprocess.SW_HIDE
-
-    # Make sure environment variables are set properly for ubuntu
-    env_command = ['source', PROP_FILE]
-    subprocess.Popen(env_command,
-                     stdout=subprocess.PIPE,
-                     stderr=subprocess.STDOUT,
-                     startupinfo=startupinfo)
-
-    env_command = ['export', 'LD_LIBRARY_PATH=' + BIN_FOLDER]
-    subprocess.Popen(env_command,
-                     stdout=subprocess.PIPE,
-                     stderr=subprocess.STDOUT,
-                     startupinfo=startupinfo)
-
     for destination in destinations:
         command[-1] = destination
         logging.debug('Initiating Plex Scan on [%s]...', destination)
         process = subprocess.Popen(command,
                                    stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT,
-                                   startupinfo=startupinfo)
+                                   stderr=subprocess.STDOUT)
         for line in iter(process.stdout.readline, b''):
             logging.debug(line.decode('ascii').strip())
 
