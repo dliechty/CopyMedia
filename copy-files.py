@@ -35,6 +35,9 @@ argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
 argParser.add_argument('-p', '--plexlibrary',
                        help='Plex library name to scan based on new files.',
                        default='Anime')
+argParser.add_argument('torrentid', help='Torrent Id')
+argParser.add_argument('torrentname', help='Torrent Name')
+argParser.add_argument('torrentpath', help='Torrent Path')
 
 logLevel = logging.INFO
 FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
