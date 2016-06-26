@@ -57,12 +57,14 @@ def main():
         # if hasFile is true, then only check that one file
         # against the configs. If file is not set, then scan
         # the entire directory for files
-        hasFile = False
+        file = None
+        if args.torrentpath:
+            file = args.torrentpath
         if args.file:
-            hasFile = True
+            file = args.file
 
-        if hasFile:
-            logging.debug('Scanning file [%s]', args.file)
+        if file:
+            logging.debug('Scanning file [%s]', file)
         else:
             scanDir = args.scan
             if 'scanDir' in config:
@@ -83,8 +85,8 @@ def main():
         # Build list of files based on whether a single file has been
         # specified or whether we need to scan a directory
         files = []
-        if hasFile:
-            scanDir, fileName = split(args.file)
+        if file:
+            scanDir, fileName = split(file)
             files.append(fileName)
         else:
             files = [f for f in listdir(scanDir) if isfile(join(scanDir, f))]
