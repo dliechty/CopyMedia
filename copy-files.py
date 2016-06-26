@@ -51,6 +51,8 @@ def main():
 
     logging.debug('Using configuration file: [%s]', args.config)
 
+    logging.debug('All command line arguments: [%s]', args)
+
     with open(args.config) as configFile:
         config = json.load(configFile)
 
