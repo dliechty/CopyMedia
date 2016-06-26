@@ -61,7 +61,7 @@ def main():
         # the entire directory for files
         file = None
         if args.torrentpath:
-            file = args.torrentpath
+            file = join(args.torrentpath, args.torrentname)
         if args.file:
             file = args.file
 
