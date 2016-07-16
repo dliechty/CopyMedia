@@ -96,7 +96,7 @@
         },
         {
             "name": "Shokugeki no Soma",
-            "regex": "(.*)(Shokugeki no Soma )(S2)( - )(\\d{1,})(.*)",
+            "regex": "(.*)(Shokugeki no Soma)( S2)( - )(\\d{1,})(.*)",
             "replace": "\\1\\2\\4S02E\\5"
         },
         {
