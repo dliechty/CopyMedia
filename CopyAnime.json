@@ -95,6 +95,19 @@
             "regex": "(.*)(Sakamoto desu ga)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Shokugeki no Soma",
+            "regex": "(.*)(Shokugeki no Soma )(S2)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\4S02E\\5"
+        },
+        {
+            "name": "Taboo Tattoo",
+            "regex": "(.*)(Taboo Tattoo)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Tales of Zestiria the X",
+            "regex": "(.*)(Tales of Zestiria the X)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Heavy Object",
             "regex": "(.*)(Heavy Object)( - )(\\d{1,})(.*)"
         }
