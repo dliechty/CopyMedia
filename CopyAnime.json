@@ -97,7 +97,7 @@
         {
             "name": "Shokugeki no Soma",
             "regex": "(.*)(Shokugeki no Soma)( S2)( - )(\\d{1,})(.*)",
-            "replace": "\\1\\2\\4S02E\\5"
+            "replace": "\\1\\2\\4S02E\\5\\6"
         },
         {
             "name": "Taboo Tattoo",
