@@ -108,6 +108,10 @@
             "regex": "(.*)(Tales of Zestiria the X)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Alderamin on the Sky",
+            "regex": "(.*)(Alderamin on the Sky)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Heavy Object",
             "regex": "(.*)(Heavy Object)( - )(\\d{1,})(.*)"
         }
