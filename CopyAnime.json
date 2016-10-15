@@ -112,6 +112,18 @@
             "regex": "(.*)(Alderamin on the Sky)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Drifters",
+            "regex": "(.*)(Drifters)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Trickster",
+            "regex": "(.*)(Trickster)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Bloodivores",
+            "regex": "(.*)(Bloodivores)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Heavy Object",
             "regex": "(.*)(Heavy Object)( - )(\\d{1,})(.*)"
         }
