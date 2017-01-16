@@ -129,6 +129,15 @@
             "regex": "(.*)(Bloodivores)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Hand Shakers",
+            "regex": "(.*)(Hand Shakers)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Saga of Tanya the Evil",
+            "regex": "(.*)(Youjo Senki)( - )(\\d{1,})(.*)",
+            "replace": "\\1Saga of Tanya the Evil\\3S01E\\4\\5"
+        },
+        {
             "name": "Heavy Object",
             "regex": "(.*)(Heavy Object)( - )(\\d{1,})(.*)"
         }
