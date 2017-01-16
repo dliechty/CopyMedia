@@ -77,14 +77,14 @@
             "regex": "(.*)(Saijaku Muhai no Bahamut)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "KonoSuba - God's blessing on this wonderful world!!",
+            "name": "KonoSuba - God's Blessing on This wonderful world!!",
             "regex": "(.*)(Kono Subarashii Sekai ni Shukufuku wo!)( - )(\\d{1,})(.*)",
-            "replace": "\\1KonoSuba - God's blessing on this wonderful world!!\\3S01E\\4\\5"
+            "replace": "KonoSuba - God's Blessing on This wonderful world!!\\3S01E\\4\\5"
         },
         {
-            "name": "KonoSuba - God's blessing on this wonderful world!!",
+            "name": "KonoSuba - God's Blessing on This Wonderful World!!",
             "regex": "(.*)(Kono Subarashii Sekai ni Shukufuku wo! 2)( - )(\\d{1,})(.*)",
-            "replace": "\\1KonoSuba - God's blessing on this wonderful world!!\\3S02E\\4\\5"
+            "replace": "KonoSuba - God's Blessing on This Wonderful World!!\\3S02E\\4\\5"
         },
         {
             "name": "Taimadou Gakuen 35 Shiken Shoutai",
