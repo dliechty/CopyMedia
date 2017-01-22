@@ -54,6 +54,10 @@
             "regex": "(.*)(Dimension W)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "No Game No Life",
+            "regex": "(.*)(No Game No Life)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Endride",
             "regex": "(.*)(Endride)( - )(\\d{1,})(.*)"
         },
