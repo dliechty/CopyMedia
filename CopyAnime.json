@@ -42,6 +42,11 @@
             "replace": "\\1Akashic Records of Bastard Magic Instructor\\3\\4\\5"
         },
         {
+            "name": "The King's Avatar",
+            "regex": "(.*)(Quan Zhi Gao Shou)( - )(\\d{1,})(.*)",
+            "replace": "\\1The King's Avatar\\3\\4\\5"
+        },
+        {
             "name": "Gakusen Toshi Asterisk",
             "regex": "(.*)(Gakusen Toshi Asterisk)( - )(\\d{1,})(.*)"
         },
