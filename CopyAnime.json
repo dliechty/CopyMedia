@@ -33,8 +33,22 @@
             "regex": "(.*)(Comet Lucifer)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Clockwork Planet",
+            "regex": "(.*)(Clockwork Planet)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Akashic Records of Bastard Magic Instructor",
+            "regex": "(.*)(Rokudenashi Majutsu Koushi to Akashic Records)( - )(\\d{1,})(.*)",
+            "replace": "\\1Akashic Records of Bastard Magic Instructor\\3\\4\\5"
+        },
+        {
             "name": "Gakusen Toshi Asterisk",
             "regex": "(.*)(Gakusen Toshi Asterisk)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Grimoire of Zero",
+            "regex": "(.*)(Zero kara Hajimeru Mahou no Sho)( - )(\\d{1,})(.*)",
+            "replace": "\\1Grimoire of Zero\\3\\4\\5"
         },
         {
             "name": "Myriad Colors Phantom World",
