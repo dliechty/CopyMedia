@@ -25,6 +25,10 @@
             "regex": "(.*)(Lance N' Masques)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Re-Creators",
+            "regex": "(.*)(Re-Creators)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Garo - The Crimson Moon",
             "regex": "(.*)(Garo - The Crimson Moon)( - )(\\d{1,})(.*)"
         },
