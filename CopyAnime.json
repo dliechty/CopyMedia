@@ -78,7 +78,7 @@
         },
         {
             "name": "Knight's & Magic",
-            "regex": "(.*)(Knight's & MagicW)( - )(\\d{1,})(.*)"
+            "regex": "(.*)(Knight's & Magic)( - )(\\d{1,})(.*)"
         },
         {
             "name": "No Game No Life",
