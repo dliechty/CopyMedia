@@ -51,6 +51,11 @@
             "replace": "\\1The King's Avatar\\3\\4\\5"
         },
         {
+            "name": "In Another World With My Smartphone",
+            "regex": "(.*)(Isekai wa Smartphone to Tomo ni.)( - )(\\d{1,})(.*)",
+            "replace": "\\1In Another World With My Smartphone\\3\\4\\5"
+        },
+        {
             "name": "Gakusen Toshi Asterisk",
             "regex": "(.*)(Gakusen Toshi Asterisk)( - )(\\d{1,})(.*)"
         },
