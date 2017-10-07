@@ -137,12 +137,16 @@
         },
         {
             "name": "Shokugeki no Soma",
-            "regex": "(.*)(Shokugeki no Soma)( S2)( - )(\\d{1,})(.*)",
-            "replace": "\\1\\2\\4S02E\\5\\6"
+            "regex": "(.*)(Shokugeki no Soma)( S3)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\4S03E\\5\\6"
         },
         {
             "name": "Taboo Tattoo",
             "regex": "(.*)(Taboo Tattoo)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "UQ Holder!",
+            "regex": "(.*)(UQ Holder!)( - )(\\d{1,})(.*)"
         },
         {
             "name": "Tales of Zestiria the X",
@@ -155,6 +159,10 @@
         {
             "name": "Drifters",
             "regex": "(.*)(Drifters)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Black Clover",
+            "regex": "(.*)(Black Clover)( - )(\\d{1,})(.*)"
         },
         {
             "name": "Trickster",
