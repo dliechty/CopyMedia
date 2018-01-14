@@ -75,7 +75,7 @@
         {
             "name": "Overlord",
             "regex": "(.*)(Overlord II)( - )(\\d{1,})(.*)",
-            "replace": "\\1\\2\\3S02E\\4\\5"
+            "replace": "\\1Overlord\\3S02E\\4\\5"
         },
         {
             "name": "Grimoire of Zero",
