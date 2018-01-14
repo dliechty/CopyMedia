@@ -69,6 +69,15 @@
             "regex": "(.*)(Gakusen Toshi Asterisk)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Boruto",
+            "regex": "(.*)(Boruto - Naruto Next Generations)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Overlord",
+            "regex": "(.*)(Overlord II)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\3S02E\\4\\5"
+        },
+        {
             "name": "Grimoire of Zero",
             "regex": "(.*)(Zero kara Hajimeru Mahou no Sho)( - )(\\d{1,})(.*)",
             "replace": "\\1Grimoire of Zero\\3\\4\\5"
