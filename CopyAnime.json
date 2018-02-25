@@ -42,6 +42,11 @@
             "replace": "\\1Kekkai Sensen\\3S02E\\4\\5"
         },
         {
+            "name": "Death March to the Parallel World Rhapsody",
+            "regex": "(.*)(Death March kara Hajimaru Isekai Kyousoukyoku)( - )(\\d{1,})(.*)",
+            "replace": "\\1Death March to the Parallel World Rhapsody\\3\\4\\5"
+        },
+        {
             "name": "Comet Lucifer",
             "regex": "(.*)(Comet Lucifer)( - )(\\d{1,})(.*)"
         },
