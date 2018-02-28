@@ -6,6 +6,7 @@ import subprocess
 import platform
 import json
 import re
+import requests
 from os import listdir, path, makedirs
 from os.path import isfile, join, split
 import shutil
@@ -17,6 +18,8 @@ PLEX_LIBRARY = {'Anime': 3, 'Movies': 1, 'TV Shows': 2}
 PLEX_SCANNER = ('/usr/lib/plexmediaserver/Plex Media Scanner')
 PROP_FILE = '/etc/default/plexmediaserver'
 BIN_FOLDER = '/usr/lib/plexmediaserver'
+
+IFTTT_URL = 'https://maker.ifttt.com/trigger/PLEX_NEW/with/key/dFHLoSLaYm8b1VsTyjan1I'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files,'
@@ -99,6 +102,23 @@ def main():
         # Move matching files to their respective destination directories
         moveFiles(matches, moveDir, scanDir)
 
+        # Send notification to phone
+        sendNotification(matches)
+
+
+def sendNotification(matches):
+    '''Send IFTTT notification to phone whenever the script fires with the names
+        of the new episodes'''
+
+    names = [config['name'] for file, config in matches]
+    nameString = ' and '.join(names)
+
+    logging.debug('Sending notification with name string: [%s] to IFTTT',
+                  nameString)
+
+    r = requests.post(IFTTT_URL, data={'value1': nameString})
+    logging.debug('IFTTT POST status: [%s] with reason: [%s]',
+                  r.status_code, r.reason)
 
 
 def moveFiles(matches, moveDir, scanDir):
