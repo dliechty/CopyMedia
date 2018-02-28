@@ -97,11 +97,8 @@ def main():
         matches = matchFiles(files, config['series'])
 
         # Move matching files to their respective destination directories
-        destinations = moveFiles(matches, moveDir, scanDir)
+        moveFiles(matches, moveDir, scanDir)
 
-        # Trigger plex scan in either the entire library or the specific
-        # folder associated with the specified file
-        # scanPlex(args.plexlibrary, destinations)
 
 
 def moveFiles(matches, moveDir, scanDir):
@@ -144,7 +141,9 @@ def moveFiles(matches, moveDir, scanDir):
 
 
 def scanPlex(plexLibrary, destinations):
-    '''Trigger plex scan on either an entire library if more than one match
+    '''DEPRECATED. Now use direct flexget integration
+
+        Trigger plex scan on either an entire library if more than one match
         was found or on the specific directory associated with a single match.
     '''
 
@@ -190,6 +189,7 @@ def getPath(path):
     if 'CYGWIN' in platform.system():
         path = subprocess.getoutput('cygpath ' + path)
     return path
+
 
 if __name__ == '__main__':
     main()
