@@ -110,15 +110,19 @@ def sendNotification(matches):
     '''Send IFTTT notification to phone whenever the script fires with the names
         of the new episodes'''
 
-    names = [config['name'] for file, config in matches]
-    nameString = ' and '.join(names)
+    # Only send notification if there is at least one matching file.
+    if matches:
+        # Get series name for each matching file and concatenate
+        # into a string separated by ' and '
+        names = [config['name'] for file, config in matches]
+        nameString = ' and '.join(names)
 
-    logging.debug('Sending notification with name string: [%s] to IFTTT',
-                  nameString)
+        logging.debug('Sending notification with name string: [%s] to IFTTT',
+                      nameString)
 
-    r = requests.post(IFTTT_URL, data={'value1': nameString})
-    logging.debug('IFTTT POST status: [%s] with reason: [%s]',
-                  r.status_code, r.reason)
+        r = requests.post(IFTTT_URL, data={'value1': nameString})
+        logging.debug('IFTTT POST status: [%s] with reason: [%s]',
+                      r.status_code, r.reason)
 
 
 def moveFiles(matches, moveDir, scanDir):
