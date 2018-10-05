@@ -12,6 +12,15 @@
             "regex": "(.*)(World Trigger)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Goblin Slayer",
+            "regex": "(.*)(Goblin Slayer)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "That Time I Got Reincarnated as a Slime",
+            "regex": "(.*)(Tensei Shitara Slime Datta Ken)( - )(\\d{1,})(.*)",
+            "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
+        },
+        {
             "name": "One-Punch Man",
             "destination":"One Punch Man",
             "regex": "(.*)(One-Punch Man)( - )(\\d{1,})(.*)"
