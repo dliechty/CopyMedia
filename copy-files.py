@@ -38,11 +38,12 @@ argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
 argParser.add_argument('-p', '--plexlibrary',
                        help='Plex library name to scan based on new files.',
                        default='Anime')
-argParser.add_argument('torrentid', help='Torrent Id')
-argParser.add_argument('torrentname', help='Torrent Name')
-argParser.add_argument('torrentpath', help='Torrent Path')
+argParser.add_argument('delugeArgs', default=[], nargs='*',
+                       help='If deluge is used, there will be three args,'
+                            ' in this order: Torrent Id, Torrent Name,'
+                            ' Torrent Path')
 
-logLevel = logging.INFO
+logLevel = logging.DEBUG
 FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 
 
@@ -59,27 +60,47 @@ def main():
     with open(args.config) as configFile:
         config = json.load(configFile)
 
-        # if hasFile is true, then only check that one file
-        # against the configs. If file is not set, then scan
-        # the entire directory for files
+        # if an individual file is specified either by
+        # deluge or via the command line, then just use that.
+        # Otherwise, look for a directory to scan and scan the
+        # entire folder for matching files.
+
         file = None
-        if args.torrentpath:
-            file = join(args.torrentpath, args.torrentname)
+        torrentName = None
+        torrentPath = None
+        if args.delugeArgs and len(args.delugeArgs) == 3:
+            torrentName = args.delugeArgs[1]
+            torrentPath = args.delugeArgs[2]
+
+        # set base file path based on deluge args if they exist
+        if torrentName and torrentPath:
+            file = join(torrentPath, torrentName)
+        # over-ride with explicit filepath from cmd if available
         if args.file:
             file = args.file
 
         if file:
             logging.debug('Scanning file [%s]', file)
         else:
-            scanDir = args.scan
+            # Check config for scanDir first
             if 'scanDir' in config:
                 scanDir = config['scanDir']
+            # Override if specified as command line arg
+            if args.scan:
+                scanDir = args.scan
             logging.debug('Scanning Directory: [%s]', scanDir)
 
-        # Retrieve destination parent directory
-        moveDir = args.dest
+        if not file and not scanDir:
+            logging.exception('Must either specify a file or '
+                              'a directory to scan.')
+
+        # get destination directory from configs first
         if 'moveDir' in config:
             moveDir = config['moveDir']
+        # over-ride from cmd if available
+        if args.dest:
+            moveDir = args.dest
+
         if moveDir:
             logging.debug('Destination Parent Directory: [%s]', moveDir)
         else:
