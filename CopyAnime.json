@@ -38,6 +38,10 @@
             "regex": "(.*)(Re-Creators)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Dororo",
+            "regex": "(.*)(Dororo)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Mahoutsukai no Yome",
             "regex": "(.*)(Mahoutsukai no Yome)( - )(\\d{1,})(.*)"
         },
