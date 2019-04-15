@@ -29,7 +29,7 @@
             "name": "One Punch Man S2",
             "destination":"One Punch Man",
             "regex": "(.*)(One Punch Man S2)( - )(\\d{1,})(.*)",
-            "replace": "\\1One-Punch Man\\3S02\\4\\5"
+            "replace": "\\1One-Punch Man\\3S02E\\4\\5"
         },
         {
             "name": "Rakudai Kishi no Cavalry",
