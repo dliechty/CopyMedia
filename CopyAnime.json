@@ -26,8 +26,18 @@
             "regex": "(.*)(One-Punch Man)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "One Punch Man S2",
+            "destination":"One Punch Man",
+            "regex": "(.*)(One Punch Man S2)( - )(\\d{1,})(.*)",
+            "replace": "\\1One-Punch Man\\3S02\\4\\5"
+        },
+        {
             "name": "Rakudai Kishi no Cavalry",
             "regex": "(.*)(Rakudai Kishi no Cavalry)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Fairy Gone",
+            "regex": "(.*)(Fairy Gone)( - )(\\d{1,})(.*)"
         },
         {
             "name": "Lance N' Masques",
@@ -58,6 +68,11 @@
             "name": "Death March to the Parallel World Rhapsody",
             "regex": "(.*)(Death March kara Hajimaru Isekai Kyousoukyoku)( - )(\\d{1,})(.*)",
             "replace": "\\1Death March to the Parallel World Rhapsody\\3\\4\\5"
+        },
+        {
+            "name": "Wise Man's Grandchild",
+            "regex": "(.*)(Kenja no Mago)( - )(\\d{1,})(.*)",
+            "replace": "\\1Wise Man's Grandchild\\3\\4\\5"
         },
         {
             "name": "Comet Lucifer",
