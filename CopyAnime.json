@@ -103,7 +103,8 @@
         },
         {
             "name": "Boruto",
-            "regex": "(.*)(Boruto - Naruto Next Generations)( - )(\\d{1,})(.*)"
+            "regex": "(.*)(Boruto - Naruto Next Generations)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\3S01E\\4\\5"
         },
         {
             "name": "Overlord",
