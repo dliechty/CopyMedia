@@ -222,6 +222,7 @@ def matchFiles(files, series):
                     matches.append((f, show))
                     logging.info('File [%s] matches series [%s]',
                                  f, show['name'])
+                    break
             else:
                 logging.error('[%s] has no regex pattern defined.',
                               show['name'])
