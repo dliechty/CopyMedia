@@ -219,7 +219,7 @@
         {
             "name": "Black Clover",
             "regex": "(.*)(Black Clover)( - )(\\d{1,})(.*)",
-            "replace": "\\1\\2\\4S01E\\5\\6"
+            "replace": "\\1\\2\\3S01E\\4\\5"
         },
         {
             "name": "Trickster",
