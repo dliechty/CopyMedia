@@ -25,6 +25,11 @@
             "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
         },
         {
+            "name": "Arifureta - From Commonplace to World's Strongest",
+            "regex": "(.*)(Arifureta Shokugyou de Sekai Saikyou)( - )(\\d{1,})(.*)",
+            "replace": "\\1Arifureta - From Commonplace to World's Strongest\\3\\4\\5"
+        },
+        {
             "name": "One-Punch Man",
             "destination":"One Punch Man",
             "regex": "(.*)(One-Punch Man)( - )(\\d{1,})(.*)"
@@ -42,6 +47,10 @@
         {
             "name": "Fairy Gone",
             "regex": "(.*)(Fairy Gone)( - )(\\d{1,})(.*)"
+        },
+        {
+            "name": "Isekai Cheat Magician",
+            "regex": "(.*)(Isekai Cheat Magician)( - )(\\d{1,})(.*)"
         },
         {
             "name": "Lance N' Masques",
