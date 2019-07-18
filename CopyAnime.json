@@ -25,6 +25,11 @@
             "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
         },
         {
+            "name": "Fire Force",
+            "regex": "(.*)(Enen no Shouboutai)( - )(\\d{1,})(.*)",
+            "replace": "\\1Fire Force\\3\\4\\5"
+        },
+        {
             "name": "Arifureta - From Commonplace to World's Strongest",
             "regex": "(.*)(Arifureta Shokugyou de Sekai Saikyou)( - )(\\d{1,})(.*)",
             "replace": "\\1Arifureta - From Commonplace to World's Strongest\\3\\4\\5"
