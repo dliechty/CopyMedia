@@ -23,12 +23,12 @@ IFTTT_URL = 'https://maker.ifttt.com/trigger/PLEX_NEW/with/key/dFHLoSLaYm8b1VsTy
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files,'
-                                    ' then trigger plex media server to scan'
-                                    ' destination folder.')
+                                                ' then trigger plex media server to scan'
+                                                ' destination folder.')
 
 argParser.add_argument('-f', '--file', help='File to process. '
-                       'If not specified, then all files within'
-                       ' the scan directory are checked.')
+                                            'If not specified, then all files within'
+                                            ' the scan directory are checked.')
 argParser.add_argument('-d', '--dest',
                        help='Destination parent directory')
 argParser.add_argument('-s', '--scan', help='Directory to scan')
