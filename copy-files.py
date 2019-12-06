@@ -15,7 +15,7 @@ import shutil
 CONFIG_FILE = '/home/david/CopyAnime/CopyAnime.json'
 LOG_FILE = '/home/david/copy-files.log'
 PLEX_LIBRARY = {'Anime': 3, 'Movies': 1, 'TV Shows': 2}
-PLEX_SCANNER = ('/usr/lib/plexmediaserver/Plex Media Scanner')
+PLEX_SCANNER = '/usr/lib/plexmediaserver/Plex Media Scanner'
 PROP_FILE = '/etc/default/plexmediaserver'
 BIN_FOLDER = '/usr/lib/plexmediaserver'
 
@@ -50,7 +50,7 @@ FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 def main():
     args = argParser.parse_args()
 
-    logging.basicConfig(filename=getPath(args.log),
+    logging.basicConfig(filename=get_path(args.log),
                         level=logLevel, format=FORMAT, filemode='a')
 
     logging.debug('Using configuration file: [%s]', args.config)
@@ -66,15 +66,15 @@ def main():
         # entire folder for matching files.
 
         file = None
-        torrentName = None
-        torrentPath = None
+        torrent_name = None
+        torrent_path = None
         if args.delugeArgs and len(args.delugeArgs) == 3:
-            torrentName = args.delugeArgs[1]
-            torrentPath = args.delugeArgs[2]
+            torrent_name = args.delugeArgs[1]
+            torrent_path = args.delugeArgs[2]
 
         # set base file path based on deluge args if they exist
-        if torrentName and torrentPath:
-            file = join(torrentPath, torrentName)
+        if torrent_name and torrent_path:
+            file = join(torrent_path, torrent_name)
         # over-ride with explicit filepath from cmd if available
         if args.file:
             file = args.file
@@ -82,27 +82,27 @@ def main():
         if file:
             logging.debug('Scanning file [%s]', file)
         else:
-            # Check config for scanDir first
+            # Check config for scan_dir first
             if 'scanDir' in config:
-                scanDir = config['scanDir']
+                scan_dir = config['scanDir']
             # Override if specified as command line arg
             if args.scan:
-                scanDir = args.scan
-            logging.debug('Scanning Directory: [%s]', scanDir)
+                scan_dir = args.scan
+            logging.debug('Scanning Directory: [%s]', scan_dir)
 
-        if not file and not scanDir:
+        if not file and not scan_dir:
             logging.exception('Must either specify a file or '
                               'a directory to scan.')
 
         # get destination directory from configs first
         if 'moveDir' in config:
-            moveDir = config['moveDir']
+            move_dir = config['moveDir']
         # over-ride from cmd if available
         if args.dest:
-            moveDir = args.dest
+            move_dir = args.dest
 
-        if moveDir:
-            logging.debug('Destination Parent Directory: [%s]', moveDir)
+        if move_dir:
+            logging.debug('Destination Parent Directory: [%s]', move_dir)
         else:
             logging.exception('Destination directory must be specified, '
                               'either on the command line or in the '
@@ -112,22 +112,22 @@ def main():
         # specified or whether we need to scan a directory
         files = []
         if file:
-            scanDir, fileName = split(file)
-            files.append(fileName)
+            scan_dir, file_name = split(file)
+            files.append(file_name)
         else:
-            files = [f for f in listdir(scanDir) if isfile(join(scanDir, f))]
+            files = [f for f in listdir(scan_dir) if isfile(join(scan_dir, f))]
 
         # Find matching files
-        matches = matchFiles(files, config['series'])
+        matches = match_files(files, config['series'])
 
         # Move matching files to their respective destination directories
-        moveFiles(matches, moveDir, scanDir)
+        move_files(matches, move_dir, scan_dir)
 
         # Send notification to phone
-        sendNotification(matches)
+        send_notification(matches)
 
 
-def sendNotification(matches):
+def send_notification(matches):
     """Send IFTTT notification to phone whenever the script fires with the names
         of the new episodes"""
 
@@ -136,37 +136,38 @@ def sendNotification(matches):
         # Get series name for each matching file and concatenate
         # into a string separated by ' and '
         names = [config['name'] for file, config in matches]
-        nameString = ' and '.join(names)
+        name_string = ' and '.join(names)
 
         logging.debug('Sending notification with name string: [%s] to IFTTT',
-                      nameString)
+                      name_string)
 
-        r = requests.post(IFTTT_URL, data={'value1': nameString})
+        r = requests.post(IFTTT_URL, data={'value1': name_string})
         logging.debug('IFTTT POST status: [%s] with reason: [%s]',
                       r.status_code, r.reason)
 
 
-def moveFiles(matches, moveDir, scanDir):
+def move_files(matches, move_dir, scan_dir):
     """Move matching files to their respective destination directory"""
 
     destinations = set()
 
-    for fileName, configEntry in matches:
+    for file_name, config_entry in matches:
 
-        # Determine destination fileName if a replace attribute
+        # Determine destination file_name if a replace attribute
         # was specified
-        destFileName = fileName
-        if 'replace' in configEntry:
-            destFileName = re.sub(configEntry['regex'],
-                                  configEntry['replace'], fileName)
+        dest_file_name = file_name
+        if 'replace' in config_entry:
+            dest_file_name = re.sub(config_entry['regex'],
+                                    config_entry['replace'],
+                                    file_name)
             logging.debug('New name for [%s] will be [%s]',
-                          fileName, destFileName)
+                          file_name, dest_file_name)
 
         # Build destination directory path
-        if 'destination' in configEntry:
-            dest = join(moveDir, configEntry['destination'])
+        if 'destination' in config_entry:
+            dest = join(move_dir, config_entry['destination'])
         else:
-            dest = join(moveDir, configEntry['name'])
+            dest = join(move_dir, config_entry['name'])
 
         # Create destination directory if it doesn't already exist
         if not path.exists(dest):
@@ -175,17 +176,17 @@ def moveFiles(matches, moveDir, scanDir):
 
         # Move file to destination folder, renaming on the way
         logging.debug('Moving [%s] to [%s]...',
-                      join(scanDir, fileName), join(dest, destFileName))
-        shutil.move(join(scanDir, fileName), join(dest, destFileName))
+                      join(scan_dir, file_name), join(dest, dest_file_name))
+        shutil.move(join(scan_dir, file_name), join(dest, dest_file_name))
         logging.info('Successfully moved [%s] to [%s]',
-                     join(scanDir, fileName), join(dest, destFileName))
+                     join(scan_dir, file_name), join(dest, dest_file_name))
 
         destinations.add(dest)
 
     return destinations
 
 
-def scanPlex(plexLibrary, destinations):
+def scan_plex(plex_library, destinations):
     """DEPRECATED. Now use direct flexget integration
 
         Trigger plex scan on either an entire library if more than one match
@@ -194,8 +195,8 @@ def scanPlex(plexLibrary, destinations):
 
     # Establish command template. For each destination, replace the last
     # entry in the list with the destination path. No need to clone list.
-    command = [PLEX_SCANNER, '--scan', '--refresh', '--section',
-               str(PLEX_LIBRARY[plexLibrary]), '--directory', '']
+    command = [(PLEX_SCANNER), '--scan', '--refresh', '--section',
+               str(PLEX_LIBRARY[plex_library]), '--directory', '']
 
     for destination in destinations:
         command[-1] = destination
@@ -209,7 +210,7 @@ def scanPlex(plexLibrary, destinations):
         logging.info('Plex Scan on [%s] complete.', destination)
 
 
-def matchFiles(files, series):
+def match_files(files, series):
     """Find matching files given a list of files and a list of series."""
 
     matches = []
@@ -229,7 +230,7 @@ def matchFiles(files, series):
     return matches
 
 
-def getPath(path):
+def get_path(path):
     """Convert path to cygwin format if running on a cygwin platform"""
 
     if 'CYGWIN' in platform.system():
