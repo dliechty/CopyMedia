@@ -25,6 +25,11 @@
             "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
         },
         {
+            "name": "Cautious Hero - The Hero Is Overpowered but Overly Cautious",
+            "regex": "(.*)(Shinchou Yuusha)( - )(\\d{1,})(.*)",
+            "replace": "\\1Cautious Hero - The Hero Is Overpowered but Overly Cautious\\3\\4\\5"
+        },
+        {
             "name": "Fire Force",
             "regex": "(.*)(Enen no Shouboutai)( - )(\\d{1,})(.*)",
             "replace": "\\1Fire Force\\3\\4\\5"
@@ -207,8 +212,8 @@
         },
         {
             "name": "Shokugeki no Soma",
-            "regex": "(.*)(Shokugeki no Soma)( S3)( - )(\\d{1,})(.*)",
-            "replace": "\\1\\2\\4S03E\\5\\6"
+            "regex": "(.*)(Shokugeki no Soma)( S4)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\4S04E\\5\\6"
         },
         {
             "name": "Taboo Tattoo",
