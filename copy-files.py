@@ -128,8 +128,8 @@ def main():
 
 
 def sendNotification(matches):
-    '''Send IFTTT notification to phone whenever the script fires with the names
-        of the new episodes'''
+    """Send IFTTT notification to phone whenever the script fires with the names
+        of the new episodes"""
 
     # Only send notification if there is at least one matching file.
     if matches:
@@ -147,7 +147,7 @@ def sendNotification(matches):
 
 
 def moveFiles(matches, moveDir, scanDir):
-    '''Move matching files to their respective destination directory'''
+    """Move matching files to their respective destination directory"""
 
     destinations = set()
 
@@ -186,11 +186,11 @@ def moveFiles(matches, moveDir, scanDir):
 
 
 def scanPlex(plexLibrary, destinations):
-    '''DEPRECATED. Now use direct flexget integration
+    """DEPRECATED. Now use direct flexget integration
 
         Trigger plex scan on either an entire library if more than one match
         was found or on the specific directory associated with a single match.
-    '''
+    """
 
     # Establish command template. For each destination, replace the last
     # entry in the list with the destination path. No need to clone list.
@@ -210,7 +210,7 @@ def scanPlex(plexLibrary, destinations):
 
 
 def matchFiles(files, series):
-    '''Find matching files given a list of files and a list of series.'''
+    """Find matching files given a list of files and a list of series."""
 
     matches = []
     for f in files:
@@ -230,7 +230,7 @@ def matchFiles(files, series):
 
 
 def getPath(path):
-    '''Convert path to cygwin format if running on a cygwin platform'''
+    """Convert path to cygwin format if running on a cygwin platform"""
 
     if 'CYGWIN' in platform.system():
         path = subprocess.getoutput('cygpath ' + path)
