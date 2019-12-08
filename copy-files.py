@@ -12,15 +12,11 @@ from os.path import isfile, join, split
 
 import requests
 
-import MyLogger
-
-logging.setLoggerClass(MyLogger)
-
 # Set up default file locations for configs and logs
 CONFIG_FILE = './CopyMedia.json'
 LOG_FILE = './copy-files.log'
-
 IFTTT_URL_BASE = 'https://maker.ifttt.com/trigger'
+FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files.')
@@ -40,8 +36,18 @@ argParser.add_argument('delugeArgs', default=[], nargs='*',
                             ' in this order: Torrent Id, Torrent Name,'
                             ' Torrent Path, and IFTTT URL context with API key.')
 
+TRACE_LEVEL_NUM = 8
+logging.addLevelName(TRACE_LEVEL_NUM, "TRACE")
+
+
+def trace(self, message, *args, **kws):
+    if self.isEnabledFor(TRACE_LEVEL_NUM):
+        # Yes, logger takes its '*args' as 'args'.
+        self._log(TRACE_LEVEL_NUM, message, args, **kws)
+
+
+logging.Logger.trace = trace
 logLevel = logging.DEBUG
-FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
 
 
 class CopyMedia:
