@@ -233,7 +233,7 @@ class CopyMedia:
 
 def main():
     args = argParser.parse_args()
-    print('All command line arguments: ' + args)
+    print('All command line arguments: ' + str(args))
 
     file = None
     torrent_name = None
