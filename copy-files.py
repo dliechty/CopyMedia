@@ -11,6 +11,19 @@ from os import listdir, path, makedirs
 from os.path import isfile, join, split
 import shutil
 
+# Set up TRACE log level, which is slightly more verbose than DEBUG
+logging.TRACE = logging.DEBUG - 2
+logging.addLevelName(logging.DEBUG - 2, 'TRACE')
+
+
+class MyLogger(logging.getLoggerClass()):
+    def trace(self, msg, *args, **kwargs):
+        self.log(logging.TRACE, msg, *args, **kwargs)
+
+
+logging.setLoggerClass(MyLogger)
+
+
 # Set up default file locations for configs and logs
 CONFIG_FILE = '/home/david/CopyMedia/CopyMedia.json'
 LOG_FILE = '/home/david/copy-files.log'
@@ -190,7 +203,7 @@ def match_files(files, series):
     matches = []
     for f in files:
         for show in series:
-            logging.debug('Checking [%s] against [%s] using pattern [%s]',
+            logging.trace('Checking [%s] against [%s] using pattern [%s]',
                           f, show['name'], show['regex'])
             if show['regex']:
                 if re.match(show['regex'], f):
