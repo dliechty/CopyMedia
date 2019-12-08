@@ -72,10 +72,10 @@ class CopyMedia:
         if self.logfile is None:
             self.logfile = LOG_FILE
 
-        logging.basicConfig(filename=self.get_path(self.logfile),
+        logging.basicConfig(filename=self.get_path(self, self.logfile),
                             level=logLevel, format=FORMAT, filemode='a')
 
-        self.process_configs()
+        self.process_configs(self)
 
     def execute(self):
 
@@ -89,14 +89,14 @@ class CopyMedia:
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
 
         # Find matching files
-        matches = self.match_files(files, self.series)
+        matches = self.match_files(self, files, self.series)
 
         if matches:
             # Move matching files to their respective destination directories
-            self.move_files(matches, self.destdir, self.scandir)
+            self.move_files(self, matches, self.destdir, self.scandir)
 
             # Send notification to phone
-            self.send_notification(matches, self.ifttt_url)
+            self.send_notification(self, matches, self.ifttt_url)
 
     def process_configs(self):
 
