@@ -14,10 +14,8 @@ import shutil
 # Set up default file locations for configs and logs
 CONFIG_FILE = '/home/david/CopyMedia/CopyMedia.json'
 LOG_FILE = '/home/david/copy-files.log'
-PROP_FILE = '/etc/default/plexmediaserver'
-BIN_FOLDER = '/usr/lib/plexmediaserver'
 
-IFTTT_URL = 'https://maker.ifttt.com/trigger/PLEX_NEW/with/key/dFHLoSLaYm8b1VsTyjan1I'
+IFTTT_URL_BASE = 'https://maker.ifttt.com/trigger'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files.')
@@ -32,9 +30,9 @@ argParser.add_argument('-c', '--config', help='Configuration file',
                        default=CONFIG_FILE)
 argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
 argParser.add_argument('delugeArgs', default=[], nargs='*',
-                       help='If deluge is used, there will be three args,'
+                       help='If deluge is used, there will be four args,'
                             ' in this order: Torrent Id, Torrent Name,'
-                            ' Torrent Path')
+                            ' Torrent Path, and IFTTT URL context with API key.')
 
 logLevel = logging.DEBUG
 FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
@@ -61,9 +59,10 @@ def main():
         file = None
         torrent_name = None
         torrent_path = None
-        if args.delugeArgs and len(args.delugeArgs) == 3:
+        if args.delugeArgs and len(args.delugeArgs) == 4:
             torrent_name = args.delugeArgs[1]
             torrent_path = args.delugeArgs[2]
+            trigger_url = IFTTT_URL_BASE + '/' + args.delugeArgs[3]
 
         # set base file path based on deluge args if they exist
         if torrent_name and torrent_path:
@@ -118,10 +117,10 @@ def main():
             move_files(matches, move_dir, scan_dir)
 
             # Send notification to phone
-            send_notification(matches)
+            send_notification(matches, trigger_url)
 
 
-def send_notification(matches):
+def send_notification(matches, trigger_url):
     """Send IFTTT notification to phone whenever the script fires with the names
         of the new episodes"""
 
