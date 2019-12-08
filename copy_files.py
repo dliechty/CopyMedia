@@ -36,22 +36,23 @@ argParser.add_argument('delugeArgs', default=[], nargs='*',
                             ' in this order: Torrent Id, Torrent Name,'
                             ' Torrent Path, and IFTTT URL context with API key.')
 
-TRACE_LEVEL_NUM = 8
-logging.addLevelName(TRACE_LEVEL_NUM, "TRACE")
+TRACE = 8
+logging.addLevelName(TRACE, 'TRACE')
 
 
 def trace(self, message, *args, **kws):
-    if self.isEnabledFor(TRACE_LEVEL_NUM):
+    if self.isEnabledFor(TRACE):
         # Yes, logger takes its '*args' as 'args'.
-        self._log(TRACE_LEVEL_NUM, message, args, **kws)
+        self._log(TRACE, message, args, **kws)
 
 
+logging.trace = trace
 logging.Logger.trace = trace
+
 logLevel = logging.DEBUG
 
 
 class CopyMedia:
-
     file = None
     logfile = None
     configs = None
@@ -209,8 +210,8 @@ class CopyMedia:
         matches = []
         for f in files:
             for show in series:
-                logging.trace('Checking [%s] against [%s] using pattern [%s]',
-                              f, show['name'], show['regex'])
+                logging.log(TRACE, 'Checking [%s] against [%s] using pattern [%s]',
+                            f, show['name'], show['regex'])
                 if show['regex']:
                     if re.match(show['regex'], f):
                         matches.append((f, show))
