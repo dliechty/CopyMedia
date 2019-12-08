@@ -120,11 +120,12 @@ def main():
         # Find matching files
         matches = match_files(files, config['series'])
 
-        # Move matching files to their respective destination directories
-        move_files(matches, move_dir, scan_dir)
+        if matches:
+            # Move matching files to their respective destination directories
+            move_files(matches, move_dir, scan_dir)
 
-        # Send notification to phone
-        send_notification(matches)
+            # Send notification to phone
+            send_notification(matches)
 
 
 def send_notification(matches):
