@@ -26,6 +26,7 @@ argParser.add_argument('-f', '--file', help='File to process. '
 argParser.add_argument('-d', '--dest',
                        help='Destination parent directory')
 argParser.add_argument('-s', '--scan', help='Directory to scan')
+argParser.add_argument('-i', '--ifttt', help='IFTTT trigger URL context and API key')
 argParser.add_argument('-c', '--config', help='Configuration file',
                        default=CONFIG_FILE)
 argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
@@ -59,10 +60,14 @@ def main():
         file = None
         torrent_name = None
         torrent_path = None
+        trigger_url = None
         if args.delugeArgs and len(args.delugeArgs) == 4:
             torrent_name = args.delugeArgs[1]
             torrent_path = args.delugeArgs[2]
             trigger_url = IFTTT_URL_BASE + '/' + args.delugeArgs[3]
+
+        if args.ifttt and trigger_url is None:
+            trigger_url = IFTTT_URL_BASE + '/' + args.ifttt
 
         # set base file path based on deluge args if they exist
         if torrent_name and torrent_path:
