@@ -12,7 +12,7 @@ from os.path import isfile, join, split
 import shutil
 
 # Set up default file locations for configs and logs
-CONFIG_FILE = '/home/david/CopyAnime/CopyAnime.json'
+CONFIG_FILE = '/home/david/CopyMedia/CopyMedia.json'
 LOG_FILE = '/home/david/copy-files.log'
 PLEX_LIBRARY = {'Anime': 3, 'Movies': 1, 'TV Shows': 2}
 PLEX_SCANNER = '/usr/lib/plexmediaserver/Plex Media Scanner'
