@@ -49,7 +49,7 @@ def trace(self, message, *args, **kws):
 logging.trace = trace
 logging.Logger.trace = trace
 
-logLevel = logging.DEBUG
+logLevel = TRACE
 
 
 class CopyMedia:
@@ -141,8 +141,27 @@ class CopyMedia:
 
             if 'series' in config:
                 self.series = config['series']
+                self.validate_series(self.series)
             else:
                 logging.warning('No series configured.')
+
+    @staticmethod
+    def validate_series(series):
+        for show in series:
+            logging.log(TRACE, 'Validate show [%s]', show)
+            if 'name' not in show:
+                logging.error('[%s] has no name defined.',
+                              str(show))
+                raise KeyError('name')
+            else:
+                logging.log(TRACE, 'Found name [%s] for show [%s]', show['name'], show)
+            if 'regex' not in show:
+                logging.error('[%s] has no regex pattern defined.',
+                              show['name'])
+                raise KeyError('regex')
+            else:
+                logging.log(TRACE, 'Found regex [%s] for show name [%s]', show['regex'], show['name'])
+        return True
 
     @staticmethod
     def send_notification(matches, trigger_url):
@@ -213,15 +232,12 @@ class CopyMedia:
             for show in series:
                 logging.log(TRACE, 'Checking [%s] against [%s] using pattern [%s]',
                             f, show['name'], show['regex'])
-                if show['regex']:
-                    if re.match(show['regex'], f):
-                        matches.append((f, show))
-                        logging.info('File [%s] matches series [%s]',
-                                     f, show['name'])
-                        break
-                else:
-                    logging.error('[%s] has no regex pattern defined.',
-                                  show['name'])
+                if re.match(show['regex'], f):
+                    matches.append((f, show))
+                    logging.info('File [%s] matches series [%s]',
+                                 f, show['name'])
+                    break
+
         return matches
 
     @staticmethod
