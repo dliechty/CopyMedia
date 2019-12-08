@@ -22,9 +22,7 @@ BIN_FOLDER = '/usr/lib/plexmediaserver'
 IFTTT_URL = 'https://maker.ifttt.com/trigger/PLEX_NEW/with/key/dFHLoSLaYm8b1VsTyjan1I'
 
 # Set up command line arguments
-argParser = argparse.ArgumentParser(description='Copy/transform large files,'
-                                                ' then trigger plex media server to scan'
-                                                ' destination folder.')
+argParser = argparse.ArgumentParser(description='Copy/transform large files.')
 
 argParser.add_argument('-f', '--file', help='File to process. '
                                             'If not specified, then all files within'

@@ -1,7 +1,7 @@
-# Copy Anime
-This is a small Python script to copy/transform large file downloads and auto-trigger a folder scan in a plex media server to the correct folder.
+# Copy Media
+This is a small Python script to copy large file downloads to the correct folder and transform them on the way.
 
-The general workflow is expected to be that a torrent is downloaded based on an auto-initiated RSS update, the video file lands in the destination folder, the torrent application auto-triggers the python script, the video file ends up in the correct location within your plex library, and then plex is told to scan the destination folder for changes.
+The general workflow is expected to be that a torrent is downloaded based on an auto-initiated RSS update, the video file lands in the destination folder, the torrent application auto-triggers the python script, and the video file ends up in the correct location within your media library.
 
 The configuration file is a simple json structure, like so:
 ```json
@@ -15,13 +15,13 @@ The configuration file is a simple json structure, like so:
             "regex": "(.*)(One-Punch Man)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "Gakusen Toshi Asterisk",
-            "regex": "(.*)(Gakusen Toshi Asterisk)( - )(\\d{1,})(.*)"
+            "name": "Goblin Slayer",
+            "regex": "(.*)(Goblin Slayer)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "Taimadou Gakuen 35 Shiken Shoutai",
-            "regex": "(.*)(Taimadou Gakuen 35 Shiken Shoutai)( - )(\\d{1,})(.*)",
-            "replace": "\\1\\2\\3S01E\\4\\5"
+            "name": "In Another World With My Smartphone",
+            "regex": "(.*)(Isekai wa Smartphone to Tomo ni.)( - )(\\d{1,})(.*)",
+            "replace": "\\1In Another World With My Smartphone\\3\\4\\5"
         }
     ]
 }
@@ -40,8 +40,7 @@ Here is the usage text:
 usage: copy-files.py [-h] [-f FILE] [-d DEST] [-s SCAN] [-c CONFIG] [-l LOG]
                      [-p PLEXLIBRARY]
 
-Copy/transform large files, then trigger plex media server to scan destination
-folder.
+Copy/transform large files.
 
 optional arguments:
   -h, --help            show this help message and exit
