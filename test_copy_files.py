@@ -11,6 +11,7 @@ NOTIFICATION_SECTION = 'notification-config'
 
 class TestCopyMedia(unittest.TestCase):
 
+    @unittest.skip("Don't need to send notification every time.")
     def test_notifications(self):
 
         cparser = configparser.RawConfigParser()
