@@ -27,7 +27,9 @@ class TestCopyMedia(unittest.TestCase):
                           "to config file: " + CONFIG_PATH)
 
         c = CopyMedia(None, None, None, None, None, None)
-        c.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
+        r = c.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
+
+        self.assertEquals(r.status_code, 200)
 
 
 if __name__ == '__main__':
