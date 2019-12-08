@@ -134,7 +134,7 @@ def send_notification(matches, trigger_url):
         logging.debug('Sending notification with name string: [%s] to IFTTT',
                       name_string)
 
-        r = requests.post(IFTTT_URL, data={'value1': name_string})
+        r = requests.post(trigger_url, data={'value1': name_string})
         logging.debug('IFTTT POST status: [%s] with reason: [%s]',
                       r.status_code, r.reason)
 
