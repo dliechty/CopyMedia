@@ -51,6 +51,4 @@ optional arguments:
   -c CONFIG, --config CONFIG
                         Configuration file
   -l LOG, --log LOG     Log file
-  -p PLEXLIBRARY, --plexlibrary PLEXLIBRARY
-                        Plex library name to scan based on new files.
 ```

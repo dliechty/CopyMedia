@@ -14,8 +14,6 @@ import shutil
 # Set up default file locations for configs and logs
 CONFIG_FILE = '/home/david/CopyMedia/CopyMedia.json'
 LOG_FILE = '/home/david/copy-files.log'
-PLEX_LIBRARY = {'Anime': 3, 'Movies': 1, 'TV Shows': 2}
-PLEX_SCANNER = '/usr/lib/plexmediaserver/Plex Media Scanner'
 PROP_FILE = '/etc/default/plexmediaserver'
 BIN_FOLDER = '/usr/lib/plexmediaserver'
 
@@ -33,9 +31,6 @@ argParser.add_argument('-s', '--scan', help='Directory to scan')
 argParser.add_argument('-c', '--config', help='Configuration file',
                        default=CONFIG_FILE)
 argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
-argParser.add_argument('-p', '--plexlibrary',
-                       help='Plex library name to scan based on new files.',
-                       default='Anime')
 argParser.add_argument('delugeArgs', default=[], nargs='*',
                        help='If deluge is used, there will be three args,'
                             ' in this order: Torrent Id, Torrent Name,'
@@ -183,30 +178,6 @@ def move_files(matches, move_dir, scan_dir):
         destinations.add(dest)
 
     return destinations
-
-
-def scan_plex(plex_library, destinations):
-    """DEPRECATED. Now use direct flexget integration
-
-        Trigger plex scan on either an entire library if more than one match
-        was found or on the specific directory associated with a single match.
-    """
-
-    # Establish command template. For each destination, replace the last
-    # entry in the list with the destination path. No need to clone list.
-    command = [(PLEX_SCANNER), '--scan', '--refresh', '--section',
-               str(PLEX_LIBRARY[plex_library]), '--directory', '']
-
-    for destination in destinations:
-        command[-1] = destination
-        logging.debug('Initiating Plex Scan on [%s]...', destination)
-        process = subprocess.Popen(command,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT)
-        for line in iter(process.stdout.readline, b''):
-            logging.debug(line.decode('ascii').strip())
-
-        logging.info('Plex Scan on [%s] complete.', destination)
 
 
 def match_files(files, series):
