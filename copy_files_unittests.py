@@ -29,7 +29,7 @@ class TestCopyMedia(unittest.TestCase):
         c = CopyMedia(None, None, None, None, None, None)
         r = c.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
 
-        self.assertEquals(r.status_code, 200)
+        self.assertEqual(r.status_code, 200)
 
 
 if __name__ == '__main__':
