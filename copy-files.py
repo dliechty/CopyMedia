@@ -10,19 +10,9 @@ import requests
 from os import listdir, path, makedirs
 from os.path import isfile, join, split
 import shutil
-
-# Set up TRACE log level, which is slightly more verbose than DEBUG
-logging.TRACE = logging.DEBUG - 2
-logging.addLevelName(logging.DEBUG - 2, 'TRACE')
-
-
-class MyLogger(logging.getLoggerClass()):
-    def trace(self, msg, *args, **kwargs):
-        self.log(logging.TRACE, msg, *args, **kwargs)
-
+import MyLogger
 
 logging.setLoggerClass(MyLogger)
-
 
 # Set up default file locations for configs and logs
 CONFIG_FILE = '/home/david/CopyMedia/CopyMedia.json'
