@@ -72,10 +72,10 @@ class CopyMedia:
         if self.logfile is None:
             self.logfile = LOG_FILE
 
-        logging.basicConfig(filename=self.get_path(self, self.logfile),
+        logging.basicConfig(filename=self.get_path(self.logfile),
                             level=logLevel, format=FORMAT, filemode='a')
 
-        self.process_configs(self)
+        self.process_configs()
 
     def execute(self):
 
@@ -89,14 +89,14 @@ class CopyMedia:
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
 
         # Find matching files
-        matches = self.match_files(self, files, self.series)
+        matches = self.match_files(files, self.series)
 
         if matches:
             # Move matching files to their respective destination directories
-            self.move_files(self, matches, self.destdir, self.scandir)
+            self.move_files(matches, self.destdir, self.scandir)
 
             # Send notification to phone
-            self.send_notification(self, matches, self.ifttt_url)
+            self.send_notification(matches, self.ifttt_url)
 
     def process_configs(self):
 
@@ -144,7 +144,7 @@ class CopyMedia:
                 logging.warning('No series configured.')
 
     @staticmethod
-    def send_notification(self, matches, trigger_url):
+    def send_notification(matches, trigger_url):
         """Send IFTTT notification to phone whenever the script fires with the names
             of the new episodes"""
 
@@ -163,7 +163,7 @@ class CopyMedia:
                           r.status_code, r.reason)
 
     @staticmethod
-    def move_files(self, matches, move_dir, scan_dir):
+    def move_files(matches, move_dir, scan_dir):
         """Move matching files to their respective destination directory"""
 
         destinations = set()
@@ -203,7 +203,7 @@ class CopyMedia:
         return destinations
 
     @staticmethod
-    def match_files(self, files, series):
+    def match_files(files, series):
         """Find matching files given a list of files and a list of series."""
 
         matches = []
@@ -223,7 +223,7 @@ class CopyMedia:
         return matches
 
     @staticmethod
-    def get_path(self, argpath):
+    def get_path(argpath):
         """Convert path to cygwin format if running on a cygwin platform"""
 
         if 'CYGWIN' in platform.system():
