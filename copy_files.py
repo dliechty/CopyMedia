@@ -162,6 +162,7 @@ class CopyMedia:
             r = requests.post(trigger_url, data={'value1': name_string})
             logging.debug('IFTTT POST status: [%s] with reason: [%s]',
                           r.status_code, r.reason)
+            return r
 
     @staticmethod
     def move_files(matches, move_dir, scan_dir):
