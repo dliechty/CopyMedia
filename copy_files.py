@@ -12,6 +12,8 @@ from os.path import isfile, join, split
 
 import requests
 
+from exceptions import ConfigurationError
+
 # Set up default file locations for configs and logs
 CONFIG_FILE = './CopyMedia.json'
 LOG_FILE = './copy-files.log'
@@ -56,16 +58,17 @@ class CopyMedia:
     file = None
     logfile = None
     configs = None
+    config_file = None
     ifttt_url = None
     scandir = None
     destdir = None
 
     series = None
 
-    def __init__(self, logfile, configs, ifttt_url, scandir, destdir, file):
+    def __init__(self, logfile, config_file, ifttt_url, scandir, destdir, file):
         self.file = file
         self.logfile = logfile
-        self.configs = configs
+        self.config_file = config_file
         self.ifttt_url = ifttt_url
         self.scandir = scandir
         self.destdir = destdir
@@ -78,10 +81,10 @@ class CopyMedia:
                             level=logLevel, format=FORMAT, filemode='a')
 
         # initialize configs
-        if self.configs is None:
-            self.configs = CONFIG_FILE
+        if self.config_file is None:
+            self.config_file = CONFIG_FILE
 
-        self.process_config_file(self.configs)
+        self.configs = self.process_config_file(self.config_file)
 
     def execute(self):
         """Initiate the scanning, matching, transformation, and movement of media."""
@@ -113,7 +116,7 @@ class CopyMedia:
         # parse config file as json and process settings found inside
         with open(config_file) as configfile:
             config = json.load(configfile)
-            self.process_configs(config)
+            return self.process_configs(config)
 
     def process_configs(self, config):
         """Used to process the configuration from the configuration file
@@ -138,8 +141,9 @@ class CopyMedia:
             logging.debug('Found directory to scan: [%s]', self.scandir)
 
         if not self.file and not self.scandir:
-            logging.exception('Must either specify a file or '
-                              'a directory to scan.')
+            logging.error('Must either specify a file or '
+                          'a directory to scan.')
+            raise ConfigurationError('Missing directory to scan.')
 
         # Only use value from configs if command line argument is not
         # provided.
@@ -149,17 +153,23 @@ class CopyMedia:
         if self.destdir:
             logging.debug('Destination Parent Directory: [%s]', self.destdir)
         else:
-            logging.exception('Destination directory must be specified, '
-                              'either on the command line or in the '
-                              'configuration file.')
+            logging.error('Destination directory must be specified, '
+                          'either on the command line or in the '
+                          'configuration file.')
+            raise ConfigurationError('Missing destination directory')
 
-        logging.debug('Full IFTTT URL: [%s]', self.ifttt_url)
+        if self.ifttt_url:
+            logging.debug('IFTTT URL: [%s]', self.ifttt_url)
+        else:
+            logging.warning('IFTTT notification url not provided.')
 
         if 'series' in config:
             self.series = config['series']
             self.validate_series(self.series)
         else:
             logging.warning('No series configured.')
+
+        return config
 
     @staticmethod
     def validate_series(series):

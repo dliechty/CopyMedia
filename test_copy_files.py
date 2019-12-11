@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
+import os
 import unittest
+
 from copy_files import CopyMedia
 from copy_files import IFTTT_URL_BASE
-import os
+from exceptions import ConfigurationError
 
-NOTIFICATION_SECTION = 'notification-config'
+TEST_CONFIG = r'./test_CopyMedia.json'
 IFTTT_CONTEXT_VAR = 'IFTTT_CONTEXT'
 
 
@@ -23,6 +25,25 @@ class TestCopyMedia(unittest.TestCase):
         r = c.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
 
         self.assertEqual(r.status_code, 200)
+
+    def test_process_configs(self):
+        with self.assertRaises(ConfigurationError):
+            CopyMedia(None, TEST_CONFIG, None, None, None, None)
+
+        blah_path = '/home/test/blah'
+        blarg_path = '/remote/test/blarg'
+
+        with self.assertRaises(ConfigurationError):
+            CopyMedia(None, TEST_CONFIG, None, blah_path, None, None)
+
+        with self.assertRaises(ConfigurationError):
+            CopyMedia(None, TEST_CONFIG, None, None, blarg_path, None)
+
+        c = CopyMedia(None, TEST_CONFIG, None, blah_path, blarg_path, None)
+
+        self.assertEqual(3, len(c.configs['series']))
+        self.assertEqual(blah_path, c.scandir)
+        self.assertEqual(blarg_path, c.destdir)
 
     def test_match_files(self):
         c = CopyMedia(None, None, None, None, None, None)
