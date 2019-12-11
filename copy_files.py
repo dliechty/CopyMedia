@@ -70,15 +70,26 @@ class CopyMedia:
         self.scandir = scandir
         self.destdir = destdir
 
+        # initialize logging
         if self.logfile is None:
             self.logfile = LOG_FILE
 
         logging.basicConfig(filename=self.get_path(self.logfile),
                             level=logLevel, format=FORMAT, filemode='a')
 
-        self.process_configs()
+        # initialize configs
+        if self.configs is None:
+            self.configs = CONFIG_FILE
+
+        logging.debug('Using configuration file: [%s]', configs)
+
+        # parse config file as json and process settings found inside
+        with open(configs) as configfile:
+            config = json.load(configfile)
+            self.process_configs(config)
 
     def execute(self):
+        """Initiate the scanning, matching, transformation, and movement of media."""
 
         # Build list of files based on whether a single file has been
         # specified or whether we need to scan a directory
@@ -99,54 +110,56 @@ class CopyMedia:
             # Send notification to phone
             self.send_notification(matches, self.ifttt_url)
 
-    def process_configs(self):
+    def process_configs(self, config):
+        """Used to process the configuration from the configuration file
+           and set global settings that will dictate how the rest of the
+           execution will proceed. Primarily, this will control whether a
+           single file is processed or if an entire directory is scanned for
+           new media. It also determines the destination root level directory
+           and executes a validation step against all the configured series."""
 
-        if self.configs is None:
-            self.configs = CONFIG_FILE
+        # if an individual file is specified either by
+        # deluge or via the command line, then just use that.
+        # Otherwise, look for a directory to scan and scan the
+        # entire folder for matching files.
 
-        logging.debug('Using configuration file: [%s]', self.configs)
+        if self.file:
+            logging.debug('Found file to match [%s]', self.file)
+        else:
+            # Check config for scan_dir first
+            if self.scandir is None and 'scanDir' in config:
+                self.scandir = config['scanDir']
+            logging.debug('Found directory to scan: [%s]', self.scandir)
 
-        with open(self.configs) as configfile:
-            config = json.load(configfile)
+        if not self.file and not self.scandir:
+            logging.exception('Must either specify a file or '
+                              'a directory to scan.')
 
-            # if an individual file is specified either by
-            # deluge or via the command line, then just use that.
-            # Otherwise, look for a directory to scan and scan the
-            # entire folder for matching files.
+        # get destination directory from configs first
+        if self.destdir is None and 'moveDir' in config:
+            self.destdir = config['moveDir']
 
-            if self.file:
-                logging.debug('Found file to match [%s]', self.file)
-            else:
-                # Check config for scan_dir first
-                if self.scandir is None and 'scanDir' in config:
-                    self.scandir = config['scanDir']
-                logging.debug('Found directory to scan: [%s]', self.scandir)
+        if self.destdir:
+            logging.debug('Destination Parent Directory: [%s]', self.destdir)
+        else:
+            logging.exception('Destination directory must be specified, '
+                              'either on the command line or in the '
+                              'configuration file.')
 
-            if not self.file and not self.scandir:
-                logging.exception('Must either specify a file or '
-                                  'a directory to scan.')
+        logging.debug('Full IFTTT URL: [%s]', self.ifttt_url)
 
-            # get destination directory from configs first
-            if self.destdir is None and 'moveDir' in config:
-                self.destdir = config['moveDir']
-
-            if self.destdir:
-                logging.debug('Destination Parent Directory: [%s]', self.destdir)
-            else:
-                logging.exception('Destination directory must be specified, '
-                                  'either on the command line or in the '
-                                  'configuration file.')
-
-            logging.debug('Full IFTTT URL: [%s]', self.ifttt_url)
-
-            if 'series' in config:
-                self.series = config['series']
-                self.validate_series(self.series)
-            else:
-                logging.warning('No series configured.')
+        if 'series' in config:
+            self.series = config['series']
+            self.validate_series(self.series)
+        else:
+            logging.warning('No series configured.')
 
     @staticmethod
     def validate_series(series):
+        """Used to validate the series entries in the configuration.
+           A series must have at least a name and a regex pattern to
+           match file names against."""
+
         for show in series:
             logging.log(TRACE, 'Validate show [%s]', show)
             if 'name' not in show:
@@ -250,6 +263,8 @@ class CopyMedia:
 
 
 def main():
+    """Parsing command line argument and then begin the copying execution."""
+
     args = argParser.parse_args()
     print('All command line arguments: ' + str(args))
 
