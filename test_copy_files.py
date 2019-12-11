@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
 import unittest
-import configparser
 from copy_files import CopyMedia
 from copy_files import IFTTT_URL_BASE
+import os
 
-CONFIG_PATH = r'./test_config.txt'
 NOTIFICATION_SECTION = 'notification-config'
+IFTTT_CONTEXT_VAR = 'IFTTT_CONTEXT'
 
 
 class TestCopyMedia(unittest.TestCase):
@@ -14,18 +14,10 @@ class TestCopyMedia(unittest.TestCase):
     @unittest.skip("Don't need to send notification every time.")
     def test_notifications(self):
 
-        cparser = configparser.RawConfigParser()
-        try:
-            cparser.read(CONFIG_PATH)
-            ifttt_context = cparser.get(NOTIFICATION_SECTION, 'ifttt_context')
-        except configparser.NoSectionError as err:
-            self.skipTest("Can't find section "
-                          + NOTIFICATION_SECTION
-                          + " in config file. Add to config file: "
-                          + CONFIG_PATH)
-        except configparser.NoOptionError as err:
+        ifttt_context = os.getenv(IFTTT_CONTEXT_VAR)
+        if ifttt_context is None:
             self.skipTest("Can't find IFTTT trigger context and API key. Add"
-                          "to config file: " + CONFIG_PATH)
+                          "property to environment variables: " + IFTTT_CONTEXT_VAR)
 
         c = CopyMedia(None, None, None, None, None, None)
         r = c.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
