@@ -81,12 +81,7 @@ class CopyMedia:
         if self.configs is None:
             self.configs = CONFIG_FILE
 
-        logging.debug('Using configuration file: [%s]', self.configs)
-
-        # parse config file as json and process settings found inside
-        with open(self.configs) as configfile:
-            config = json.load(configfile)
-            self.process_configs(config)
+        self.process_config_file(self.configs)
 
     def execute(self):
         """Initiate the scanning, matching, transformation, and movement of media."""
@@ -109,6 +104,16 @@ class CopyMedia:
 
             # Send notification to phone
             self.send_notification(matches, self.ifttt_url)
+
+    def process_config_file(self, config_file):
+        """Open configuration file, parse json, and pass to processing method."""
+
+        logging.debug('Using configuration file: [%s]', config_file)
+
+        # parse config file as json and process settings found inside
+        with open(config_file) as configfile:
+            config = json.load(configfile)
+            self.process_configs(config)
 
     def process_configs(self, config):
         """Used to process the configuration from the configuration file
