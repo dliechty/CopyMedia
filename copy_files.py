@@ -81,10 +81,10 @@ class CopyMedia:
         if self.configs is None:
             self.configs = CONFIG_FILE
 
-        logging.debug('Using configuration file: [%s]', configs)
+        logging.debug('Using configuration file: [%s]', self.configs)
 
         # parse config file as json and process settings found inside
-        with open(configs) as configfile:
+        with open(self.configs) as configfile:
             config = json.load(configfile)
             self.process_configs(config)
 
