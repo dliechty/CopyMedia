@@ -126,7 +126,8 @@ class CopyMedia:
         if self.file:
             logging.debug('Found file to match [%s]', self.file)
         else:
-            # Check config for scan_dir first
+            # Only use value from configs if command line argument is not
+            # provided.
             if self.scandir is None and 'scanDir' in config:
                 self.scandir = config['scanDir']
             logging.debug('Found directory to scan: [%s]', self.scandir)
@@ -135,7 +136,8 @@ class CopyMedia:
             logging.exception('Must either specify a file or '
                               'a directory to scan.')
 
-        # get destination directory from configs first
+        # Only use value from configs if command line argument is not
+        # provided.
         if self.destdir is None and 'moveDir' in config:
             self.destdir = config['moveDir']
 
