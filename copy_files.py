@@ -105,9 +105,6 @@ class CopyMedia:
             # Move matching files to their respective destination directories
             self.move_files(matches, self.destdir, self.scandir)
 
-            # Send notification to phone
-            self.send_notification(matches, self.ifttt_url)
-
     def process_config_file(self, config_file):
         """Open configuration file, parse json, and pass to processing method."""
 
