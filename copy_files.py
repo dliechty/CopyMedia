@@ -31,9 +31,8 @@ argParser.add_argument('-c', '--config', help='Configuration file',
 argParser.add_argument('-t', '--tmdb', help='The Movie DB API key')
 argParser.add_argument('-l', '--log', help='Log file')
 argParser.add_argument('delugeArgs', default=[], nargs='*',
-                       help='If deluge is used, there will be four args,'
-                            ' in this order: Torrent Id, Torrent Name,'
-                            ' Torrent Path, and IFTTT URL context with API key.')
+                       help='If deluge is used, there will be three args,'
+                            ' in this order: Torrent Id, Torrent Name, and Torrent Path')
 
 
 class CopyMedia:
