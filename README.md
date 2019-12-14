@@ -7,7 +7,8 @@ The configuration file is a simple json structure, like so:
 ```json
 {
     "scanDir":"D:\\Downloads",
-    "moveDir": "Z:\\Shared Videos\\Anime",
+    "seriesDir": "Z:\\Shared Videos\\Anime",
+    "movieDir": "Z:\\Shared Videos\\Movies",
     "series": [
         {
             "name": "One-Punch Man",
