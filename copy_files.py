@@ -105,6 +105,9 @@ class CopyMedia:
             # Move matching files to their respective destination directories
             self.move_files(matches, self.destdir, self.scandir)
 
+            if self.ifttt_url is not None:
+                self.send_notification(matches, self.ifttt_url)
+
     def process_config_file(self, config_file):
         """Open configuration file, parse json, and pass to processing method."""
 
@@ -196,7 +199,7 @@ class CopyMedia:
             of the new episodes"""
 
         # Only send notification if there is at least one matching file.
-        if matches:
+        if matches and trigger_url:
             # Get series name for each matching file and concatenate
             # into a string separated by ' and '
             names = [config['name'] for file, config in matches]
@@ -286,10 +289,12 @@ def main():
     torrent_name = None
     torrent_path = None
     trigger_url = None
-    if args.delugeArgs and len(args.delugeArgs) == 4:
+    num_args = len(args.delugeArgs)
+    if args.delugeArgs and num_args >= 3:
         torrent_name = args.delugeArgs[1]
         torrent_path = args.delugeArgs[2]
-        trigger_url = IFTTT_URL_BASE + '/' + args.delugeArgs[3]
+        if num_args == 4:
+            trigger_url = IFTTT_URL_BASE + '/' + args.delugeArgs[3]
 
     if args.ifttt and trigger_url is None:
         trigger_url = IFTTT_URL_BASE + '/' + args.ifttt
