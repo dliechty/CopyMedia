@@ -3,6 +3,7 @@
 import os
 import unittest
 
+import ifttt
 from copy_files import CopyMedia
 from copy_files import IFTTT_URL_BASE
 from exceptions import ConfigurationError
@@ -21,8 +22,7 @@ class TestCopyMedia(unittest.TestCase):
             self.skipTest("Can't find IFTTT trigger context and API key. Add"
                           "property to environment variables: " + IFTTT_CONTEXT_VAR)
 
-        c = CopyMedia(None, None, None, None, None, None)
-        r = c.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
+        r = ifttt.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
 
         self.assertEqual(r.status_code, 200)
 

@@ -10,8 +10,7 @@ import subprocess
 from os import listdir, path, makedirs
 from os.path import isfile, join, split
 
-import requests
-
+import ifttt
 from exceptions import ConfigurationError
 
 # Set up default file locations for configs and logs
@@ -106,7 +105,7 @@ class CopyMedia:
             self.move_files(matches, self.destdir, self.scandir)
 
             if self.ifttt_url is not None:
-                self.send_notification(matches, self.ifttt_url)
+                ifttt.send_notification(matches, self.ifttt_url)
 
     def process_config_file(self, config_file):
         """Open configuration file, parse json, and pass to processing method."""
@@ -192,26 +191,6 @@ class CopyMedia:
             else:
                 logging.log(TRACE, 'Found regex [%s] for show name [%s]', show['regex'], show['name'])
         return True
-
-    @staticmethod
-    def send_notification(matches, trigger_url):
-        """Send IFTTT notification to phone whenever the script fires with the names
-            of the new episodes"""
-
-        # Only send notification if there is at least one matching file.
-        if matches and trigger_url:
-            # Get series name for each matching file and concatenate
-            # into a string separated by ' and '
-            names = [config['name'] for file, config in matches]
-            name_string = ' and '.join(names)
-
-            logging.debug('Sending notification with name string: [%s] to IFTTT',
-                          name_string)
-
-            r = requests.post(trigger_url, data={'value1': name_string})
-            logging.debug('IFTTT POST status: [%s] with reason: [%s]',
-                          r.status_code, r.reason)
-            return r
 
     @staticmethod
     def move_files(matches, move_dir, scan_dir):
