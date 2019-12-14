@@ -38,18 +38,24 @@ If a file is not found within your defined series, then a query can be made agai
 Here is the usage text:
 
 ```
-usage: copy-files.py [-h] [-f FILE] [-d DEST] [-s SCAN] [-c CONFIG] [-l LOG]
-                     [-p PLEXLIBRARY]
+usage: copy_files.py [-h] [-f FILE] [-d DEST] [-m MOVIEDEST] [-s SCAN] [-i IFTTT] [-c CONFIG] [-t TMDB] [-l LOG] [delugeArgs [delugeArgs ...]]
 
 Copy/transform large files.
 
+positional arguments:
+  delugeArgs            If deluge is used, there will be three args, in this order: Torrent Id, Torrent Name, and Torrent Path
+
 optional arguments:
   -h, --help            show this help message and exit
-  -f FILE, --file FILE  File to process. If not specified, then all files
-                        within the scan directory are checked.
-  -d DEST, --dest DEST  Destination parent directory
+  -f FILE, --file FILE  File to process. If not specified, then all files within the scan directory are checked.
+  -d DEST, --dest DEST  Destination directory for series
+  -m MOVIEDEST, --moviedest MOVIEDEST
+                        Destination directory for movies
   -s SCAN, --scan SCAN  Directory to scan
+  -i IFTTT, --ifttt IFTTT
+                        IFTTT trigger URL context and API key
   -c CONFIG, --config CONFIG
                         Configuration file
+  -t TMDB, --tmdb TMDB  The Movie DB API key
   -l LOG, --log LOG     Log file
 ```
