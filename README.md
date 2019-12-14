@@ -33,6 +33,7 @@ Possible tags are:
 - `regex` : the pattern that is used to match the file name
 - `replace` : the pattern used to transform the file name when it is copied to the destination
 
+If a file is not found within your defined series, then a query can be made against the movie database API to determine if the file is a movie. If so, the file can be moved to a designated movie directory instead. This functionality relies on the parse-torrent-name library available here: https://github.com/divijbindlish/parse-torrent-name
 
 Here is the usage text:
 
