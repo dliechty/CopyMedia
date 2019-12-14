@@ -7,7 +7,6 @@ import ifttt
 import logger
 import tmdb
 from copy_files import CopyMedia
-from copy_files import IFTTT_URL_BASE
 from exceptions import ConfigurationError
 
 TEST_CONFIG = r'./test_CopyMedia.json'
@@ -26,7 +25,7 @@ class TestCopyMedia(unittest.TestCase):
             self.skipTest("Can't find IFTTT trigger context and API key. Add"
                           "property to environment variables: " + IFTTT_CONTEXT_VAR)
 
-        r = ifttt.send_notification([('notafile', {'name': 'test series'})], IFTTT_URL_BASE + ifttt_context)
+        r = ifttt.send_notification([('notafile', {'name': 'test series'})], ifttt.IFTTT_URL_BASE + ifttt_context)
 
         self.assertEqual(r.status_code, 200)
 
@@ -87,39 +86,42 @@ class TestCopyMedia(unittest.TestCase):
         with self.assertRaises(ConfigurationError):
             CopyMedia(config_file=TEST_CONFIG)
 
-        blah_path = '/home/test/blah'
-        blarg_path = '/remote/test/blarg'
+        scan_path = '/home/test/blah'
+        series_path = '/remote/test/series'
+        movie_path = '/remote/test/movies'
         test_file = '/home/test/dir/file'
 
         with self.assertRaises(ConfigurationError):
-            CopyMedia(config_file=TEST_CONFIG, scandir=blah_path)
+            CopyMedia(config_file=TEST_CONFIG, scandir=scan_path)
 
         with self.assertRaises(ConfigurationError):
-            CopyMedia(config_file=TEST_CONFIG, seriesdir=blarg_path)
+            CopyMedia(config_file=TEST_CONFIG, seriesdir=series_path)
 
-        c = CopyMedia(config_file=TEST_CONFIG, seriesdir=blarg_path, file=test_file)
+        c = CopyMedia(config_file=TEST_CONFIG, seriesdir=series_path, file=test_file, moviedir=movie_path)
 
         self.assertEqual(3, len(c.configs['series']))
-        self.assertEqual(blarg_path, c.seriesdir)
+        self.assertEqual(series_path, c.seriesdir)
 
         self.assertIsNone(c.scandir)
 
-        c = CopyMedia(None, TEST_CONFIG, None, blah_path, blarg_path, None, None)
+        c = CopyMedia(config_file=TEST_CONFIG, scandir=scan_path, seriesdir=series_path, moviedir=movie_path)
 
-        self.assertEqual(blah_path, c.scandir)
+        self.assertEqual(scan_path, c.scandir)
 
     def test_match_files(self):
         c = CopyMedia()
 
         files = ['testFile1', 'testFile2']
 
-        matches = CopyMedia.match_files(files, c.series)
+        matches, nonmatches = CopyMedia.match_files(files, c.series)
         # should be empty
         self.assertFalse(matches)
+        self.assertTrue(nonmatches)
 
         files = ['[HorribleSubs] GATE - 24 [1080p]', '[HorribleSubs] Kimetsu no Yaiba - 26 [1080p]']
-        matches = CopyMedia.match_files(files, c.series)
+        matches, nonmatches = CopyMedia.match_files(files, c.series)
         self.assertEqual(len(matches), 2)
+        self.assertEqual(len(nonmatches), 0)
 
     def test_validate_series(self):
 

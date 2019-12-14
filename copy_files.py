@@ -149,12 +149,20 @@ class CopyMedia:
             self.moviedir = config['movieDir']
 
         if self.seriesdir:
-            logging.debug('Destination Parent Directory: [%s]', self.seriesdir)
+            logging.debug('Destination series directory: [%s]', self.seriesdir)
         else:
-            logging.error('Destination directory must be specified, '
+            logging.error('Destination series directory must be specified, '
                           'either on the command line or in the '
                           'configuration file.')
-            raise ConfigurationError('Missing destination directory')
+            raise ConfigurationError('Missing destination series directory')
+
+        if self.moviedir:
+            logging.debug('Destination movie directory: [%s]', self.moviedir)
+        else:
+            logging.error('Destination movie directory must be specified, '
+                          'either on the command line or in the '
+                          'configuration file.')
+            raise ConfigurationError('Missing destination movie directory')
 
         if self.ifttt_url:
             logging.debug('IFTTT URL: [%s]', self.ifttt_url)
