@@ -85,14 +85,21 @@ class CopyMedia:
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
 
         # Find matching files
-        matches = self.match_files(files, self.series)
+        matches, nonmatches = self.match_files(files, self.series)
 
         if matches:
-            # Move matching files to their respective destination directories
-            self.move_files(matches, self.seriesdir, self.scandir)
+            # Move matching series files to their respective destination directories
+            self.move_series(matches, self.seriesdir, self.scandir)
 
             if self.ifttt_url is not None:
                 ifttt.send_notification(matches, self.ifttt_url)
+
+        elif nonmatches and self.moviedir is not None:
+            # If there are files that didn't match a configured series and the destination directory
+            # for movies has been specified, then check if the remaining files are movies, and if so move
+            # to the designated movie directory.
+            movie_files = [file for file in files if tmdb.is_movie(file)]
+            self.move_movies(movie_files, self.moviedir, self.scandir)
 
     def process_config_file(self, config_file):
         """Open configuration file, parse json, and pass to processing method."""
@@ -180,8 +187,21 @@ class CopyMedia:
         return True
 
     @staticmethod
-    def move_files(matches, move_dir, start_dir):
-        """Move matching files to their respective destination directory"""
+    def move_movies(movie_files, move_dir, start_dir):
+        """Move movie files to the specified destination directory"""
+
+        for file_name in movie_files:
+
+            # Move file to destination folder, renaming on the way
+            logging.debug('Moving [%s] to [%s]...',
+                          join(start_dir, file_name), join(move_dir, file_name))
+            shutil.move(join(start_dir, file_name), join(move_dir, file_name))
+            logging.info('Successfully moved [%s] to [%s]',
+                         join(start_dir, file_name), join(move_dir, file_name))
+
+    @staticmethod
+    def move_series(matches, move_dir, start_dir):
+        """Move matching series files to their respective destination directory"""
 
         destinations = set()
 
@@ -224,17 +244,22 @@ class CopyMedia:
         """Find matching files given a list of files and a list of series."""
 
         matches = []
+        nonmatches = []
         for f in files:
+            matched = False
             for show in series:
                 logging.log(logger.TRACE, 'Checking [%s] against [%s] using pattern [%s]',
                             f, show['name'], show['regex'])
                 if re.match(show['regex'], f):
                     matches.append((f, show))
+                    matched = True
                     logging.info('File [%s] matches series [%s]',
                                  f, show['name'])
                     break
+            if not matched:
+                nonmatches.append(f)
 
-        return matches
+        return matches, nonmatches
 
 
 def main():
