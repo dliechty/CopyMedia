@@ -3,21 +3,18 @@
 import argparse
 import json
 import logging
-import platform
 import re
 import shutil
-import subprocess
 from os import listdir, path, makedirs
 from os.path import isfile, join, split
 
 import ifttt
+import logger
 from exceptions import ConfigurationError
 
 # Set up default file locations for configs and logs
 CONFIG_FILE = './CopyMedia.json'
-LOG_FILE = './copy-files.log'
 IFTTT_URL_BASE = 'https://maker.ifttt.com/trigger'
-FORMAT = '[%(asctime)-15s %(filename)s:%(lineno)s - %(funcName)20s() %(levelname)s] %(message)s'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files.')
@@ -31,26 +28,12 @@ argParser.add_argument('-s', '--scan', help='Directory to scan')
 argParser.add_argument('-i', '--ifttt', help='IFTTT trigger URL context and API key')
 argParser.add_argument('-c', '--config', help='Configuration file',
                        default=CONFIG_FILE)
-argParser.add_argument('-l', '--log', help='Log file', default=LOG_FILE)
+argParser.add_argument('-t', '--tmdb', help='The Movie DB API key')
+argParser.add_argument('-l', '--log', help='Log file')
 argParser.add_argument('delugeArgs', default=[], nargs='*',
                        help='If deluge is used, there will be four args,'
                             ' in this order: Torrent Id, Torrent Name,'
                             ' Torrent Path, and IFTTT URL context with API key.')
-
-TRACE = 8
-logging.addLevelName(TRACE, 'TRACE')
-
-
-def trace(self, message, *args, **kws):
-    if self.isEnabledFor(TRACE):
-        # Yes, logger takes its '*args' as 'args'.
-        self._log(TRACE, message, args, **kws)
-
-
-logging.trace = trace
-logging.Logger.trace = trace
-
-logLevel = TRACE
 
 
 class CopyMedia:
@@ -61,23 +44,24 @@ class CopyMedia:
     ifttt_url = None
     scandir = None
     destdir = None
+    tmdb = None
 
     series = None
 
-    def __init__(self, logfile, config_file, ifttt_url, scandir, destdir, file):
+    def __init__(self, logfile, config_file, ifttt_url, scandir, destdir, file, tmdb):
         self.file = file
         self.logfile = logfile
         self.config_file = config_file
         self.ifttt_url = ifttt_url
         self.scandir = scandir
         self.destdir = destdir
+        self.tmdb = tmdb
 
         # initialize logging
-        if self.logfile is None:
-            self.logfile = LOG_FILE
-
-        logging.basicConfig(filename=self.get_path(self.logfile),
-                            level=logLevel, format=FORMAT, filemode='a')
+        if self.logfile:
+            logger.config(self.logfile)
+        else:
+            logger.config()
 
         # initialize configs
         if self.config_file is None:
@@ -177,19 +161,19 @@ class CopyMedia:
            match file names against."""
 
         for show in series:
-            logging.log(TRACE, 'Validate show [%s]', show)
+            logging.log(logger.TRACE, 'Validate show [%s]', show)
             if 'name' not in show:
                 logging.error('[%s] has no name defined.',
                               str(show))
                 raise KeyError('name')
             else:
-                logging.log(TRACE, 'Found name [%s] for show [%s]', show['name'], show)
+                logging.log(logger.TRACE, 'Found name [%s] for show [%s]', show['name'], show)
             if 'regex' not in show:
                 logging.error('[%s] has no regex pattern defined.',
                               show['name'])
                 raise KeyError('regex')
             else:
-                logging.log(TRACE, 'Found regex [%s] for show name [%s]', show['regex'], show['name'])
+                logging.log(logger.TRACE, 'Found regex [%s] for show name [%s]', show['regex'], show['name'])
         return True
 
     @staticmethod
@@ -239,7 +223,7 @@ class CopyMedia:
         matches = []
         for f in files:
             for show in series:
-                logging.log(TRACE, 'Checking [%s] against [%s] using pattern [%s]',
+                logging.log(logger.TRACE, 'Checking [%s] against [%s] using pattern [%s]',
                             f, show['name'], show['regex'])
                 if re.match(show['regex'], f):
                     matches.append((f, show))
@@ -248,14 +232,6 @@ class CopyMedia:
                     break
 
         return matches
-
-    @staticmethod
-    def get_path(argpath):
-        """Convert path to cygwin format if running on a cygwin platform"""
-
-        if 'CYGWIN' in platform.system():
-            argpath = subprocess.getoutput('cygpath ' + argpath)
-        return argpath
 
 
 def main():
@@ -286,7 +262,7 @@ def main():
         file = args.file
 
     # Now execute file transforms/copy
-    c = CopyMedia(args.log, args.config, trigger_url, args.scan, args.dest, file)
+    c = CopyMedia(args.log, args.config, trigger_url, args.scan, args.dest, file, args.tmdb)
     c.execute()
 
 

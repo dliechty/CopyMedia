@@ -4,12 +4,17 @@ import os
 import unittest
 
 import ifttt
+import logger
+import tmdb
 from copy_files import CopyMedia
 from copy_files import IFTTT_URL_BASE
 from exceptions import ConfigurationError
 
 TEST_CONFIG = r'./test_CopyMedia.json'
 IFTTT_CONTEXT_VAR = 'IFTTT_CONTEXT'
+TMDB_CONTEXT_VAR = 'TMDB_CONTEXT'
+
+logger.config()
 
 
 class TestCopyMedia(unittest.TestCase):
@@ -26,42 +31,61 @@ class TestCopyMedia(unittest.TestCase):
 
         self.assertEqual(r.status_code, 200)
 
+    def test_is_movie(self):
+
+        tmdb_key = os.getenv(TMDB_CONTEXT_VAR)
+        if tmdb_key is None:
+            self.skipTest("Can't find TMDB API key. Add"
+                          "property to environment variables: " + TMDB_CONTEXT_VAR)
+
+        # these are movies
+        self.assertTrue(tmdb.is_movie('22 Jump Street 2014 1080p BluRay x265 HEVC 10bit AAC 5.1-LordVako.mkv', tmdb_key))
+        # self.assertTrue(tmdb.is_movie('Batman.vs.Superman.Dawn.of.Justice.2016.mp4', tmdb_key))
+        # self.assertTrue(tmdb.is_movie('Brave.2012.1080p.BluRay.x264.AC3-HDChina.mkv', tmdb_key))
+        # self.assertTrue(tmdb.is_movie('captain_america-720p.mkv', tmdb_key))
+        #
+        # # these aren't
+        # self.assertFalse(tmdb.is_movie('Planet.Earth.II.S01E06.mkv', tmdb_key))
+        # self.assertFalse(tmdb.is_movie('The.Marvelous.Mrs.Maisel.S02E02.Mid-way.to.'
+        #                                'Mid-town.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.mkv', tmdb_key))
+        # self.assertFalse(tmdb.is_movie('sherlock.3x02.the_sign_of_three.720p_hdtv_x264-fov.mkv', tmdb_key))
+
     def test_process_configs(self):
         with self.assertRaises(ConfigurationError):
-            CopyMedia(None, TEST_CONFIG, None, None, None, None)
+            CopyMedia(None, TEST_CONFIG, None, None, None, None, None)
 
         blah_path = '/home/test/blah'
         blarg_path = '/remote/test/blarg'
         test_file = '/home/test/dir/file'
 
         with self.assertRaises(ConfigurationError):
-            CopyMedia(None, TEST_CONFIG, None, blah_path, None, None)
+            CopyMedia(None, TEST_CONFIG, None, blah_path, None, None, None)
 
         with self.assertRaises(ConfigurationError):
-            CopyMedia(None, TEST_CONFIG, None, None, blarg_path, None)
+            CopyMedia(None, TEST_CONFIG, None, None, blarg_path, None, None)
 
-        c = CopyMedia(None, TEST_CONFIG, None, None, blarg_path, test_file)
+        c = CopyMedia(None, TEST_CONFIG, None, None, blarg_path, test_file, None)
 
         self.assertEqual(3, len(c.configs['series']))
         self.assertEqual(blarg_path, c.destdir)
 
         self.assertIsNone(c.scandir)
 
-        c = CopyMedia(None, TEST_CONFIG, None, blah_path, blarg_path, None)
+        c = CopyMedia(None, TEST_CONFIG, None, blah_path, blarg_path, None, None)
 
         self.assertEqual(blah_path, c.scandir)
 
     def test_match_files(self):
-        c = CopyMedia(None, None, None, None, None, None)
+        c = CopyMedia(None, None, None, None, None, None, None)
 
         files = ['testFile1', 'testFile2']
 
-        matches = c.match_files(files, c.series)
+        matches = CopyMedia.match_files(files, c.series)
         # should be empty
         self.assertFalse(matches)
 
         files = ['[HorribleSubs] GATE - 24 [1080p].mkv', '[HorribleSubs] Kimetsu no Yaiba - 26 [1080p].mkv']
-        matches = c.match_files(files, c.series)
+        matches = CopyMedia.match_files(files, c.series)
         self.assertEqual(len(matches), 2)
 
     def test_validate_series(self):
