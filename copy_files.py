@@ -143,6 +143,11 @@ class CopyMedia:
         if self.seriesdir is None and 'seriesDir' in config:
             self.seriesdir = config['seriesDir']
 
+        # Only use value from configs if command line argument is not
+        # provided.
+        if self.moviedir is None and 'movieDir' in config:
+            self.moviedir = config['movieDir']
+
         if self.seriesdir:
             logging.debug('Destination Parent Directory: [%s]', self.seriesdir)
         else:
