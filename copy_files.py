@@ -17,7 +17,7 @@ from exceptions import ConfigurationError
 CONFIG_FILE = './CopyMedia.json'
 LOG_FILE = './copy-files.log'
 IFTTT_URL_BASE = 'https://maker.ifttt.com/trigger'
-FORMAT = '%(asctime)-15s %(levelname)s %(message)s'
+FORMAT = '[%(asctime)-15s %(filename)s:%(lineno)s - %(funcName)20s() %(levelname)s] %(message)s'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files.')
