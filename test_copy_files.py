@@ -85,22 +85,22 @@ class TestCopyMedia(unittest.TestCase):
 
     def test_process_configs(self):
         with self.assertRaises(ConfigurationError):
-            CopyMedia(None, TEST_CONFIG, None, None, None, None, None)
+            CopyMedia(config_file=TEST_CONFIG)
 
         blah_path = '/home/test/blah'
         blarg_path = '/remote/test/blarg'
         test_file = '/home/test/dir/file'
 
         with self.assertRaises(ConfigurationError):
-            CopyMedia(None, TEST_CONFIG, None, blah_path, None, None, None)
+            CopyMedia(config_file=TEST_CONFIG, scandir=blah_path)
 
         with self.assertRaises(ConfigurationError):
-            CopyMedia(None, TEST_CONFIG, None, None, blarg_path, None, None)
+            CopyMedia(config_file=TEST_CONFIG, seriesdir=blarg_path)
 
-        c = CopyMedia(None, TEST_CONFIG, None, None, blarg_path, test_file, None)
+        c = CopyMedia(config_file=TEST_CONFIG, seriesdir=blarg_path, file=test_file)
 
         self.assertEqual(3, len(c.configs['series']))
-        self.assertEqual(blarg_path, c.destdir)
+        self.assertEqual(blarg_path, c.seriesdir)
 
         self.assertIsNone(c.scandir)
 
@@ -109,7 +109,7 @@ class TestCopyMedia(unittest.TestCase):
         self.assertEqual(blah_path, c.scandir)
 
     def test_match_files(self):
-        c = CopyMedia(None, None, None, None, None, None, None)
+        c = CopyMedia()
 
         files = ['testFile1', 'testFile2']
 

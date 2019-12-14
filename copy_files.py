@@ -10,6 +10,7 @@ from os.path import isfile, join, split
 
 import ifttt
 import logger
+import tmdb
 from exceptions import ConfigurationError
 
 # Set up default file locations for configs and logs
@@ -43,18 +44,21 @@ class CopyMedia:
     config_file = None
     ifttt_url = None
     scandir = None
-    destdir = None
+    seriesdir = None
+    moviedir = None
     tmdb = None
 
     series = None
 
-    def __init__(self, logfile, config_file, ifttt_url, scandir, destdir, file, tmdb):
+    def __init__(self, logfile=None, config_file=None, ifttt_url=None, scandir=None,
+                 seriesdir=None, file=None, tmdb=None, moviedir=None):
         self.file = file
         self.logfile = logfile
         self.config_file = config_file
         self.ifttt_url = ifttt_url
         self.scandir = scandir
-        self.destdir = destdir
+        self.seriesdir = seriesdir
+        self.moviedir = moviedir
         self.tmdb = tmdb
 
         # initialize logging
@@ -86,7 +90,7 @@ class CopyMedia:
 
         if matches:
             # Move matching files to their respective destination directories
-            self.move_files(matches, self.destdir, self.scandir)
+            self.move_files(matches, self.seriesdir, self.scandir)
 
             if self.ifttt_url is not None:
                 ifttt.send_notification(matches, self.ifttt_url)
@@ -130,11 +134,11 @@ class CopyMedia:
 
         # Only use value from configs if command line argument is not
         # provided.
-        if self.destdir is None and 'moveDir' in config:
-            self.destdir = config['moveDir']
+        if self.seriesdir is None and 'seriesDir' in config:
+            self.seriesdir = config['seriesDir']
 
-        if self.destdir:
-            logging.debug('Destination Parent Directory: [%s]', self.destdir)
+        if self.seriesdir:
+            logging.debug('Destination Parent Directory: [%s]', self.seriesdir)
         else:
             logging.error('Destination directory must be specified, '
                           'either on the command line or in the '
@@ -177,7 +181,7 @@ class CopyMedia:
         return True
 
     @staticmethod
-    def move_files(matches, move_dir, scan_dir):
+    def move_files(matches, move_dir, start_dir):
         """Move matching files to their respective destination directory"""
 
         destinations = set()
@@ -207,10 +211,10 @@ class CopyMedia:
 
             # Move file to destination folder, renaming on the way
             logging.debug('Moving [%s] to [%s]...',
-                          join(scan_dir, file_name), join(dest, dest_file_name))
-            shutil.move(join(scan_dir, file_name), join(dest, dest_file_name))
+                          join(start_dir, file_name), join(dest, dest_file_name))
+            shutil.move(join(start_dir, file_name), join(dest, dest_file_name))
             logging.info('Successfully moved [%s] to [%s]',
-                         join(scan_dir, file_name), join(dest, dest_file_name))
+                         join(start_dir, file_name), join(dest, dest_file_name))
 
             destinations.add(dest)
 
