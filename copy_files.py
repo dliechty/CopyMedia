@@ -15,7 +15,6 @@ from exceptions import ConfigurationError
 
 # Set up default file locations for configs and logs
 CONFIG_FILE = './CopyMedia.json'
-IFTTT_URL_BASE = 'https://maker.ifttt.com/trigger'
 
 # Set up command line arguments
 argParser = argparse.ArgumentParser(description='Copy/transform large files.')
@@ -23,8 +22,8 @@ argParser = argparse.ArgumentParser(description='Copy/transform large files.')
 argParser.add_argument('-f', '--file', help='File to process. '
                                             'If not specified, then all files within'
                                             ' the scan directory are checked.')
-argParser.add_argument('-d', '--dest',
-                       help='Destination parent directory')
+argParser.add_argument('-d', '--dest', help='Destination directory for series')
+argParser.add_argument('-m', '--moviedest', help='Destination directory for movies')
 argParser.add_argument('-s', '--scan', help='Directory to scan')
 argParser.add_argument('-i', '--ifttt', help='IFTTT trigger URL context and API key')
 argParser.add_argument('-c', '--config', help='Configuration file',
@@ -253,10 +252,10 @@ def main():
         torrent_name = args.delugeArgs[1]
         torrent_path = args.delugeArgs[2]
         if num_args == 4:
-            trigger_url = IFTTT_URL_BASE + '/' + args.delugeArgs[3]
+            trigger_url = ifttt.IFTTT_URL_BASE + '/' + args.delugeArgs[3]
 
     if args.ifttt and trigger_url is None:
-        trigger_url = IFTTT_URL_BASE + '/' + args.ifttt
+        trigger_url = ifttt.IFTTT_URL_BASE + '/' + args.ifttt
 
     # set base file path based on deluge args if they exist
     if torrent_name and torrent_path:
@@ -266,7 +265,9 @@ def main():
         file = args.file
 
     # Now execute file transforms/copy
-    c = CopyMedia(args.log, args.config, trigger_url, args.scan, args.dest, file, args.tmdb)
+    c = CopyMedia(logfile=args.log, config_file=args.config, ifttt_url=trigger_url,
+                  scandir=args.scan, seriesdir=args.dest, file=file, tmdb=args.tmdb,
+                  moviedir=args.moviedest)
     c.execute()
 
 

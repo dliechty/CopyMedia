@@ -1,6 +1,8 @@
 import requests
 import logging
 
+IFTTT_URL_BASE = 'https://maker.ifttt.com/trigger'
+
 
 def send_notification(matches, trigger_url):
     """Send IFTTT notification to phone whenever the script fires with the names
