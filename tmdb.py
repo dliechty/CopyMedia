@@ -1,26 +1,29 @@
 import json
 import logging
 import urllib
+import PTN
 
 import requests
 
 import logger
 
 URL_CONTEXT = '/3/search/movie?api_key=API_KEY&include_adult=false&query=QUERY_STRING'
+YEAR_BASE = '&year='
 DNS_NAME = 'api.themoviedb.org'
 PROTOCOL = 'https://'
 BASE_URL = PROTOCOL + DNS_NAME + URL_CONTEXT
 
 
 def clean_name(name):
-    """Used to clean up the name of the media so that it is suitable to send in an API query"""
+    """Used to parse the name of the media so that the title and year can be sent in an API query"""
 
     logging.log(logger.TRACE, 'Raw name: [%s]', name)
 
-    # TODO: clean up name
+    meta = PTN.parse(name)
+    logging.log(logger.TRACE, 'Parsed meta-data: [%s]', meta)
 
-    logging.log(logger.TRACE, 'Cleaned name: [%s]', name)
-    return name
+    logging.debug('Parsed title: [%s]', meta['title'])
+    return meta
 
 
 def is_movie(name, api_key):
@@ -32,10 +35,22 @@ def is_movie(name, api_key):
 
         logging.debug('Performing query to the movie DB with media name [%s]', name)
 
-        c_name = clean_name(name)
-        enc_name = urllib.parse.quote(clean_name(c_name))
+        meta = clean_name(name)
+        enc_name = urllib.parse.quote(meta['title'])
         logging.log(logger.TRACE, 'URL encoded name: [%s]', enc_name)
         url = BASE_URL.replace('QUERY_STRING', enc_name)
+
+        if 'year' in meta:
+            url = url + YEAR_BASE + str(meta['year'])
+        else:
+            logging.debug('No year found in file name. Skipping search.')
+            return False
+
+        if 'season' in meta and 'episode' in meta:
+            logging.debug('meta-data indicates season [%s] and episode [%s] in name. '
+                          'Movies can\'t have seasons and episodes, so skipping search',
+                          meta['season'], meta['episode'])
+            return False
 
         logging.debug('Sending query to [%s] TMDB with URL: [%s]', DNS_NAME, url)
 
