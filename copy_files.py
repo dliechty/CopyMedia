@@ -89,33 +89,41 @@ class CopyMedia:
             logging.debug('Scanning [%s] for files to process.', self.scandir)
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
             dirs = [d for d in listdir(self.scandir) if isdir(join(self.scandir, d)) and d != 'tmp']
-            logging.debug('Dirs found: [%s]', dirs)
 
-        if files:
-            logging.info('Files found: [%s]', files)
-            # Find matching files
-            matches, nonmatches = self.match_files(files, self.series)
+        if files or dirs:
+            if files:
+                logging.info('Files found: [%s]', files)
+                self.process_files(files)
 
-            if matches and self.seriesdir is not None:
-                # Move matching series files to their respective destination directories
-                logging.debug('Found series matches to move: [%s]', matches)
-                self.move_series(matches, self.seriesdir, self.scandir)
-
-                if self.ifttt_url is not None:
-                    ifttt.send_notification(matches, self.ifttt_url)
-
-            if nonmatches and self.moviedir is not None:
-                # If there are files that didn't match a configured series and the destination directory
-                # for movies has been specified, then check if the remaining files are movies, and if so move
-                # to the designated movie directory.
-                logging.debug('Some files did not have matches. Checking if they are movies...')
-                movie_files = [file for file in files if tmdb.is_movie(file, self.tmdb)]
-                logging.debug('Found movies: [%s]', movie_files)
-                self.move_movies(movie_files, self.moviedir, self.scandir)
+            if dirs:
+                logging.info('Directories found: [%s]', dirs)
         else:
-            logging.info('No files found. Stopping.')
+            logging.info('No files or directories found. Stopping.')
 
         logging.debug('Processing complete.')
+
+    def process_files(self, files):
+        """Process all files provided either via a command line argument or by scanning a directory."""
+
+        # Find matching files
+        matches, nonmatches = self.match_files(files, self.series)
+
+        if matches and self.seriesdir is not None:
+            # Move matching series files to their respective destination directories
+            logging.debug('Found series matches to move: [%s]', matches)
+            self.move_series(matches, self.seriesdir, self.scandir)
+
+            if self.ifttt_url is not None:
+                ifttt.send_notification(matches, self.ifttt_url)
+
+        if nonmatches and self.moviedir is not None:
+            # If there are files that didn't match a configured series and the destination directory
+            # for movies has been specified, then check if the remaining files are movies, and if so move
+            # to the designated movie directory.
+            logging.debug('Some files did not have matches. Checking if they are movies...')
+            movie_files = [file for file in files if tmdb.is_movie(file, self.tmdb)]
+            logging.debug('Found movies: [%s]', movie_files)
+            self.move_movies(movie_files, self.moviedir, self.scandir)
 
     def process_config_file(self, config_file):
         """Open configuration file, parse json, and pass to processing method."""
