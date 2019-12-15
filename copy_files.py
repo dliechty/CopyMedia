@@ -269,6 +269,7 @@ class CopyMedia:
                                  f, show['name'])
                     break
             if not matched:
+                logging.debug('Adding [%s] to list of non-matches', f)
                 nonmatches.append(f)
 
         return matches, nonmatches

@@ -34,6 +34,9 @@ def is_movie(name, api_key):
         logging.warning("Can't query tmdb because no api key was specified.")
         return False
 
+    if name is None:
+        logging.warning("Can't query because file name was not provided.")
+
     # Only send query if the media name and api key are provided
     if name:
 
