@@ -96,18 +96,21 @@ class CopyMedia:
         # Find matching files
         matches, nonmatches = self.match_files(files, self.series)
 
-        if matches:
+        if matches and self.seriesdir is not None:
             # Move matching series files to their respective destination directories
+            logging.debug('Found series matches to move: [%s]', matches)
             self.move_series(matches, self.seriesdir, self.scandir)
 
             if self.ifttt_url is not None:
                 ifttt.send_notification(matches, self.ifttt_url)
 
-        elif nonmatches and self.moviedir is not None:
+        if nonmatches and self.moviedir is not None:
             # If there are files that didn't match a configured series and the destination directory
             # for movies has been specified, then check if the remaining files are movies, and if so move
             # to the designated movie directory.
+            logging.debug('Some files did not have matches. Checking if they are movies...')
             movie_files = [file for file in files if tmdb.is_movie(file, self.tmdb)]
+            logging.debug('Found movies: [%s]', movie_files)
             self.move_movies(movie_files, self.moviedir, self.scandir)
 
         logging.debug('Processing complete.')
