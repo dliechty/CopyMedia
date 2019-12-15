@@ -177,6 +177,11 @@ class CopyMedia:
         else:
             logging.debug('IFTTT notification url not provided.')
 
+        if self.tmdb:
+            logging.debug('TMDB API Key: [%s]', self.tmdb)
+        else:
+            logging.debug('TMDB API key not provided.')
+
         if 'series' in config:
             self.series = config['series']
             self.validate_series(self.series)
@@ -288,7 +293,6 @@ def main():
     """Parsing command line argument and then begin the copying execution."""
 
     args = argParser.parse_args()
-    print('All command line arguments: ' + str(args))
 
     file = None
     torrent_name = None
