@@ -18,7 +18,7 @@ def trace(self, message, *args, **kws):
 logging.trace = trace
 logging.Logger.trace = trace
 
-logLevel = TRACE
+logLevel = logging.DEBUG
 
 
 def config(logfile=LOG_FILE):
