@@ -65,6 +65,8 @@ class CopyMedia:
         else:
             logger.config()
 
+        logging.debug('Initializing...')
+
         # initialize configs
         if self.config_file is None:
             self.config_file = CONFIG_FILE
@@ -74,14 +76,19 @@ class CopyMedia:
     def execute(self):
         """Initiate the scanning, matching, transformation, and movement of media."""
 
+        logging.debug('Begin processing execution...')
+
         # Build list of files based on whether a single file has been
         # specified or whether we need to scan a directory
         files = []
         if self.file:
-            scan_dir, file_name = split(self.file)
+            file_dir, file_name = split(self.file)
             files.append(file_name)
         else:
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
+
+        if not files:
+            logging.info('No files found. Stopping.')
 
         # Find matching files
         matches, nonmatches = self.match_files(files, self.series)
@@ -99,6 +106,8 @@ class CopyMedia:
             # to the designated movie directory.
             movie_files = [file for file in files if tmdb.is_movie(file, self.tmdb)]
             self.move_movies(movie_files, self.moviedir, self.scandir)
+
+        logging.debug('Processing complete.')
 
     def process_config_file(self, config_file):
         """Open configuration file, parse json, and pass to processing method."""
@@ -166,7 +175,7 @@ class CopyMedia:
         if self.ifttt_url:
             logging.debug('IFTTT URL: [%s]', self.ifttt_url)
         else:
-            logging.warning('IFTTT notification url not provided.')
+            logging.debug('IFTTT notification url not provided.')
 
         if 'series' in config:
             self.series = config['series']
