@@ -88,7 +88,8 @@ class CopyMedia:
         else:
             logging.debug('Scanning [%s] for files to process.', self.scandir)
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
-            dirs = [d for d in listdir(self.scandir) if isdir(join(self.scandir, d))]
+            dirs = [d for d in listdir(self.scandir) if isdir(join(self.scandir, d)) and d != 'tmp']
+            logging.debug('Dirs found: [%s]', dirs)
 
         if files:
             logging.info('Files found: [%s]', files)
