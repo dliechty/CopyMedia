@@ -107,6 +107,7 @@ class CopyMedia:
         """Process all directories provided either via a command line argument or by scanning a parent directory."""
 
         logging.warning('Directory processing not implemented yet.')
+        # TODO: add directory processing.
 
     def process_files(self, files):
         """Process all files provided either via a command line argument or by scanning a directory."""
