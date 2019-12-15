@@ -97,7 +97,7 @@ class CopyMedia:
             # If there are files that didn't match a configured series and the destination directory
             # for movies has been specified, then check if the remaining files are movies, and if so move
             # to the designated movie directory.
-            movie_files = [file for file in files if tmdb.is_movie(file)]
+            movie_files = [file for file in files if tmdb.is_movie(file, self.tmdb)]
             self.move_movies(movie_files, self.moviedir, self.scandir)
 
     def process_config_file(self, config_file):

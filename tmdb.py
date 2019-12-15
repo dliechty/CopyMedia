@@ -30,8 +30,12 @@ def is_movie(name, api_key):
     """Look up the name of the media in question in The Movie DB to determine if this media
        is a movie or not."""
 
+    if api_key is None:
+        logging.warning("Can't query tmdb because no api key was specified.")
+        return False
+
     # Only send query if the media name and api key are provided
-    if name and api_key:
+    if name:
 
         logging.debug('Performing query to the movie DB with media name [%s]', name)
 
