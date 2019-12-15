@@ -97,10 +97,16 @@ class CopyMedia:
 
             if dirs:
                 logging.info('Directories found: [%s]', dirs)
+                self.process_dirs(dirs)
         else:
             logging.info('No files or directories found. Stopping.')
 
         logging.debug('Processing complete.')
+
+    def process_dirs(self, dirs):
+        """Process all directories provided either via a command line argument or by scanning a parent directory."""
+
+        logging.warning('Directory processing not implemented yet.')
 
     def process_files(self, files):
         """Process all files provided either via a command line argument or by scanning a directory."""
