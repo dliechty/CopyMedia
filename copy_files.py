@@ -85,9 +85,12 @@ class CopyMedia:
             file_dir, file_name = split(self.file)
             files.append(file_name)
         else:
+            logging.debug('Scanning [%s] for files to process.', self.scandir)
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
 
-        if not files:
+        if files:
+            logging.info('Files found: [%s]', files)
+        else:
             logging.info('No files found. Stopping.')
 
         # Find matching files
@@ -133,13 +136,13 @@ class CopyMedia:
         # entire folder for matching files.
 
         if self.file:
-            logging.debug('Found file to match [%s]', self.file)
+            logging.info('File provided for processing: [%s]', self.file)
         else:
             # Only use value from configs if command line argument is not
             # provided.
             if self.scandir is None and 'scanDir' in config:
                 self.scandir = config['scanDir']
-            logging.debug('Found directory to scan: [%s]', self.scandir)
+            logging.info('File not provided, but found directory to scan: [%s]', self.scandir)
 
         if not self.file and not self.scandir:
             logging.error('Must either specify a file or '
