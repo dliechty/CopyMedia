@@ -350,10 +350,14 @@ def main():
         file = args.file
 
     # Now execute file transforms/copy
-    c = CopyMedia(logfile=args.log, config_file=args.config, ifttt_url=trigger_url,
-                  scandir=args.scan, seriesdir=args.dest, file=file, tmdb=args.tmdb,
-                  moviedir=args.moviedest)
-    c.execute()
+    try:
+        c = CopyMedia(logfile=args.log, config_file=args.config, ifttt_url=trigger_url,
+                      scandir=args.scan, seriesdir=args.dest, file=file, tmdb=args.tmdb,
+                      moviedir=args.moviedest)
+        c.execute()
+    except:
+        logging.exception('Error on execution.')
+        raise
 
 
 if __name__ == '__main__':
