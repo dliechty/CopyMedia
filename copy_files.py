@@ -272,6 +272,8 @@ class CopyMedia:
             else:
                 dest = join(move_dir, config_entry['name'])
 
+            logging.debug('Destination directory: [%s]', dest)
+
             # Create destination directory if it doesn't already exist
             if not path.exists(dest):
                 logging.info('Destination does not exist; creating [%s]', dest)
