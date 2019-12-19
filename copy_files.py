@@ -92,7 +92,7 @@ class CopyMedia:
         files = []
         dirs = []
         if self.file:
-            file_dir, file_name = split(self.file)
+            self.scandir, file_name = split(self.file)
             files.append(file_name)
         else:
             logging.debug('Scanning [%s] for files to process.', self.scandir)
