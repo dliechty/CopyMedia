@@ -73,6 +73,15 @@ class CopyMedia:
 
         self.configs = self.process_config_file(self.config_file)
 
+        logging.debug('File arg: [%s]', self.file)
+        logging.debug('Log File arg: [%s]', self.logfile)
+        logging.debug('Config File arg: [%s]', self.config_file)
+        logging.debug('IFTTT URL: [%s]', self.ifttt_url)
+        logging.debug('Scan directory: [%s]', self.scandir)
+        logging.debug('Series directory: [%s]', self.seriesdir)
+        logging.debug('Movie directory: [%s]', self.moviedir)
+        logging.debug('TMDB key: [%s]', self.tmdb)
+
     def execute(self):
         """Initiate the scanning, matching, transformation, and movement of media."""
 
