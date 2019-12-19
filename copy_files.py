@@ -355,7 +355,7 @@ def main():
                       scandir=args.scan, seriesdir=args.dest, file=file, tmdb=args.tmdb,
                       moviedir=args.moviedest)
         c.execute()
-    except:
+    except Exception:
         logging.exception('Error on execution.')
         raise
 
