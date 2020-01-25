@@ -26,6 +26,11 @@
             "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
         },
         {
+            "name": "Re ZERO Starting Life in Another World - Director's Cut",
+            "regex": "(.*)(Re Zero kara Hajimeru Isekai Seikatsu - Director's Cut)( - )(\\d{1,})(.*)",
+            "replace": "\\1Re ZERO Starting Life in Another World - Director's Cut\\3S01E\\4\\5"
+        },
+        {
             "name": "Cautious Hero - The Hero Is Overpowered but Overly Cautious",
             "regex": "(.*)(Shinchou Yuusha)( - )(\\d{1,})(.*)",
             "replace": "\\1Cautious Hero - The Hero Is Overpowered but Overly Cautious\\3\\4\\5"
