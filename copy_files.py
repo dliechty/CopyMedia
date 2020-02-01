@@ -106,6 +106,7 @@ class CopyMedia:
 
             if dirs:
                 logging.info('Directories found: [%s]', dirs)
+                logging.debug("Movie Directory: [%s]", self.moviedir)
                 self.process_dirs(dirs)
         else:
             logging.info('No files or directories found. Stopping.')
