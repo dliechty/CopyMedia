@@ -210,19 +210,22 @@ class CopyMedia:
         If english subtitles found with the srt extension, ensure file is in the same directory as
         the movie file and rename to be in the form: <title>.<year>.en.srt"""
 
+        # TODO
         logging.warning('process_subtitles not implemented yet.')
         return []
 
     @staticmethod
     def clean_dir(dir, movie, subtitle_files):
         """Remove all other files and sub-directories except the movie file and any sub-titles."""
-        
+
+        # TODO
         logging.warning('clean_dir not implemented yet.')
 
     @staticmethod
     def strip_metadata(movie):
         """Use ffmpeg to strip all meta-data from the movie file"""
 
+        # TODO
         logging.warning('strip_metadata not implemented yet.')
 
     def process_files(self, files):
