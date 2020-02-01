@@ -119,14 +119,14 @@ class CopyMedia:
         if there is a matching movie. If so, then process the directory as a movie."""
 
         logging.debug('Checking directories to see if they are movies...')
-        movie_dirs = [d for d in dirs if tmdb.is_movie(d, self.tmdb)]
-        logging.debug('Found movies: [%s]', movie_dirs)
+        movies = [d for d in dirs if tmdb.is_movie(d, self.tmdb)]
+        logging.debug('Found movies: [%s]', movies)
 
         if self.moviedir is not None:
-            for movie_dir in movie_dirs:
-                self.process_movie_dir(movie_dir)
+            for movie in movies:
+                self.process_movie(movie)
 
-    def process_movie_dir(self, dir):
+    def process_movie(self, movie_dir_name):
         """Process a given movie directory.
         
         The following activities are performed:
@@ -137,6 +137,8 @@ class CopyMedia:
         4) Remove all other files and sub-directories
         5) Use ffmpeg to strip all meta-data from the movie file
         6) Move the directory to the configured Movie directory."""
+
+        dir = join(self.scandir, movie_dir_name)
 
         if self.moviedir is not None:
             movie = self.find_largest_file(dir)
