@@ -154,7 +154,7 @@ class CopyMedia:
             self.clean_dir(dir, movie, subtitle_files)
 
             self.strip_metadata(movie)
-            logging.debug("Movie Directory: [%s]", self.moviedir)
+
             self.move_movies([dir], self.moviedir, self.scandir)
 
     @staticmethod
@@ -363,8 +363,9 @@ class CopyMedia:
     def move_movies(movie_files, move_dir, start_dir):
         """Move movie files to the specified destination directory"""
 
+        logging.debug(movie_files)
         for file_name in movie_files:
-            logging.debug("Movie Directory: [%s]", move_dir)
+            logging.debug("File Name: [%s]", file_name)
 
             # Move file to destination folder, renaming on the way
             start_path = join(start_dir, file_name)
