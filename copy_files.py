@@ -106,7 +106,6 @@ class CopyMedia:
 
             if dirs:
                 logging.info('Directories found: [%s]', dirs)
-                logging.debug("Movie Directory: [%s]", self.moviedir)
                 self.process_dirs(dirs)
         else:
             logging.info('No files or directories found. Stopping.')
@@ -155,7 +154,7 @@ class CopyMedia:
             self.clean_dir(dir, movie, subtitle_files)
 
             self.strip_metadata(movie)
-
+            logging.debug("Movie Directory: [%s]", self.moviedir)
             self.move_movies([dir], self.moviedir, self.scandir)
 
     @staticmethod
@@ -365,13 +364,14 @@ class CopyMedia:
         """Move movie files to the specified destination directory"""
 
         for file_name in movie_files:
+            logging.debug("Movie Directory: [%s]", move_dir)
 
             # Move file to destination folder, renaming on the way
-            logging.debug('Moving [%s] to [%s]...',
-                          join(start_dir, file_name), join(move_dir, file_name))
-            shutil.move(join(start_dir, file_name), join(move_dir, file_name))
-            logging.info('Successfully moved [%s] to [%s]',
-                         join(start_dir, file_name), join(move_dir, file_name))
+            start_path = join(start_dir, file_name)
+            dest_path = join(move_dir, file_name)
+            logging.debug('Moving [%s] to [%s]...', start_path, dest_path)
+            shutil.move(start_path, dest_path)
+            logging.info('Successfully moved [%s] to [%s]', start_path, dest_path)
 
     @staticmethod
     def move_series(matches, move_dir, start_dir):
