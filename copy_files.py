@@ -364,12 +364,11 @@ class CopyMedia:
         """Move movie files to the specified destination directory"""
 
         logging.debug(movie_files)
-        for file_name in movie_files:
-            logging.debug("File Name: [%s]", file_name)
+        for movie in movie_files:
 
             # Move file to destination folder, renaming on the way
-            start_path = join(start_dir, file_name)
-            dest_path = join(move_dir, file_name)
+            start_path = movie
+            dest_path = join(move_dir, path.basename(movie))
             logging.debug('Moving [%s] to [%s]...', start_path, dest_path)
             shutil.move(start_path, dest_path)
             logging.info('Successfully moved [%s] to [%s]', start_path, dest_path)
