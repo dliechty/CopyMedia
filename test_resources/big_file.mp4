@@ -1,0 +1,198 @@
+[2020-02-01 11:16:17,471 copy_files.py:158 -    find_largest_file() DEBUG] Looking for largest file in directory: [.]
+[2020-02-01 11:16:17,472 copy_files.py:160 -    find_largest_file() DEBUG] Found file list: [['.\\.git', '.\\.gitattributes', '.\\.gitignore', '.\\.idea', '.\\copy-files.log', '.\\CopyMedia.json', '.\\copy_files.py', '.\\exceptions.py', '.\\ifttt.py', '.\\logger.py', '.\\README.md', '.\\test_CopyMedia.json', '.\\test_copy_files.py', '.\\tmdb.py', '.\\__pycache__']]
+[2020-02-01 11:16:17,472 copy_files.py:163 -    find_largest_file() DEBUG] Largest file: [.\copy_files.py]
+[2020-02-01 11:16:23,359 copy_files.py:158 -    find_largest_file() DEBUG] Looking for largest file in directory: [.]
+[2020-02-01 11:16:23,360 copy_files.py:160 -    find_largest_file() DEBUG] Found file list: [['.\\.git', '.\\.gitattributes', '.\\.gitignore', '.\\.idea', '.\\copy-files.log', '.\\CopyMedia.json', '.\\copy_files.py', '.\\exceptions.py', '.\\ifttt.py', '.\\logger.py', '.\\README.md', '.\\test_CopyMedia.json', '.\\test_copy_files.py', '.\\tmdb.py', '.\\__pycache__']]
+[2020-02-01 11:16:23,360 copy_files.py:163 -    find_largest_file() DEBUG] Largest file: [.\copy_files.py]
+[2020-02-01 11:17:24,601 copy_files.py:158 -    find_largest_file() DEBUG] Looking for largest file in directory: [.]
+[2020-02-01 11:17:24,601 copy_files.py:160 -    find_largest_file() DEBUG] Found file list: [['.\\.git', '.\\.gitattributes', '.\\.gitignore', '.\\.idea', '.\\copy-files.log', '.\\CopyMedia.json', '.\\copy_files.py', '.\\exceptions.py', '.\\ifttt.py', '.\\logger.py', '.\\README.md', '.\\test_CopyMedia.json', '.\\test_copy_files.py', '.\\tmdb.py', '.\\__pycache__']]
+[2020-02-01 11:17:24,602 copy_files.py:163 -    find_largest_file() DEBUG] Largest file: [.\copy_files.py]
+[2020-02-01 11:17:55,096 copy_files.py:158 -    find_largest_file() DEBUG] Looking for largest file in directory: [.]
+[2020-02-01 11:17:55,096 copy_files.py:160 -    find_largest_file() DEBUG] Found file list: [['.\\.git', '.\\.gitattributes', '.\\.gitignore', '.\\.idea', '.\\copy-files.log', '.\\CopyMedia.json', '.\\copy_files.py', '.\\exceptions.py', '.\\ifttt.py', '.\\logger.py', '.\\README.md', '.\\test_CopyMedia.json', '.\\test_copy_files.py', '.\\tmdb.py', '.\\__pycache__']]
+[2020-02-01 11:17:55,097 copy_files.py:163 -    find_largest_file() DEBUG] Largest file: [.\copy_files.py]
+[2020-02-01 11:22:52,436 copy_files.py:170 -         rename_movie() DEBUG] Parsing movie name into meta-data: [test_movie]
+[2020-02-01 11:22:52,439 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [test movie]
+[2020-02-01 11:22:52,439 copy_files.py:172 -         rename_movie() DEBUG] Parsed meta-data: [{'title': 'test movie'}]
+[2020-02-01 11:38:34,589 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [22 Jump Street]
+[2020-02-01 11:38:34,590 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Batman vs Superman Dawn of Justice]
+[2020-02-01 11:38:34,590 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Brave]
+[2020-02-01 11:38:34,590 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [captain america]
+[2020-02-01 11:38:34,591 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Planet Earth II]
+[2020-02-01 11:38:34,591 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [The Marvelous Mrs Maisel]
+[2020-02-01 11:38:34,592 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [sherlock]
+[2020-02-01 11:38:34,592 copy_files.py:162 -    find_largest_file() DEBUG] Looking for largest file in directory: [.]
+[2020-02-01 11:38:34,592 copy_files.py:164 -    find_largest_file() DEBUG] Found file list: [['.\\.git', '.\\.gitattributes', '.\\.gitignore', '.\\.idea', '.\\copy-files.log', '.\\CopyMedia.json', '.\\copy_files.py', '.\\exceptions.py', '.\\ifttt.py', '.\\logger.py', '.\\README.md', '.\\test_copy_files.py', '.\\test_resources', '.\\tmdb.py', '.\\__pycache__']]
+[2020-02-01 11:38:34,593 copy_files.py:167 -    find_largest_file() DEBUG] Largest file: [.\copy_files.py]
+[2020-02-01 11:38:34,594 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [22 Jump Street 2014 1080p BluRay x265 HEVC 10bit AAC 5.1-LordVako]
+[2020-02-01 11:38:34,594 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [22 Jump Street]
+[2020-02-01 11:38:34,594 tmdb.py:62 -             is_movie() DEBUG] Sending query to [api.themoviedb.org] TMDB with URL: [https://api.themoviedb.org/3/search/movie?api_key=API_KEY&include_adult=false&query=22%20Jump%20Street&year=2014]
+[2020-02-01 11:38:34,598 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): api.themoviedb.org:443
+[2020-02-01 11:38:34,799 connectionpool.py:428 -        _make_request() DEBUG] https://api.themoviedb.org:443 "GET /3/search/movie?api_key=5a78cbca96898a15634f21bd3e8f92ef&include_adult=false&query=22%20Jump%20Street&year=2014 HTTP/1.1" 200 None
+[2020-02-01 11:38:34,804 tmdb.py:68 -             is_movie() DEBUG] TMDB GET status: [200] with reason: [OK]
+[2020-02-01 11:38:34,805 tmdb.py:75 -             is_movie() DEBUG] Number of results found: [1]
+[2020-02-01 11:38:34,805 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [Batman.vs.Superman.Dawn.of.Justice.2016]
+[2020-02-01 11:38:34,806 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Batman vs Superman Dawn of Justice]
+[2020-02-01 11:38:34,806 tmdb.py:62 -             is_movie() DEBUG] Sending query to [api.themoviedb.org] TMDB with URL: [https://api.themoviedb.org/3/search/movie?api_key=API_KEY&include_adult=false&query=Batman%20vs%20Superman%20Dawn%20of%20Justice&year=2016]
+[2020-02-01 11:38:34,811 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): api.themoviedb.org:443
+[2020-02-01 11:38:35,020 connectionpool.py:428 -        _make_request() DEBUG] https://api.themoviedb.org:443 "GET /3/search/movie?api_key=5a78cbca96898a15634f21bd3e8f92ef&include_adult=false&query=Batman%20vs%20Superman%20Dawn%20of%20Justice&year=2016 HTTP/1.1" 200 None
+[2020-02-01 11:38:35,024 tmdb.py:68 -             is_movie() DEBUG] TMDB GET status: [200] with reason: [OK]
+[2020-02-01 11:38:35,025 tmdb.py:75 -             is_movie() DEBUG] Number of results found: [1]
+[2020-02-01 11:38:35,025 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [Brave.2012.1080p.BluRay.x264.AC3-HDChina]
+[2020-02-01 11:38:35,026 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Brave]
+[2020-02-01 11:38:35,026 tmdb.py:62 -             is_movie() DEBUG] Sending query to [api.themoviedb.org] TMDB with URL: [https://api.themoviedb.org/3/search/movie?api_key=API_KEY&include_adult=false&query=Brave&year=2012]
+[2020-02-01 11:38:35,031 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): api.themoviedb.org:443
+[2020-02-01 11:38:35,233 connectionpool.py:428 -        _make_request() DEBUG] https://api.themoviedb.org:443 "GET /3/search/movie?api_key=5a78cbca96898a15634f21bd3e8f92ef&include_adult=false&query=Brave&year=2012 HTTP/1.1" 200 None
+[2020-02-01 11:38:35,238 tmdb.py:68 -             is_movie() DEBUG] TMDB GET status: [200] with reason: [OK]
+[2020-02-01 11:38:35,239 tmdb.py:75 -             is_movie() DEBUG] Number of results found: [6]
+[2020-02-01 11:38:35,239 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [captain_america-720p]
+[2020-02-01 11:38:35,240 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [captain america]
+[2020-02-01 11:38:35,240 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:35,240 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [Planet.Earth.II.S01E06]
+[2020-02-01 11:38:35,241 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Planet Earth II]
+[2020-02-01 11:38:35,241 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:35,241 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [The.Marvelous.Mrs.Maisel.S02E02.Mid-way.to.Mid-town.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb]
+[2020-02-01 11:38:35,243 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [The Marvelous Mrs Maisel]
+[2020-02-01 11:38:35,243 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:35,243 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [sherlock.3x02.the_sign_of_three.720p_hdtv_x264-fov]
+[2020-02-01 11:38:35,244 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [sherlock]
+[2020-02-01 11:38:35,244 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:35,246 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:35,246 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [./CopyMedia.json]
+[2020-02-01 11:38:35,247 copy_files.py:269 -      process_configs() INFO] File not provided, but found directory to scan: [/mnt/raid1/private/downloads]
+[2020-02-01 11:38:35,247 copy_files.py:287 -      process_configs() DEBUG] Destination series directory: [/mnt/raid1/public/plex/Anime]
+[2020-02-01 11:38:35,247 copy_files.py:295 -      process_configs() DEBUG] Destination movie directory: [/mnt/raid1/public/plex/Movies]
+[2020-02-01 11:38:35,247 copy_files.py:305 -      process_configs() DEBUG] IFTTT notification url not provided.
+[2020-02-01 11:38:35,247 copy_files.py:310 -      process_configs() DEBUG] TMDB API key not provided.
+[2020-02-01 11:38:35,248 copy_files.py:76 -             __init__() DEBUG] File arg: [None]
+[2020-02-01 11:38:35,249 copy_files.py:77 -             __init__() DEBUG] Log File arg: [None]
+[2020-02-01 11:38:35,249 copy_files.py:78 -             __init__() DEBUG] Config File arg: [./CopyMedia.json]
+[2020-02-01 11:38:35,249 copy_files.py:79 -             __init__() DEBUG] IFTTT URL: [None]
+[2020-02-01 11:38:35,250 copy_files.py:80 -             __init__() DEBUG] Scan directory: [/mnt/raid1/private/downloads]
+[2020-02-01 11:38:35,250 copy_files.py:81 -             __init__() DEBUG] Series directory: [/mnt/raid1/public/plex/Anime]
+[2020-02-01 11:38:35,250 copy_files.py:82 -             __init__() DEBUG] Movie directory: [/mnt/raid1/public/plex/Movies]
+[2020-02-01 11:38:35,250 copy_files.py:83 -             __init__() DEBUG] TMDB key: [None]
+[2020-02-01 11:38:35,272 copy_files.py:415 -          match_files() DEBUG] Adding [testFile1] to list of non-matches
+[2020-02-01 11:38:35,272 copy_files.py:415 -          match_files() DEBUG] Adding [testFile2] to list of non-matches
+[2020-02-01 11:38:35,272 copy_files.py:411 -          match_files() INFO] File [[HorribleSubs] GATE - 24 [1080p]] matches series [GATE]
+[2020-02-01 11:38:35,273 copy_files.py:411 -          match_files() INFO] File [[HorribleSubs] Kimetsu no Yaiba - 26 [1080p]] matches series [Kimetsu no Yaiba]
+[2020-02-01 11:38:35,273 ifttt.py:18 -    send_notification() DEBUG] Sending notification with name string: [test series] to IFTTT
+[2020-02-01 11:38:35,276 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): maker.ifttt.com:443
+[2020-02-01 11:38:35,618 connectionpool.py:428 -        _make_request() DEBUG] https://maker.ifttt.com:443 "POST /trigger/PLEX_NEW/with/key/b5uBgrAJPPUWSIMiv_L1O7 HTTP/1.1" 200 48
+[2020-02-01 11:38:35,623 ifttt.py:22 -    send_notification() DEBUG] IFTTT POST status: [200] with reason: [OK]
+[2020-02-01 11:38:35,624 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:35,624 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [.test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:35,631 copy_files.py:329 -      validate_series() ERROR] [{'regex': '(.*)(Test Series)( - )(\\d{1,})(.*)'}] has no name defined.
+[2020-02-01 11:38:35,631 copy_files.py:335 -      validate_series() ERROR] [Test Series] has no regex pattern defined.
+[2020-02-01 11:38:45,457 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [22 Jump Street]
+[2020-02-01 11:38:45,457 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Batman vs Superman Dawn of Justice]
+[2020-02-01 11:38:45,458 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Brave]
+[2020-02-01 11:38:45,458 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [captain america]
+[2020-02-01 11:38:45,458 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Planet Earth II]
+[2020-02-01 11:38:45,459 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [The Marvelous Mrs Maisel]
+[2020-02-01 11:38:45,459 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [sherlock]
+[2020-02-01 11:38:45,459 copy_files.py:162 -    find_largest_file() DEBUG] Looking for largest file in directory: [.]
+[2020-02-01 11:38:45,460 copy_files.py:164 -    find_largest_file() DEBUG] Found file list: [['.\\.git', '.\\.gitattributes', '.\\.gitignore', '.\\.idea', '.\\copy-files.log', '.\\CopyMedia.json', '.\\copy_files.py', '.\\exceptions.py', '.\\ifttt.py', '.\\logger.py', '.\\README.md', '.\\test_copy_files.py', '.\\test_resources', '.\\tmdb.py', '.\\__pycache__']]
+[2020-02-01 11:38:45,461 copy_files.py:167 -    find_largest_file() DEBUG] Largest file: [.\copy_files.py]
+[2020-02-01 11:38:45,461 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [22 Jump Street 2014 1080p BluRay x265 HEVC 10bit AAC 5.1-LordVako]
+[2020-02-01 11:38:45,461 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [22 Jump Street]
+[2020-02-01 11:38:45,461 tmdb.py:62 -             is_movie() DEBUG] Sending query to [api.themoviedb.org] TMDB with URL: [https://api.themoviedb.org/3/search/movie?api_key=API_KEY&include_adult=false&query=22%20Jump%20Street&year=2014]
+[2020-02-01 11:38:45,465 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): api.themoviedb.org:443
+[2020-02-01 11:38:45,558 connectionpool.py:428 -        _make_request() DEBUG] https://api.themoviedb.org:443 "GET /3/search/movie?api_key=5a78cbca96898a15634f21bd3e8f92ef&include_adult=false&query=22%20Jump%20Street&year=2014 HTTP/1.1" 200 None
+[2020-02-01 11:38:45,563 tmdb.py:68 -             is_movie() DEBUG] TMDB GET status: [200] with reason: [OK]
+[2020-02-01 11:38:45,563 tmdb.py:75 -             is_movie() DEBUG] Number of results found: [1]
+[2020-02-01 11:38:45,563 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [Batman.vs.Superman.Dawn.of.Justice.2016]
+[2020-02-01 11:38:45,564 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Batman vs Superman Dawn of Justice]
+[2020-02-01 11:38:45,565 tmdb.py:62 -             is_movie() DEBUG] Sending query to [api.themoviedb.org] TMDB with URL: [https://api.themoviedb.org/3/search/movie?api_key=API_KEY&include_adult=false&query=Batman%20vs%20Superman%20Dawn%20of%20Justice&year=2016]
+[2020-02-01 11:38:45,569 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): api.themoviedb.org:443
+[2020-02-01 11:38:45,673 connectionpool.py:428 -        _make_request() DEBUG] https://api.themoviedb.org:443 "GET /3/search/movie?api_key=5a78cbca96898a15634f21bd3e8f92ef&include_adult=false&query=Batman%20vs%20Superman%20Dawn%20of%20Justice&year=2016 HTTP/1.1" 200 None
+[2020-02-01 11:38:45,678 tmdb.py:68 -             is_movie() DEBUG] TMDB GET status: [200] with reason: [OK]
+[2020-02-01 11:38:45,678 tmdb.py:75 -             is_movie() DEBUG] Number of results found: [1]
+[2020-02-01 11:38:45,678 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [Brave.2012.1080p.BluRay.x264.AC3-HDChina]
+[2020-02-01 11:38:45,679 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Brave]
+[2020-02-01 11:38:45,680 tmdb.py:62 -             is_movie() DEBUG] Sending query to [api.themoviedb.org] TMDB with URL: [https://api.themoviedb.org/3/search/movie?api_key=API_KEY&include_adult=false&query=Brave&year=2012]
+[2020-02-01 11:38:45,685 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): api.themoviedb.org:443
+[2020-02-01 11:38:45,792 connectionpool.py:428 -        _make_request() DEBUG] https://api.themoviedb.org:443 "GET /3/search/movie?api_key=5a78cbca96898a15634f21bd3e8f92ef&include_adult=false&query=Brave&year=2012 HTTP/1.1" 200 None
+[2020-02-01 11:38:45,796 tmdb.py:68 -             is_movie() DEBUG] TMDB GET status: [200] with reason: [OK]
+[2020-02-01 11:38:45,797 tmdb.py:75 -             is_movie() DEBUG] Number of results found: [6]
+[2020-02-01 11:38:45,798 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [captain_america-720p]
+[2020-02-01 11:38:45,798 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [captain america]
+[2020-02-01 11:38:45,799 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:45,799 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [Planet.Earth.II.S01E06]
+[2020-02-01 11:38:45,800 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [Planet Earth II]
+[2020-02-01 11:38:45,800 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:45,800 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [The.Marvelous.Mrs.Maisel.S02E02.Mid-way.to.Mid-town.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb]
+[2020-02-01 11:38:45,801 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [The Marvelous Mrs Maisel]
+[2020-02-01 11:38:45,801 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:45,802 tmdb.py:43 -             is_movie() DEBUG] Performing query to the movie DB with media name [sherlock.3x02.the_sign_of_three.720p_hdtv_x264-fov]
+[2020-02-01 11:38:45,803 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [sherlock]
+[2020-02-01 11:38:45,803 tmdb.py:53 -             is_movie() DEBUG] No year found in file name. Skipping search.
+[2020-02-01 11:38:45,804 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:45,804 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [./CopyMedia.json]
+[2020-02-01 11:38:45,805 copy_files.py:269 -      process_configs() INFO] File not provided, but found directory to scan: [/mnt/raid1/private/downloads]
+[2020-02-01 11:38:45,806 copy_files.py:287 -      process_configs() DEBUG] Destination series directory: [/mnt/raid1/public/plex/Anime]
+[2020-02-01 11:38:45,806 copy_files.py:295 -      process_configs() DEBUG] Destination movie directory: [/mnt/raid1/public/plex/Movies]
+[2020-02-01 11:38:45,806 copy_files.py:305 -      process_configs() DEBUG] IFTTT notification url not provided.
+[2020-02-01 11:38:45,806 copy_files.py:310 -      process_configs() DEBUG] TMDB API key not provided.
+[2020-02-01 11:38:45,807 copy_files.py:76 -             __init__() DEBUG] File arg: [None]
+[2020-02-01 11:38:45,807 copy_files.py:77 -             __init__() DEBUG] Log File arg: [None]
+[2020-02-01 11:38:45,807 copy_files.py:78 -             __init__() DEBUG] Config File arg: [./CopyMedia.json]
+[2020-02-01 11:38:45,808 copy_files.py:79 -             __init__() DEBUG] IFTTT URL: [None]
+[2020-02-01 11:38:45,808 copy_files.py:80 -             __init__() DEBUG] Scan directory: [/mnt/raid1/private/downloads]
+[2020-02-01 11:38:45,808 copy_files.py:81 -             __init__() DEBUG] Series directory: [/mnt/raid1/public/plex/Anime]
+[2020-02-01 11:38:45,808 copy_files.py:82 -             __init__() DEBUG] Movie directory: [/mnt/raid1/public/plex/Movies]
+[2020-02-01 11:38:45,808 copy_files.py:83 -             __init__() DEBUG] TMDB key: [None]
+[2020-02-01 11:38:45,829 copy_files.py:415 -          match_files() DEBUG] Adding [testFile1] to list of non-matches
+[2020-02-01 11:38:45,830 copy_files.py:415 -          match_files() DEBUG] Adding [testFile2] to list of non-matches
+[2020-02-01 11:38:45,830 copy_files.py:411 -          match_files() INFO] File [[HorribleSubs] GATE - 24 [1080p]] matches series [GATE]
+[2020-02-01 11:38:45,830 copy_files.py:411 -          match_files() INFO] File [[HorribleSubs] Kimetsu no Yaiba - 26 [1080p]] matches series [Kimetsu no Yaiba]
+[2020-02-01 11:38:45,831 ifttt.py:18 -    send_notification() DEBUG] Sending notification with name string: [test series] to IFTTT
+[2020-02-01 11:38:45,833 connectionpool.py:955 -            _new_conn() DEBUG] Starting new HTTPS connection (1): maker.ifttt.com:443
+[2020-02-01 11:38:46,166 connectionpool.py:428 -        _make_request() DEBUG] https://maker.ifttt.com:443 "POST /trigger/PLEX_NEW/with/key/b5uBgrAJPPUWSIMiv_L1O7 HTTP/1.1" 200 48
+[2020-02-01 11:38:46,170 ifttt.py:22 -    send_notification() DEBUG] IFTTT POST status: [200] with reason: [OK]
+[2020-02-01 11:38:46,171 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:46,172 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [./test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:46,172 copy_files.py:269 -      process_configs() INFO] File not provided, but found directory to scan: [None]
+[2020-02-01 11:38:46,173 copy_files.py:272 -      process_configs() ERROR] Must either specify a file or a directory to scan.
+[2020-02-01 11:38:46,173 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:46,173 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [./test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:46,174 copy_files.py:269 -      process_configs() INFO] File not provided, but found directory to scan: [/home/test/blah]
+[2020-02-01 11:38:46,174 copy_files.py:289 -      process_configs() ERROR] Destination series directory must be specified, either on the command line or in the configuration file.
+[2020-02-01 11:38:46,174 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:46,175 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [./test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:46,175 copy_files.py:269 -      process_configs() INFO] File not provided, but found directory to scan: [None]
+[2020-02-01 11:38:46,176 copy_files.py:272 -      process_configs() ERROR] Must either specify a file or a directory to scan.
+[2020-02-01 11:38:46,176 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:46,176 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [./test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:46,177 copy_files.py:263 -      process_configs() INFO] File provided for processing: [/home/test/dir/file]
+[2020-02-01 11:38:46,177 copy_files.py:287 -      process_configs() DEBUG] Destination series directory: [/remote/test/series]
+[2020-02-01 11:38:46,177 copy_files.py:295 -      process_configs() DEBUG] Destination movie directory: [/remote/test/movies]
+[2020-02-01 11:38:46,177 copy_files.py:305 -      process_configs() DEBUG] IFTTT notification url not provided.
+[2020-02-01 11:38:46,178 copy_files.py:310 -      process_configs() DEBUG] TMDB API key not provided.
+[2020-02-01 11:38:46,178 copy_files.py:76 -             __init__() DEBUG] File arg: [/home/test/dir/file]
+[2020-02-01 11:38:46,178 copy_files.py:77 -             __init__() DEBUG] Log File arg: [None]
+[2020-02-01 11:38:46,178 copy_files.py:78 -             __init__() DEBUG] Config File arg: [./test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:46,179 copy_files.py:79 -             __init__() DEBUG] IFTTT URL: [None]
+[2020-02-01 11:38:46,179 copy_files.py:80 -             __init__() DEBUG] Scan directory: [None]
+[2020-02-01 11:38:46,179 copy_files.py:81 -             __init__() DEBUG] Series directory: [/remote/test/series]
+[2020-02-01 11:38:46,179 copy_files.py:82 -             __init__() DEBUG] Movie directory: [/remote/test/movies]
+[2020-02-01 11:38:46,179 copy_files.py:83 -             __init__() DEBUG] TMDB key: [None]
+[2020-02-01 11:38:46,180 copy_files.py:68 -             __init__() DEBUG] Initializing...
+[2020-02-01 11:38:46,180 copy_files.py:242 -  process_config_file() DEBUG] Using configuration file: [./test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:46,181 copy_files.py:269 -      process_configs() INFO] File not provided, but found directory to scan: [/home/test/blah]
+[2020-02-01 11:38:46,181 copy_files.py:287 -      process_configs() DEBUG] Destination series directory: [/remote/test/series]
+[2020-02-01 11:38:46,181 copy_files.py:295 -      process_configs() DEBUG] Destination movie directory: [/remote/test/movies]
+[2020-02-01 11:38:46,181 copy_files.py:305 -      process_configs() DEBUG] IFTTT notification url not provided.
+[2020-02-01 11:38:46,181 copy_files.py:310 -      process_configs() DEBUG] TMDB API key not provided.
+[2020-02-01 11:38:46,182 copy_files.py:76 -             __init__() DEBUG] File arg: [None]
+[2020-02-01 11:38:46,182 copy_files.py:77 -             __init__() DEBUG] Log File arg: [None]
+[2020-02-01 11:38:46,182 copy_files.py:78 -             __init__() DEBUG] Config File arg: [./test_resources/test_CopyMedia.json]
+[2020-02-01 11:38:46,182 copy_files.py:79 -             __init__() DEBUG] IFTTT URL: [None]
+[2020-02-01 11:38:46,183 copy_files.py:80 -             __init__() DEBUG] Scan directory: [/home/test/blah]
+[2020-02-01 11:38:46,183 copy_files.py:81 -             __init__() DEBUG] Series directory: [/remote/test/series]
+[2020-02-01 11:38:46,183 copy_files.py:82 -             __init__() DEBUG] Movie directory: [/remote/test/movies]
+[2020-02-01 11:38:46,183 copy_files.py:83 -             __init__() DEBUG] TMDB key: [None]
+[2020-02-01 11:38:46,184 copy_files.py:329 -      validate_series() ERROR] [{'regex': '(.*)(Test Series)( - )(\\d{1,})(.*)'}] has no name defined.
+[2020-02-01 11:38:46,185 copy_files.py:335 -      validate_series() ERROR] [Test Series] has no regex pattern defined.
+[2020-02-01 11:40:37,671 copy_files.py:174 -         rename_movie() DEBUG] Parsing movie name into meta-data: [./test_resources/Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG.mp4]
+[2020-02-01 11:40:37,675 tmdb.py:25 -           clean_name() DEBUG] Parsed title: [/test resources/Toy Story 4]
+[2020-02-01 11:40:37,675 copy_files.py:179 -         rename_movie() DEBUG] Parsed meta-data: [{'year': 2019, 'resolution': '1080p', 'quality': 'BluRay', 'codec': 'H264', 'audio': 'AAC', 'group': 'RARBG', 'title': '/test resources/Toy Story 4'}]

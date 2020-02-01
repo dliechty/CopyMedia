@@ -5,7 +5,7 @@ import json
 import logging
 import re
 import shutil
-from os import listdir, path, makedirs
+from os import listdir, path, makedirs, rename
 from os.path import isdir, isfile, join, split
 
 import ifttt
@@ -113,13 +113,123 @@ class CopyMedia:
         logging.debug('Processing complete.')
 
     def process_dirs(self, dirs):
-        """Process all directories provided either via a command line argument or by scanning a parent directory."""
+        """Process all directories provided.
 
-        logging.warning('Directory processing not implemented yet.')
-        # TODO: add directory processing.
+        Directories are treated as potential movies only. First, a query is performed against tmdb to determine
+        if there is a matching movie. If so, then process the directory as a movie."""
+
+        logging.debug('Checking directories to see if they are movies...')
+        movie_dirs = [d for d in dirs if tmdb.is_movie(d, self.tmdb)]
+        logging.debug('Found movies: [%s]', movie_dirs)
+
+        if self.moviedir is not None:
+            for movie_dir in movie_dirs:
+                self.process_movie_dir(movie_dir)
+
+    def process_movie_dir(self, dir):
+        """Process a given movie directory.
+        
+        The following activities are performed:
+        1) Identify the actual movie file. This is the single largest file in the directory.
+        2) Rename the file and the parent folder to be in the form: <title>.<year>.<extension>
+        3) Look for english sub-title files with the srt extension. If found, ensure file is in the same directory as
+        the movie file and rename to be in the form: <title>.<year>.en.srt
+        4) Remove all other files and sub-directories
+        5) Use ffmpeg to strip all meta-data from the movie file
+        6) Move the directory to the configured Movie directory."""
+
+        if self.moviedir is not None:
+            movie = self.find_largest_file(dir)
+
+            try:
+                base_name, movie, dir = self.rename_movie(movie)
+            except RuntimeError:
+                logging.exception('Could not re-name movie file.')
+                return
+
+            subtitle_files = self.process_subtitles(dir, base_name)
+
+            self.clean_dir(dir, movie, subtitle_files)
+
+            self.strip_metadata(movie)
+
+            self.move_movies([dir], self.moviedir, self.scandir)
+
+    @staticmethod
+    def find_largest_file(dir):
+        """Identify the actual movie file. This is the single largest file in the directory."""
+
+        logging.debug('Looking for largest file in directory: [%s]', dir)
+        full_names = [path.join(dir, fname) for fname in listdir(dir)]
+        logging.debug('Found file list: [%s]', full_names)
+        largest = sorted((path.getsize(s), s) for s in full_names)[-1][1]
+
+        logging.debug('Largest file: [%s]', largest)
+        return largest
+
+    @staticmethod
+    def rename_movie(movie):
+        """Rename the movie file and the parent directory to be in the form: <title>.<year>.<extension>"""
+
+        movie_name = path.basename(movie)
+        dir = path.dirname(movie)
+
+        logging.debug('Parsing movie name into meta-data: [%s]', movie_name)
+
+        split_name = path.splitext(movie_name)
+
+        meta = tmdb.clean_name(split_name[0])
+        logging.debug('Parsed meta-data: [%s]', meta)
+        ext = split_name[1]
+        title = meta['title']
+        year = str(meta['year'])
+
+        if title and year:
+            new_base_name = title + '.' + year
+            new_base_name = new_base_name.replace(" ", "_")
+            logging.debug('Base name: [%s]', new_base_name)
+        else:
+            raise RuntimeError('One of movie title or year was not found.')
+
+        parent = path.dirname(dir)
+        new_dir_name = join(parent, new_base_name)
+        logging.debug('Renaming directory [%s] to [%s]', dir, new_dir_name)
+        rename(dir, join(parent, new_base_name))
+
+        current_path = join(new_dir_name, movie_name)
+        new_movie_name = join(new_dir_name, new_base_name + ext)
+        logging.debug('Renaming file [%s] to [%s]', current_path, new_movie_name)
+        rename(current_path, new_movie_name)
+
+        return new_base_name, new_movie_name, new_dir_name
+
+    @staticmethod
+    def process_subtitles(dir, base_name):
+        """Look for usable english sub-title files.
+
+        If english subtitles found with the srt extension, ensure file is in the same directory as
+        the movie file and rename to be in the form: <title>.<year>.en.srt"""
+
+        logging.warning('process_subtitles not implemented yet.')
+        return []
+
+    @staticmethod
+    def clean_dir(dir, movie, subtitle_files):
+        """Remove all other files and sub-directories except the movie file and any sub-titles."""
+        
+        logging.warning('clean_dir not implemented yet.')
+
+    @staticmethod
+    def strip_metadata(movie):
+        """Use ffmpeg to strip all meta-data from the movie file"""
+
+        logging.warning('strip_metadata not implemented yet.')
 
     def process_files(self, files):
-        """Process all files provided either via a command line argument or by scanning a directory."""
+        """Process all individual files provided.
+
+        Files are generally assumed to be tv show episodes although if no matching TV shows are found then
+        a check will be performed to determine if the file is a stand-alone movie."""
 
         # Find matching files
         matches, nonmatches = self.match_files(files, self.series)

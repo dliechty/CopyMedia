@@ -9,7 +9,8 @@ import tmdb
 from copy_files import CopyMedia
 from exceptions import ConfigurationError
 
-TEST_CONFIG = r'./test_CopyMedia.json'
+TEST_CONFIG = r'./test_resources/test_CopyMedia.json'
+TEST_RESOURCES = r'./test_resources'
 IFTTT_CONTEXT_VAR = 'IFTTT_CONTEXT'
 TMDB_CONTEXT_VAR = 'TMDB_CONTEXT'
 
@@ -28,6 +29,25 @@ class TestCopyMedia(unittest.TestCase):
         r = ifttt.send_notification([('notafile', {'name': 'test series'})], ifttt.IFTTT_URL_BASE + ifttt_context)
 
         self.assertEqual(r.status_code, 200)
+
+    def test_find_largest_file(self):
+        largest = CopyMedia.find_largest_file(TEST_RESOURCES)
+        self.assertEqual(os.path.basename(largest), 'big_file.mp4')
+
+    def test_rename_movie(self):
+        starting_dir_name = 'Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG'
+        new_dir_name = 'Toy_Story_4.2019'
+        starting_file_name = 'Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG.mp4'
+        new_file_name = 'Toy_Story_4.2019.mp4'
+
+        starting_movie_dir = os.path.join(TEST_RESOURCES, starting_dir_name)
+        new_movie_dir = os.path.join(TEST_RESOURCES, new_dir_name)
+
+        CopyMedia.rename_movie(os.path.join(starting_movie_dir, starting_file_name))
+        self.assertTrue(os.path.isfile(os.path.join(new_movie_dir, new_file_name)))
+
+        os.rename(new_movie_dir, starting_movie_dir)
+        os.rename(os.path.join(starting_movie_dir, new_file_name), os.path.join(starting_movie_dir, starting_file_name))
 
     def test_is_movie(self):
 
