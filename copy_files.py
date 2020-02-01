@@ -6,7 +6,7 @@ import logging
 import re
 import shutil
 import subprocess
-from os import listdir, path, makedirs, rename
+from os import listdir, path, makedirs, rename, remove
 from os.path import isdir, isfile, join, split
 
 import ifttt
@@ -232,7 +232,12 @@ class CopyMedia:
         split_name = path.splitext(movie)
         stripped_movie = split_name[0] + '.out' + split_name[1]
         subprocess.run(['ffmpeg', '-i', movie, '-map_metadata', '-1', '-c:v', 'copy', '-c:a', 'copy', stripped_movie])
-        logging.debug('Stripping meta-data complete. Resulting file: [%s]', stripped_movie)
+
+        # Remove original and rename the new one to replace the old one.
+        remove(movie)
+        rename(stripped_movie, movie)
+        
+        logging.debug('Stripping meta-data complete.')
 
     def process_files(self, files):
         """Process all individual files provided.
