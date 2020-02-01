@@ -5,6 +5,7 @@ import json
 import logging
 import re
 import shutil
+import subprocess
 from os import listdir, path, makedirs, rename
 from os.path import isdir, isfile, join, split
 
@@ -155,7 +156,7 @@ class CopyMedia:
 
             self.strip_metadata(movie)
 
-            self.move_movies([dir], self.moviedir, self.scandir)
+            # self.move_movies([dir], self.moviedir, self.scandir)
 
     @staticmethod
     def find_largest_file(dir):
@@ -227,8 +228,10 @@ class CopyMedia:
     def strip_metadata(movie):
         """Use ffmpeg to strip all meta-data from the movie file"""
 
-        # TODO
-        logging.warning('strip_metadata not implemented yet.')
+        logging.debug('Stripping meta-data from movie: [%s]', movie)
+        stripped_movie = movie + '.stripped'
+        subprocess.run(['ffmpeg', '-i', movie, '-map_metadata', '-1', '-c:v', 'copy', '-c:a', 'copy', stripped_movie])
+        logging.debug('Stripping meta-data complete. Resulting file: [%s]', stripped_movie)
 
     def process_files(self, files):
         """Process all individual files provided.
