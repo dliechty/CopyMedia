@@ -229,7 +229,8 @@ class CopyMedia:
         """Use ffmpeg to strip all meta-data from the movie file"""
 
         logging.debug('Stripping meta-data from movie: [%s]', movie)
-        stripped_movie = movie + '.stripped'
+        split_name = path.splitext(movie)
+        stripped_movie = split_name[0] + '.out' + split_name[1]
         subprocess.run(['ffmpeg', '-i', movie, '-map_metadata', '-1', '-c:v', 'copy', '-c:a', 'copy', stripped_movie])
         logging.debug('Stripping meta-data complete. Resulting file: [%s]', stripped_movie)
 
