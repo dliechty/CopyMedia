@@ -156,7 +156,7 @@ class CopyMedia:
 
             self.strip_metadata(movie)
 
-            # self.move_movies([dir], self.moviedir, self.scandir)
+            self.move_movies([dir], self.moviedir, self.scandir)
 
     @staticmethod
     def find_largest_file(dir):
@@ -236,7 +236,7 @@ class CopyMedia:
         # Remove original and rename the new one to replace the old one.
         remove(movie)
         rename(stripped_movie, movie)
-        
+
         logging.debug('Stripping meta-data complete.')
 
     def process_files(self, files):
