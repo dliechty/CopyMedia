@@ -93,8 +93,12 @@ class CopyMedia:
         files = []
         dirs = []
         if self.file:
-            self.scandir, file_name = split(self.file)
-            files.append(file_name)
+            self.scandir, name = split(self.file)
+            # the file specified might be a directory, especially if it is a movie. Check and differentiate.
+            if isfile(self.file):
+                files.append(name)
+            elif isdir(self.file):
+                dirs.append(name)
         else:
             logging.debug('Scanning [%s] for files to process.', self.scandir)
             files = [f for f in listdir(self.scandir) if isfile(join(self.scandir, f))]
