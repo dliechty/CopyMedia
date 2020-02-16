@@ -376,7 +376,7 @@ class CopyMedia:
     def move_movies(movie_files, move_dir, start_dir):
         """Move movie files to the specified destination directory"""
 
-        logging.debug(movie_files)
+        logging.debug('Moving movie files: [%s]', movie_files)
         for movie in movie_files:
 
             # Move file to destination folder, renaming on the way
