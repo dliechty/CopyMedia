@@ -26,6 +26,11 @@
             "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
         },
         {
+            "name": "The 8th Son Are you kidding me",
+            "regex": "(.*)(Hachi-nan tte, Sore wa Nai deshou!)( - )(\\d{1,})(.*)",
+            "replace": "\\1The 8th Son Are you kidding me\\3\\4\\5"
+        },
+        {
             "name": "Re ZERO Starting Life in Another World - Director's Cut",
             "regex": "(.*)(Re Zero kara Hajimeru Isekai Seikatsu - Director's Cut)( - )(\\d{1,})(.*)",
             "replace": "\\1Re ZERO Starting Life in Another World - Director's Cut\\3S01E\\4\\5"
