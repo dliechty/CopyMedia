@@ -36,6 +36,11 @@
             "replace": "\\1Re ZERO Starting Life in Another World - Director's Cut\\3S01E\\4\\5"
         },
         {
+            "name": "I Don’t Want to Get Hurt, so I’ll Max Out My Defense",
+            "regex": "(.*)(Itai no wa Iya nano de Bougyoryoku ni Kyokufuri Shitai to Omoimasu)( - )(\\d{1,})(.*)",
+            "replace": "\\1I Don’t Want to Get Hurt, so I’ll Max Out My Defense\\3S01E\\4\\5"
+        },
+        {
             "name": "Cautious Hero - The Hero Is Overpowered but Overly Cautious",
             "regex": "(.*)(Shinchou Yuusha)( - )(\\d{1,})(.*)",
             "replace": "\\1Cautious Hero - The Hero Is Overpowered but Overly Cautious\\3\\4\\5"
