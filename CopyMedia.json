@@ -21,6 +21,11 @@
             "regex": "(.*)(Kimetsu no Yaiba)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "The Misfit of Demon King Academy",
+            "regex": "(.*)(Maou Gakuin no Futekigousha)( - )(\\d{1,})(.*)",
+            "replace": "\\1The Misfit of Demon King Academy\\3\\4\\5"
+        },
+        {
             "name": "That Time I Got Reincarnated as a Slime",
             "regex": "(.*)(Tensei Shitara Slime Datta Ken)( - )(\\d{1,})(.*)",
             "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
