@@ -6,7 +6,7 @@ import logging
 import re
 import shutil
 import subprocess
-from os import listdir, path, makedirs, rename, remove
+from os import listdir, path, makedirs, rename, remove, walk
 from os.path import isdir, isfile, join, split
 
 import ifttt
@@ -230,7 +230,24 @@ class CopyMedia:
 
         logging.debug('Process subtitles for movie with original name [%s] and new base name [%s]', original_name,
                       base_name)
+
+        srt_files = CopyMedia.find_srt_files(dir)
+
+        logging.debug('All srt files found in file hierarchy: [%s]', srt_files)
+
         return []
+
+    @staticmethod
+    def find_srt_files(dir):
+        """Find all files with extension srt in a folder hierarchy"""
+
+        s_files = []
+        for root, dirs, files in walk(dir):
+            for file in files:
+                if file.endswith(".srt"):
+                    s_files.append(join(root, file))
+
+        return s_files
 
     @staticmethod
     def clean_dir(dir, movie, subtitle_files):
