@@ -52,6 +52,14 @@ class TestCopyMedia(unittest.TestCase):
     def test_process_subtitles(self):
 
         starting_dir_name = 'Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG'
+        new_dir_name = 'Toy_Story_4.2019'
+        starting_file_name = 'Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG.mp4'
+        new_file_name = 'Toy_Story_4.2019.mp4'
+
+        starting_movie_dir = os.path.join(TEST_RESOURCES, starting_dir_name)
+        new_movie_dir = os.path.join(TEST_RESOURCES, new_dir_name)
+
+        base_name = CopyMedia.find_base_name(os.path.join(starting_movie_dir, starting_file_name))
 
     def test_is_movie(self):
 

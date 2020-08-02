@@ -178,7 +178,11 @@ class CopyMedia:
     def rename_movie(movie):
         """Rename the movie file and the parent directory to be in the form: <title>.<year>.<extension>"""
 
-        new_base_name, movie_name, ext = CopyMedia.find_base_name(movie)
+        new_base_name = CopyMedia.find_base_name(movie)
+
+        file_name = path.basename(movie)
+        split_name = path.splitext(movie)
+        ext = split_name[1]
 
         dir = path.dirname(movie)
         parent = path.dirname(dir)
@@ -186,7 +190,7 @@ class CopyMedia:
         logging.debug('Renaming directory [%s] to [%s]', dir, new_dir_name)
         rename(dir, join(parent, new_base_name))
 
-        current_path = join(new_dir_name, movie_name)
+        current_path = join(new_dir_name, file_name)
         new_movie_name = join(new_dir_name, new_base_name + ext)
         logging.debug('Renaming file [%s] to [%s]', current_path, new_movie_name)
         rename(current_path, new_movie_name)
@@ -197,16 +201,14 @@ class CopyMedia:
     def find_base_name(movie):
         """Parse new base movie name from the original movie name"""
 
-        movie_name = path.basename(movie)
+        file_name = path.basename(movie)
 
-        logging.debug('Parsing movie name into meta-data: [%s]', movie_name)
+        logging.debug('Parsing movie file name into meta-data: [%s]', file_name)
 
-        split_name = path.splitext(movie_name)
-
-        meta = tmdb.clean_name(split_name[0])
+        name_no_ext = path.splitext(file_name)[0]
+        logging.debug('File name without extension: [%s]', name_no_ext)
+        meta = tmdb.clean_name(name_no_ext)
         logging.debug('Parsed meta-data: [%s]', meta)
-        ext = split_name[1]
-        logging.debug('Movie extension: [%s]', ext)
         title = meta['title']
         year = str(meta['year'])
 
@@ -217,7 +219,7 @@ class CopyMedia:
         else:
             raise RuntimeError('One of movie title or year was not found.')
 
-        return new_base_name, movie_name, ext
+        return new_base_name
 
     @staticmethod
     def process_subtitles(dir, base_name, original_name):
