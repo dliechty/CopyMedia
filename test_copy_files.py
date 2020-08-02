@@ -49,6 +49,10 @@ class TestCopyMedia(unittest.TestCase):
         os.rename(new_movie_dir, starting_movie_dir)
         os.rename(os.path.join(starting_movie_dir, new_file_name), os.path.join(starting_movie_dir, starting_file_name))
 
+    def test_process_subtitles(self):
+
+        starting_dir_name = 'Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG'
+
     def test_is_movie(self):
 
         tmdb_key = os.getenv(TMDB_CONTEXT_VAR)

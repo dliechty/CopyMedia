@@ -149,18 +149,18 @@ class CopyMedia:
             movie = self.find_largest_file(dir)
 
             try:
-                base_name, movie, dir = self.rename_movie(movie)
+                base_name, rename_movie, dir = CopyMedia.rename_movie(movie)
             except RuntimeError:
                 logging.exception('Could not re-name movie file.')
                 return
 
-            subtitle_files = self.process_subtitles(dir, base_name)
+            subtitle_files = CopyMedia.process_subtitles(dir, base_name, movie)
 
-            self.clean_dir(dir, movie, subtitle_files)
+            CopyMedia.clean_dir(dir, rename_movie, subtitle_files)
 
-            self.strip_metadata(movie)
+            CopyMedia.strip_metadata(rename_movie)
 
-            self.move_movies([dir], self.moviedir, self.scandir)
+            CopyMedia.move_movies([dir], self.moviedir, self.scandir)
 
     @staticmethod
     def find_largest_file(dir):
@@ -178,26 +178,9 @@ class CopyMedia:
     def rename_movie(movie):
         """Rename the movie file and the parent directory to be in the form: <title>.<year>.<extension>"""
 
-        movie_name = path.basename(movie)
+        new_base_name, movie_name, ext = CopyMedia.find_base_name(movie)
+
         dir = path.dirname(movie)
-
-        logging.debug('Parsing movie name into meta-data: [%s]', movie_name)
-
-        split_name = path.splitext(movie_name)
-
-        meta = tmdb.clean_name(split_name[0])
-        logging.debug('Parsed meta-data: [%s]', meta)
-        ext = split_name[1]
-        title = meta['title']
-        year = str(meta['year'])
-
-        if title and year:
-            new_base_name = title + '.' + year
-            new_base_name = new_base_name.replace(" ", "_")
-            logging.debug('Base name: [%s]', new_base_name)
-        else:
-            raise RuntimeError('One of movie title or year was not found.')
-
         parent = path.dirname(dir)
         new_dir_name = join(parent, new_base_name)
         logging.debug('Renaming directory [%s] to [%s]', dir, new_dir_name)
@@ -211,12 +194,40 @@ class CopyMedia:
         return new_base_name, new_movie_name, new_dir_name
 
     @staticmethod
-    def process_subtitles(dir, base_name):
+    def find_base_name(movie):
+        """Parse new base movie name from the original movie name"""
+
+        movie_name = path.basename(movie)
+
+        logging.debug('Parsing movie name into meta-data: [%s]', movie_name)
+
+        split_name = path.splitext(movie_name)
+
+        meta = tmdb.clean_name(split_name[0])
+        logging.debug('Parsed meta-data: [%s]', meta)
+        ext = split_name[1]
+        logging.debug('Movie extension: [%s]', ext)
+        title = meta['title']
+        year = str(meta['year'])
+
+        if title and year:
+            new_base_name = title + '.' + year
+            new_base_name = new_base_name.replace(" ", "_")
+            logging.debug('Base name: [%s]', new_base_name)
+        else:
+            raise RuntimeError('One of movie title or year was not found.')
+
+        return new_base_name, movie_name, ext
+
+    @staticmethod
+    def process_subtitles(dir, base_name, original_name):
         """Look for usable english sub-title files.
 
         If english subtitles found with the srt extension, ensure file is in the same directory as
         the movie file and rename to be in the form: <title>.<year>.en.srt"""
 
+        logging.debug('Process subtitles for movie with original name [%s] and new base name [%s]', original_name,
+                      base_name)
         return []
 
     @staticmethod
