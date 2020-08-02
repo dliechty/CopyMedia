@@ -217,8 +217,6 @@ class CopyMedia:
         If english subtitles found with the srt extension, ensure file is in the same directory as
         the movie file and rename to be in the form: <title>.<year>.en.srt"""
 
-        # TODO
-        logging.warning('process_subtitles not implemented yet.')
         return []
 
     @staticmethod
