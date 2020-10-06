@@ -13,10 +13,6 @@
             "regex": "(.*)(World Trigger)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "Jujutsu Kaisen",
-            "regex": "(.*)(Jujutsu Kaisen)( - )(\\d{1,})(.*)"
-        },
-        {
             "name": "Goblin Slayer",
             "regex": "(.*)(Goblin Slayer)( - )(\\d{1,})(.*)"
         },
