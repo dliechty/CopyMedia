@@ -31,8 +31,8 @@
         },
         {
             "name": "That Time I Got Reincarnated as a Slime",
-            "regex": "(.*)(Tensei Shitara Slime Datta Ken)( - )(\\d{1,})(.*)",
-            "replace": "\\1That Time I Got Reincarnated as a Slime\\3\\4\\5"
+            "regex": "(.*)(Tensei Shitara Slime Datta Ken 2nd Season)( - )(\\d{1,})(.*)",
+            "replace": "\\1That Time I Got Reincarnated as a Slime\\3S02E\\4\\5"
         },
         {
             "name": "The 8th Son Are you kidding me",
