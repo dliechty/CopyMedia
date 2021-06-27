@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-
+import logging
 import os
+import pathlib
 import unittest
 
 import ifttt
@@ -9,12 +10,13 @@ import tmdb
 from copy_files import CopyMedia
 from exceptions import ConfigurationError
 
-TEST_CONFIG = r'./test_resources/test_CopyMedia.json'
-TEST_RESOURCES = r'./test_resources'
+CURRENT_DIR = pathlib.Path(__file__).parent.resolve()
+TEST_RESOURCES = os.path.join(CURRENT_DIR, 'test_resources')
+TEST_CONFIG = os.path.join(TEST_RESOURCES, 'test_CopyMedia.json')
 IFTTT_CONTEXT_VAR = 'IFTTT_CONTEXT'
 TMDB_CONTEXT_VAR = 'TMDB_CONTEXT'
 
-logger.config()
+logger.config(level=logger.TRACE)
 
 
 class TestCopyMedia(unittest.TestCase):
@@ -33,6 +35,19 @@ class TestCopyMedia(unittest.TestCase):
     def test_find_largest_file(self):
         largest = CopyMedia.find_largest_file(TEST_RESOURCES)
         self.assertEqual(os.path.basename(largest), 'big_file.mp4')
+
+    def test_find_english_subtitles(self):
+        test_sub_dir = 'subtitle_test'
+
+        expected = ['subtitle_test/sub/sub2/2_English.srt',
+                    'subtitle_test/sub/sub2/3_Eng.srt',
+                    'subtitle_test/valid_sub.en.srt']
+
+        # append full path and normalize for the os to enable comparison
+        expected = [os.path.normpath(os.path.join(TEST_RESOURCES, p)) for p in expected]
+
+        english_files = CopyMedia.find_english_subtitles(os.path.join(TEST_RESOURCES, test_sub_dir))
+        self.assertEqual(expected, english_files)
 
     def test_rename_movie(self):
         starting_dir_name = 'Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG'

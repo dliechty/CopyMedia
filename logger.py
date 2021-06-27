@@ -18,12 +18,12 @@ def trace(self, message, *args, **kws):
 logging.trace = trace
 logging.Logger.trace = trace
 
-logLevel = logging.DEBUG
+log_level = logging.DEBUG
 
 
-def config(logfile=LOG_FILE):
+def config(logfile=LOG_FILE, level=log_level):
     logging.basicConfig(filename=get_path(logfile),
-                        level=logLevel, format=FORMAT, filemode='a')
+                        level=level, format=FORMAT, filemode='a')
 
 
 def get_path(argpath):

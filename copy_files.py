@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
+import glob
 import json
 import logging
 import re
@@ -45,12 +46,12 @@ class CopyMedia:
     scandir = None
     seriesdir = None
     moviedir = None
-    tmdb = None
+    tmdb_key = None
 
     series = None
 
     def __init__(self, logfile=None, config_file=None, ifttt_url=None, scandir=None,
-                 seriesdir=None, file=None, tmdb=None, moviedir=None):
+                 seriesdir=None, file=None, tmdb_key=None, moviedir=None):
         self.file = file
         self.logfile = logfile
         self.config_file = config_file
@@ -58,7 +59,7 @@ class CopyMedia:
         self.scandir = scandir
         self.seriesdir = seriesdir
         self.moviedir = moviedir
-        self.tmdb = tmdb
+        self.tmdb_key = tmdb_key
 
         # initialize logging
         if self.logfile:
@@ -81,7 +82,7 @@ class CopyMedia:
         logging.debug('Scan directory: [%s]', self.scandir)
         logging.debug('Series directory: [%s]', self.seriesdir)
         logging.debug('Movie directory: [%s]', self.moviedir)
-        logging.debug('TMDB key: [%s]', self.tmdb)
+        logging.debug('TMDB key: [%s]', self.tmdb_key)
 
     def execute(self):
         """Initiate the scanning, matching, transformation, and movement of media."""
@@ -124,7 +125,7 @@ class CopyMedia:
         if there is a matching movie. If so, then process the directory as a movie."""
 
         logging.debug('Checking directories to see if they are movies...')
-        movies = [d for d in dirs if tmdb.is_movie(d, self.tmdb)]
+        movies = [d for d in dirs if tmdb.is_movie(d, self.tmdb_key)]
         logging.debug('Found movies: [%s]', movies)
 
         if self.moviedir is not None:
@@ -143,31 +144,31 @@ class CopyMedia:
         5) Use ffmpeg to strip all meta-data from the movie file
         6) Move the directory to the configured Movie directory."""
 
-        dir = join(self.scandir, movie_dir_name)
+        movie_dir = join(self.scandir, movie_dir_name)
 
         if self.moviedir is not None:
-            movie = self.find_largest_file(dir)
+            movie = self.find_largest_file(movie_dir)
 
             try:
-                base_name, movie, dir = self.rename_movie(movie)
+                base_name, movie, movie_dir = self.rename_movie(movie)
             except RuntimeError:
                 logging.exception('Could not re-name movie file.')
                 return
 
-            subtitle_files = self.process_subtitles(dir, base_name)
+            subtitle_files = self.process_subtitles(movie_dir, base_name)
 
-            self.clean_dir(dir, movie, subtitle_files)
+            self.clean_dir(movie_dir, movie, subtitle_files)
 
             self.strip_metadata(movie)
 
-            self.move_movies([dir], self.moviedir, self.scandir)
+            self.move_movies([movie_dir], self.moviedir)
 
     @staticmethod
-    def find_largest_file(dir):
+    def find_largest_file(base_dir):
         """Identify the actual movie file. This is the single largest file in the directory."""
 
-        logging.debug('Looking for largest file in directory: [%s]', dir)
-        full_names = [path.join(dir, fname) for fname in listdir(dir)]
+        logging.debug('Looking for largest file in directory: [%s]', base_dir)
+        full_names = [path.join(base_dir, fname) for fname in listdir(base_dir)]
         logging.debug('Found file list: [%s]', full_names)
         largest = sorted((path.getsize(s), s) for s in full_names)[-1][1]
 
@@ -179,7 +180,7 @@ class CopyMedia:
         """Rename the movie file and the parent directory to be in the form: <title>.<year>.<extension>"""
 
         movie_name = path.basename(movie)
-        dir = path.dirname(movie)
+        movie_dir = path.dirname(movie)
 
         logging.debug('Parsing movie name into meta-data: [%s]', movie_name)
 
@@ -198,10 +199,10 @@ class CopyMedia:
         else:
             raise RuntimeError('One of movie title or year was not found.')
 
-        parent = path.dirname(dir)
+        parent = path.dirname(movie_dir)
         new_dir_name = join(parent, new_base_name)
-        logging.debug('Renaming directory [%s] to [%s]', dir, new_dir_name)
-        rename(dir, join(parent, new_base_name))
+        logging.debug('Renaming directory [%s] to [%s]', movie_dir, new_dir_name)
+        rename(movie_dir, join(parent, new_base_name))
 
         current_path = join(new_dir_name, movie_name)
         new_movie_name = join(new_dir_name, new_base_name + ext)
@@ -211,18 +212,61 @@ class CopyMedia:
         return new_base_name, new_movie_name, new_dir_name
 
     @staticmethod
-    def process_subtitles(dir, base_name):
+    def process_subtitles(base_dir, base_name):
         """Look for usable english sub-title files.
 
         If english subtitles found with the srt extension, ensure file is in the same directory as
         the movie file and rename to be in the form: <title>.<year>.en.srt"""
 
-        # TODO
-        logging.warning('process_subtitles not implemented yet.')
-        return []
+        logging.debug('Processing subtitles files in directory [%s] for media with name [%s]...', base_dir, base_name)
+
+        english_subtitles = CopyMedia.find_english_subtitles(base_dir)
+
+        # TODO: move and rename subtitle files
+
+        return english_subtitles
 
     @staticmethod
-    def clean_dir(dir, movie, subtitle_files):
+    def find_english_subtitles(base_dir):
+        """Identify all english subtitle files in a directory.
+
+        Look for all srt files in the given directory and filter down to just the ones that indicate
+        they are for the english language. If more than one english subtitle file is found,
+        return all of them."""
+
+        logging.debug('Looking for subtitle files with extension "srt"')
+
+        srt_files = glob.glob(path.join(base_dir, '**/*.srt'), recursive=True)
+
+        logging.log(logger.TRACE, 'Found srt files: %s', srt_files)
+
+        english_tokens = {'english', 'eng', 'en'}
+
+        # for each srt file, take the file's basename, split it into tokens based on 1 or more non-letters as the
+        # delimiter. Then process the tokens in the reverse order (because the english indicator tends to be at the
+        # end of the file names) looking for a match to one of the recognized english tags.
+        srt_english = []
+        for srt_file in srt_files:
+            srt_file_name = path.basename(srt_file)
+
+            split_name = re.split('[^A-Za-z]+', srt_file_name)
+
+            for token in reversed(split_name):
+                if token.lower() in english_tokens:
+                    srt_english.append(srt_file)
+
+        # Make sure list is alphabetically sorted
+        srt_english.sort()
+
+        if srt_english:
+            logging.log(logger.TRACE, 'English subtitle files found: %s', srt_english)
+        else:
+            logging.debug('No english subtitle files found')
+
+        return srt_english
+
+    @staticmethod
+    def clean_dir(base_dir, movie, subtitle_files):
         """Remove all other files and sub-directories except the movie file and any sub-titles."""
 
         # TODO
@@ -265,9 +309,9 @@ class CopyMedia:
             # for movies has been specified, then check if the remaining files are movies, and if so move
             # to the designated movie directory.
             logging.debug('Some files did not have matches. Checking if they are movies...')
-            movie_files = [file for file in files if tmdb.is_movie(file, self.tmdb)]
+            movie_files = [file for file in files if tmdb.is_movie(file, self.tmdb_key)]
             logging.debug('Found movies: [%s]', movie_files)
-            self.move_movies(movie_files, self.moviedir, self.scandir)
+            self.move_movies(movie_files, self.moviedir)
 
     def process_config_file(self, config_file):
         """Open configuration file, parse json, and pass to processing method."""
@@ -337,8 +381,8 @@ class CopyMedia:
         else:
             logging.debug('IFTTT notification url not provided.')
 
-        if self.tmdb:
-            logging.debug('TMDB API Key: [%s]', self.tmdb)
+        if self.tmdb_key:
+            logging.debug('TMDB API Key: [%s]', self.tmdb_key)
         else:
             logging.debug('TMDB API key not provided.')
 
@@ -373,7 +417,7 @@ class CopyMedia:
         return True
 
     @staticmethod
-    def move_movies(movie_files, move_dir, start_dir):
+    def move_movies(movie_files, move_dir):
         """Move movie files to the specified destination directory"""
 
         logging.debug('Moving movie files: [%s]', movie_files)
@@ -481,7 +525,7 @@ def main():
     # Now execute file transforms/copy
     try:
         c = CopyMedia(logfile=args.log, config_file=args.config, ifttt_url=trigger_url,
-                      scandir=args.scan, seriesdir=args.dest, file=file, tmdb=args.tmdb,
+                      scandir=args.scan, seriesdir=args.dest, file=file, tmdb_key=args.tmdb,
                       moviedir=args.moviedest)
         c.execute()
     except Exception:
