@@ -7,7 +7,7 @@ import logging
 import re
 import shutil
 import subprocess
-from os import listdir, path, makedirs, rename, remove
+from os import listdir, path, makedirs, rename, remove, rmdir, walk
 from os.path import isdir, isfile, join, split
 
 import ifttt
@@ -177,7 +177,10 @@ class CopyMedia:
 
     @staticmethod
     def rename_movie(movie):
-        """Rename the movie file and the parent directory to be in the form: <title>.<year>.<extension>"""
+        """Rename the movie file and the parent directory to be in the form: <title>.<year>.<extension>.
+
+        Returns the new base movie name along with the full absolute path of the destination directory
+        and the full absolute path of the new movie name."""
 
         movie_name = path.basename(movie)
         movie_dir = path.dirname(movie)
@@ -212,19 +215,50 @@ class CopyMedia:
         return new_base_name, new_movie_name, new_dir_name
 
     @staticmethod
-    def process_subtitles(base_dir, base_name):
+    def process_subtitles(base_dir, base_name, simulate=False):
         """Look for usable english sub-title files.
 
         If english subtitles found with the srt extension, ensure file is in the same directory as
-        the movie file and rename to be in the form: <title>.<year>.en.srt"""
+        the movie file and rename to be in the form: <title>.<year>.en.srt. Returns list of subtitle files
+        with their full absolute path.
+
+        If simulate is true, then calculate and log all the file move/renames WOULD happen, but do not
+        actually execute the file system changes."""
 
         logging.debug('Processing subtitles files in directory [%s] for media with name [%s]...', base_dir, base_name)
 
         english_subtitles = CopyMedia.find_english_subtitles(base_dir)
 
-        # TODO: move and rename subtitle files
+        moved_subtitles = set()
 
-        return english_subtitles
+        # Move and rename identified subtitle files so they are all in the root directory with
+        # a name that matches the movie's basename with the appropriate en.srt extension.
+        index = 0
+        for file in english_subtitles:
+
+            start_path = file
+            new_name = base_name
+
+            # If there is more than one relevant subtitle file, then add an index to all files
+            # except the first.
+            if index > 0:
+                new_name += '_' + str(index)
+
+            new_name += '.en.srt'
+
+            dest_path = path.join(base_dir, new_name)
+
+            logging.debug('Moving [%s] to [%s]...', start_path, dest_path)
+            if not simulate:
+                shutil.move(start_path, dest_path)
+
+            moved_subtitles.add(dest_path)
+
+            index += 1
+
+        logging.log(logger.TRACE, "Resulting subtitle files: %s", moved_subtitles)
+
+        return moved_subtitles
 
     @staticmethod
     def find_english_subtitles(base_dir):
@@ -266,11 +300,40 @@ class CopyMedia:
         return srt_english
 
     @staticmethod
-    def clean_dir(base_dir, movie, subtitle_files):
-        """Remove all other files and sub-directories except the movie file and any sub-titles."""
+    def clean_dir(base_dir, movie, subtitle_files, simulate=False):
+        """Remove all other files and sub-directories except the movie file and any sub-titles.
 
-        # TODO
-        logging.warning('clean_dir not implemented yet.')
+        Return list of files that were NOT deleted.
+
+        If simulate is true, then compute all file/directory deletions but do not execute
+        file system operations."""
+
+        logging.debug('Removing irrelevant files from base dir %s', base_dir)
+        logging.log(logger.TRACE, 'Leaving movie file %s with subtitle files %s', movie, subtitle_files)
+
+        # Note: base_dir, movie, and all subtitle_files include the full absolute path.
+
+        # Recursively walk through the entire directory tree starting at the root of the base directory.
+        # Delete all files and directories EXCEPT for the designated movie file and any of the subtitle files.
+        ignored_files = []
+        for root, dirs, files in walk(base_dir, topdown=False):
+            for name in files:
+                delete_path = path.join(root, name)
+                # Leave the movie and subtitle files alone
+                if movie == delete_path or delete_path in subtitle_files:
+                    logging.debug("Will not delete file: [%s]", delete_path)
+                    ignored_files.append(delete_path)
+                else:
+                    logging.log(logger.TRACE, 'Deleting file [%s]', delete_path)
+                    if not simulate:
+                        remove(delete_path)
+            for name in dirs:
+                delete_path = path.join(root, name)
+                logging.log(logger.TRACE, 'Deleting directory [%s]', delete_path)
+                if not simulate:
+                    rmdir(delete_path)
+
+        return ignored_files
 
     @staticmethod
     def strip_metadata(movie):

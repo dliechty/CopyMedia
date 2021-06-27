@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import logging
 import os
 import pathlib
 import unittest
@@ -48,6 +47,36 @@ class TestCopyMedia(unittest.TestCase):
 
         english_files = CopyMedia.find_english_subtitles(os.path.join(TEST_RESOURCES, test_sub_dir))
         self.assertEqual(expected, english_files)
+
+    def test_process_subtitles(self):
+        test_sub_dir = 'subtitle_test'
+
+        base_name = 'Brave'
+
+        expected = ['subtitle_test/Brave.en.srt',
+                    'subtitle_test/Brave_1.en.srt',
+                    'subtitle_test/Brave_2.en.srt']
+
+        # append full path and normalize for the os to enable comparison
+        expected = {os.path.normpath(os.path.join(TEST_RESOURCES, p)) for p in expected}
+
+        renamed_files = CopyMedia.process_subtitles(os.path.join(TEST_RESOURCES, test_sub_dir),
+                                                    base_name, simulate=True)
+        self.assertEqual(expected, renamed_files)
+
+    def test_clean_dir(self):
+        test_sub_dir = 'subtitle_test'
+
+        movie_file = os.path.join(TEST_RESOURCES, test_sub_dir, 'Brave.mp4')
+        subtitle_files = [os.path.join(TEST_RESOURCES, test_sub_dir, 'valid_sub.en.srt')]
+
+        ignored_files = CopyMedia.clean_dir(os.path.join(TEST_RESOURCES, test_sub_dir),
+                                            movie_file, subtitle_files, simulate=True)
+
+        expected = [movie_file]
+        expected.extend(subtitle_files)
+
+        self.assertEqual(expected.sort(), ignored_files.sort())
 
     def test_rename_movie(self):
         starting_dir_name = 'Toy.Story.4.2019.1080p.BluRay.H264.AAC-RARBG'
