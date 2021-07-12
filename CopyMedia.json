@@ -36,8 +36,23 @@
         },
         {
             "name": "That Time I Got Reincarnated as a Slime",
-            "regex": "(.*)(Tensei shitara Slime Datta Ken 2nd Season)( - )(\\d{1,})(.*)",
+            "regex": "(.*)(Tensei shitara Slime Datta Ken)( - )(\\d{1,})(.*)",
             "replace": "\\1That Time I Got Reincarnated as a Slime\\3S02E\\4\\5"
+        },
+        {
+            "name": "The Case Study of Vanitas",
+            "regex": "(.*)(Vanitas no Carte)( - )(\\d{1,})(.*)",
+            "replace": "\\1The Case Study of Vanitas\\3S01E\\4\\5"
+        },
+        {
+            "name": "Seirei Gensouki Spirit Chronicles",
+            "regex": "(.*)(Seirei Gensouki)( - )(\\d{1,})(.*)",
+            "replace": "\\1Seirei Gensouki Spirit Chronicles\\3S01E\\4\\5"
+        },
+        {
+            "name": "Tsukimichi -Moonlit Fantasy-",
+            "regex": "(.*)(Tsuki ga Michibiku Isekai Douchuu)( - )(\\d{1,})(.*)",
+            "replace": "\\1Tsukimichi -Moonlit Fantasy-\\3S01E\\4\\5"
         },
         {
             "name": "The 8th Son Are you kidding me",
