@@ -37,7 +37,8 @@
         {
             "name": "That Time I Got Reincarnated as a Slime",
             "regex": "(.*)(Tensei Shitara Slime Datta Ken)( - )(\\d{1,})(.*)",
-            "replace": "\\1That Time I Got Reincarnated as a Slime\\3S02E\\4\\5"
+            "replace": "\\1That Time I Got Reincarnated as a Slime\\3S02E\\4\\5",
+            "episode_num_sub": "24"
         },
         {
             "name": "The Case Study of Vanitas",
