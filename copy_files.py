@@ -477,6 +477,9 @@ class CopyMedia:
                 raise KeyError('regex')
             else:
                 logging.log(logger.TRACE, 'Found regex [%s] for show name [%s]', show['regex'], show['name'])
+            if 'episode_num_sub' in show:
+                # try to convert to int. If conversion doesn't work, then config entry is invalid
+                int(show['episode_num_sub'])
         return True
 
     @staticmethod
@@ -501,15 +504,7 @@ class CopyMedia:
 
         for file_name, config_entry in matches:
 
-            # Determine destination file_name if a replace attribute
-            # was specified
-            dest_file_name = file_name
-            if 'replace' in config_entry:
-                dest_file_name = re.sub(config_entry['regex'],
-                                        config_entry['replace'],
-                                        file_name)
-                logging.debug('New name for [%s] will be [%s]',
-                              file_name, dest_file_name)
+            dest_file_name = CopyMedia.build_new_name(file_name, config_entry)
 
             # Build destination directory path
             if 'destination' in config_entry:
@@ -534,6 +529,41 @@ class CopyMedia:
             destinations.add(dest)
 
         return destinations
+
+    @staticmethod
+    def build_new_name(file_name, config):
+        # Determine destination file_name if a replace attribute
+        # was specified
+        dest_file_name = file_name
+        if 'replace' in config:
+            logging.log(logger.TRACE, 'Processing episode name replace pattern [%s] for regex pattern [%s]',
+                        config['replace'], config['regex'])
+            dest_file_name = re.sub(config['regex'],
+                                    config['replace'],
+                                    file_name)
+        if 'episode_num_sub' in config:
+            logging.log(logger.TRACE, 'Processing episode number subtraction [%s]', config['episode_num_sub'])
+            # Outer group (1) is entire season/episode string.
+            # Inner group (2) is episode number
+            episode_num_regex = '.*([sS]\\d\\d[eE](\\d\\d)).*'
+            p = re.compile(episode_num_regex)
+            match = p.match(dest_file_name)
+            episode_string = match.group(1)
+            episode_num = match.group(2)
+
+            # calculate new episode number
+            new_num = int(episode_num) - int(config['episode_num_sub'])
+
+            # build new episode string by updating the episode number (last two characters of the string)
+            new_episode_string = episode_string[:-2] + str(new_num)
+            logging.log(logger.TRACE, 'new episode string: %s', new_episode_string)
+
+            # replace old episode string with new episode string
+            dest_file_name = dest_file_name.replace(episode_string, new_episode_string)
+
+        logging.debug('New name for [%s] will be [%s]',
+                      file_name, dest_file_name)
+        return dest_file_name
 
     @staticmethod
     def match_files(files, series):

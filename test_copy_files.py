@@ -172,6 +172,25 @@ class TestCopyMedia(unittest.TestCase):
 
         self.assertEqual(scan_path, c.scandir)
 
+    def test_series_file_rename(self):
+        config = {'name': 'That Time I Got Reincarnated as a Slime',
+                  'regex': '(.*)(Tensei Shitara Slime Datta Ken)( - )(\\d{1,})(.*)',
+                  'replace': '\\1That Time I Got Reincarnated as a Slime\\3S02E\\4\\5'}
+
+        file_name = '[SubsPlease] Tensei Shitara Slime Datta Ken - 38 (1080p) [CAF0A4D1].mkv'
+
+        new_name = CopyMedia.build_new_name(file_name, config)
+
+        self.assertEqual('[SubsPlease] That Time I Got Reincarnated as a Slime - S02E38 (1080p) [CAF0A4D1].mkv',
+                         new_name)
+
+        config['episode_num_sub'] = '24'
+
+        new_name = CopyMedia.build_new_name(file_name, config)
+
+        self.assertEqual('[SubsPlease] That Time I Got Reincarnated as a Slime - S02E14 (1080p) [CAF0A4D1].mkv',
+                         new_name)
+
     def test_match_files(self):
         c = CopyMedia()
 
@@ -206,6 +225,12 @@ class TestCopyMedia(unittest.TestCase):
         # Add another entry. Should still be valid
         series.append({'name': 'Test Series S2', 'regex': '(.*)(Test Series S2)( - )(\\d{1,})(.*)'})
         self.assertTrue(CopyMedia.validate_series(series))
+
+        # Add a series with an invalid episode_num_sub entry
+        series.append({'name': 'Test Series 3',
+                       'regex': '(.*)(Test Series 3)( - )(\\d{1,})(.*)',
+                       'episode_num_sub': 'twelve'})
+        self.assertRaises(ValueError)
 
 
 if __name__ == '__main__':
