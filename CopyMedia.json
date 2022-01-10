@@ -17,6 +17,10 @@
             "regex": "(.*)(Jujutsu Kaisen)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Leadale no Daichi nite",
+            "regex": "(.*)(Leadale no Daichi nite)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Goblin Slayer",
             "regex": "(.*)(Goblin Slayer)( - )(\\d{1,})(.*)"
         },
