@@ -34,6 +34,11 @@
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
         },
         {
+            "name": "The Greatest Demon Lord Is Reborn as a Typical Nobody",
+            "regex": "(.*)(Shijou Saikyou no Daimaou, Murabito A ni Tensei suru)( - )(\\d{1,})(.*)",
+            "replace": "\\1The Greatest Demon Lord Is Reborn as a Typical Nobody\\3\\4\\5"
+        },
+        {
             "name": "The Misfit of Demon King Academy",
             "regex": "(.*)(Maou Gakuin no Futekigousha)( - )(\\d{1,})(.*)",
             "replace": "\\1The Misfit of Demon King Academy\\3\\4\\5"
