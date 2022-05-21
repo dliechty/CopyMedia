@@ -1,7 +1,7 @@
 {
     "scanDir":"/mnt/fastdata/downloads",
     "seriesDir": "/mnt/fastdata/plexlibrary/Anime",
-    "movieDir": "/mnt/raid1/public/plex/Movies",
+    "movieDir": "/mnt/fastdata/plexlibrary/Movies",
     "series": [
         {
             "name": "Shinmai Maou no Testament BURST",
