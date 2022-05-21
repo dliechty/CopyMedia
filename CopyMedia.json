@@ -1,5 +1,5 @@
 {
-    "scanDir":"/mnt/raid1/private/downloads",
+    "scanDir":"/mnt/fastdata/downloads",
     "seriesDir": "/mnt/fastdata/plexlibrary/Anime",
     "movieDir": "/mnt/raid1/public/plex/Movies",
     "series": [
