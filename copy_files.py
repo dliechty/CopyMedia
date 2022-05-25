@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
+import getpass
 import glob
 import json
 import logging
@@ -68,6 +69,7 @@ class CopyMedia:
             logger.config()
 
         logging.debug('Initializing...')
+        logging.debug('Running as user %s', getpass.getuser())
 
         # initialize configs
         if self.config_file is None:
