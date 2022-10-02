@@ -65,6 +65,11 @@
             "replace": "\\1The Case Study of Vanitas\\3S01E\\4\\5"
         },
         {
+            "name": "Spy x Family",
+            "regex": "(.*)(Spy x Family)( - )(\\d{1,})(.*)",
+            "replace": "\\1Spy x Family\\3S01E\\4\\5"
+        },
+        {
             "name": "Seirei Gensouki Spirit Chronicles",
             "regex": "(.*)(Seirei Gensouki)( - )(\\d{1,})(.*)",
             "replace": "\\1Seirei Gensouki Spirit Chronicles\\3S01E\\4\\5"
