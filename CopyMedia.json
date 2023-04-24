@@ -157,7 +157,8 @@
         },
         {
             "name": "Mahoutsukai no Yome",
-            "regex": "(.*)(Mahoutsukai no Yome)( - )(\\d{1,})(.*)"
+            "regex": "(.*)(Mahoutsukai no Yome)( S2)( - )(\\d{1,})(.*)",
+            "replace": "\\1Mahoutsukai no Yome\\3S02E\\4\\5"
         },
         {
             "name": "Garo - The Crimson Moon",
