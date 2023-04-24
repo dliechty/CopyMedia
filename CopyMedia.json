@@ -148,8 +148,9 @@
             "regex": "(.*)(Lance N' Masques)( - )(\\d{1,})(.*)"
         },
         {
-            "name": "Jigokuraku",
-            "regex": "(.*)(Jigokuraku)( - )(\\d{1,})(.*)"
+            "name": "Hell's Paradise",
+            "regex": "(.*)(Jigokuraku)( - )(\\d{1,})(.*)",
+            "replace": "\\1Hell's Paradise\\3\\4\\5"
         },
         {
             "name": "Re-Creators",
