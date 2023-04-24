@@ -148,6 +148,10 @@
             "regex": "(.*)(Lance N' Masques)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Jigokuraku",
+            "regex": "(.*)(Jigokuraku)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Re-Creators",
             "regex": "(.*)(Re-Creators)( - )(\\d{1,})(.*)"
         },
