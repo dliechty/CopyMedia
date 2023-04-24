@@ -156,6 +156,11 @@
             "regex": "(.*)(Dororo)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Isekai de Cheat Skill wo Te ni Shita Ore wa, Genjitsu Sekai wo mo Musou Suru: Level Up wa Jinsei wo Kaeta",
+            "regex": "(.*)(Iseleve)(.*)",
+            "replace": "\\1Isekai de Cheat Skill wo Te ni Shita Ore wa, Genjitsu Sekai wo mo Musou Suru: Level Up wa Jinsei wo Kaeta\\3"
+        },
+        {
             "name": "Mahoutsukai no Yome",
             "regex": "(.*)(Mahoutsukai no Yome)( S2)( - )(\\d{1,})(.*)",
             "replace": "\\1Mahoutsukai no Yome\\4S02E\\5\\6"
