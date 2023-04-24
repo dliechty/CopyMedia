@@ -157,8 +157,8 @@
         },
         {
             "name": "Isekai de Cheat Skill wo Te ni Shita Ore wa, Genjitsu Sekai wo mo Musou Suru: Level Up wa Jinsei wo Kaeta",
-            "regex": "(.*)(Iseleve)(.*)",
-            "replace": "\\1Isekai de Cheat Skill wo Te ni Shita Ore wa, Genjitsu Sekai wo mo Musou Suru: Level Up wa Jinsei wo Kaeta\\3"
+            "regex": "(.*)(Iseleve)( - )(\\d{1,})(.*)",
+            "replace": "\\1Isekai de Cheat Skill wo Te ni Shita Ore wa, Genjitsu Sekai wo mo Musou Suru: Level Up wa Jinsei wo Kaeta\\3\\4\\5"
         },
         {
             "name": "Mahoutsukai no Yome",
