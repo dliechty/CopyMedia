@@ -14,7 +14,8 @@
         },
         {
             "name": "Jujutsu Kaisen",
-            "regex": "(.*)(Jujutsu Kaisen)( - )(\\d{1,})(.*)"
+            "regex": "(.*)(Jujutsu Kaisen)( 2nd Season)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\4S02E\\5\\6"
         },
         {
             "name": "Leadale no Daichi nite",
