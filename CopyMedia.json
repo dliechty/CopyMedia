@@ -55,6 +55,11 @@
             "replace": "\\1The Misfit of Demon King Academy\\3\\4\\5"
         },
         {
+            "name": "Am I Actually the Strongest",
+            "regex": "(.*)(Jitsu wa Ore, Saikyou deshita)( - )(\\d{1,})(.*)",
+            "replace": "\\1Am I Actually the Strongest\\3S01E\\4\\5"
+        },
+        {
             "name": "Ascendance of a Bookworm",
             "regex": "(.*)(Honzuki no Gekokujou)( - )(\\d{1,})(.*)",
             "replace": "\\1Ascendance of a Bookworm\\3\\4\\5"
