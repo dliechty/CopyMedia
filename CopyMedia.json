@@ -150,6 +150,10 @@
             "regex": "(.*)(Isekai Cheat Magician)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Eiyuu Kyoushitsu",
+            "regex": "(.*)(Eiyuu Kyoushitsu)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Mushoku Tensei",
             "regex": "(.*)(Mushoku Tensei S2)( - )(\\d{1,})(.*)"
         },
