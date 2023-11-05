@@ -46,8 +46,8 @@
         },
         {
             "name": "The Eminence in Shadow",
-            "regex": "(.*)(Kage no Jitsuryokusha ni Naritakute!)( - )(\\d{1,})(.*)",
-            "replace": "\\1The Eminence in Shadow\\3S01E\\4\\5"
+            "regex": "(.*)(Kage no Jitsuryokusha ni Naritakute! S2)( - )(\\d{1,})(.*)",
+            "replace": "\\1The Eminence in Shadow\\3S02E\\4\\5"
         },
         {
             "name": "The Misfit of Demon King Academy",
