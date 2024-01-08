@@ -50,6 +50,10 @@
             "replace": "\\1Tales of Wedding Rings\\3\\4\\5"
         },
         {
+            "name": "Solo Leveling",
+            "regex": "(.*)(Solo Leveling)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "My Isekai Life",
             "regex": "(.*)(Tensei Kenja no Isekai Life)( - )(\\d{1,})(.*)",
             "replace": "\\1My Isekai Life\\3\\4\\5"
