@@ -40,6 +40,11 @@
             "replace": "\\1Sasaki and Peeps\\3\\4\\5"
         },
         {
+            "name": "Fluffy Paradise",
+            "regex": "(.*)(Isekai de Mofumofu Nadenade suru Tame ni Ganbattemasu)( - )(\\d{1,})(.*)",
+            "replace": "\\1Fluffy Paradise\\3\\4\\5"
+        },
+        {
             "name": "My Isekai Life",
             "regex": "(.*)(Tensei Kenja no Isekai Life)( - )(\\d{1,})(.*)",
             "replace": "\\1My Isekai Life\\3\\4\\5"
