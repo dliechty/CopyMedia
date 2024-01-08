@@ -103,7 +103,7 @@
         {
             "name": "Tsukimichi -Moonlit Fantasy-",
             "regex": "(.*)(Tsuki ga Michibiku Isekai Douchuu)( - )(\\d{1,})(.*)",
-            "replace": "\\1Tsukimichi -Moonlit Fantasy-\\3S01E\\4\\5"
+            "replace": "\\1Tsukimichi -Moonlit Fantasy-\\3S02E\\4\\5"
         },
         {
             "name": "The 8th Son Are you kidding me",
