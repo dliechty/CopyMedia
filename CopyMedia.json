@@ -45,6 +45,11 @@
             "replace": "\\1Fluffy Paradise\\3\\4\\5"
         },
         {
+            "name": "Tales of Wedding Rings",
+            "regex": "(.*)(Kekkon Yubiwa Monogatari)( - )(\\d{1,})(.*)",
+            "replace": "\\1Tales of Wedding Rings\\3\\4\\5"
+        },
+        {
             "name": "My Isekai Life",
             "regex": "(.*)(Tensei Kenja no Isekai Life)( - )(\\d{1,})(.*)",
             "replace": "\\1My Isekai Life\\3\\4\\5"
