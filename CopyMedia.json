@@ -35,6 +35,11 @@
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
         },
         {
+            "name": "Sasaki and Peeps",
+            "regex": "(.*)(Sasaki to Pii-chan)( - )(\\d{1,})(.*)",
+            "replace": "\\1Sasaki and Peeps\\3\\4\\5"
+        },
+        {
             "name": "My Isekai Life",
             "regex": "(.*)(Tensei Kenja no Isekai Life)( - )(\\d{1,})(.*)",
             "replace": "\\1My Isekai Life\\3\\4\\5"
