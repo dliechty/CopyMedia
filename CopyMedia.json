@@ -106,7 +106,7 @@
         },
         {
             "name": "Tsukimichi -Moonlit Fantasy-",
-            "regex": "(.*)(Tsuki ga Michibiku Isekai Douchuu)( - )(\\d{1,})(.*)",
+            "regex": "(.*)(Tsuki ga Michibiku Isekai Douchuu S2)( - )(\\d{1,})(.*)",
             "replace": "\\1Tsukimichi -Moonlit Fantasy-\\3S02E\\4\\5"
         },
         {
