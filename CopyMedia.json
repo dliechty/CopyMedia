@@ -147,8 +147,8 @@
         {
             "name": "The Irregular at Magic High School",
             "destination":"Mahouka",
-            "regex": "(.*)(Mahouka Koukou no Rettousei - Raihousha Hen)( - )(\\d{1,})(.*)",
-            "replace": "\\1Mahouka\\3S02E\\4\\5"
+            "regex": "(.*)(Mahouka Koukou no Rettousei S3)( - )(\\d{1,})(.*)",
+            "replace": "\\1Mahouka\\3S03E\\4\\5"
         },
         {
             "name": "One Punch Man S2",
