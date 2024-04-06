@@ -135,6 +135,11 @@
             "replace": "\\1Fire Force\\3\\4\\5"
         },
         {
+            "name": "I Was Reincarnated as the 7th Prince so I Can Take My Time Perfecting My Magical Ability",
+            "regex": "(.*)(Dainanaoji)( - )(\\d{1,})(.*)",
+            "replace": "\\I Was Reincarnated as the 7th Prince so I Can Take My Time Perfecting My Magical Ability\\3\\4\\5"
+        },
+        {
             "name": "Arifureta - From Commonplace to World's Strongest",
             "regex": "(.*)(Arifureta Shokugyou de Sekai Saikyou)( - )(\\d{1,})(.*)",
             "replace": "\\1Arifureta - From Commonplace to World's Strongest\\3\\4\\5"
