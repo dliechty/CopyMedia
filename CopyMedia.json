@@ -26,6 +26,10 @@
             "regex": "(.*)(Unnamed Memory)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "The New Gate",
+            "regex": "(.*)(The New Gate)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Goblin Slayer",
             "regex": "(.*)(Goblin Slayer)( - )(\\d{1,})(.*)"
         },
