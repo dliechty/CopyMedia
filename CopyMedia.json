@@ -48,6 +48,10 @@
             "replace": "\\1I Parry Everything\\3\\4\\5"
         },
         {
+            "name": "Shinmai Ossan Boukensha",
+            "regex": "(.*)(Shinmai Ossan Boukensha)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Sasaki and Peeps",
             "regex": "(.*)(Sasaki to Pii-chan)( - )(\\d{1,})(.*)",
             "replace": "\\1Sasaki and Peeps\\3\\4\\5"
