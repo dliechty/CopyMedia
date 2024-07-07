@@ -43,6 +43,11 @@
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
         },
         {
+            "name": "I Parry Everything",
+            "regex": "(.*)(Ore wa Subete wo Parry suru)( - )(\\d{1,})(.*)",
+            "replace": "\\1I Parry Everything\\3\\4\\5"
+        },
+        {
             "name": "Sasaki and Peeps",
             "regex": "(.*)(Sasaki to Pii-chan)( - )(\\d{1,})(.*)",
             "replace": "\\1Sasaki and Peeps\\3\\4\\5"
