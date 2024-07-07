@@ -38,6 +38,10 @@
             "regex": "(.*)(Kimetsu no Yaiba)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Isekai Yururi Kikou",
+            "regex": "(.*)(Isekai Yururi Kikou)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "So I'm a Spider, So What",
             "regex": "(.*)(Kumo Desu ga, Nani ka)( - )(\\d{1,})(.*)",
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
