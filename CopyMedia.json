@@ -51,6 +51,11 @@
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
         },
         {
+            "name": "The Do Over Damsel Conquers the Dragon Emperor",
+            "regex": "(.*)(Yarinaoshi Reijou wa Ryuutei Heika wo Kouryakuchuu)( - )(\\d{1,})(.*)",
+            "replace": "\\1The Do Over Damsel Conquers the Dragon Emperor\\3\\4\\5"
+        },
+        {
             "name": "I Parry Everything",
             "regex": "(.*)(Ore wa Subete wo Parry suru)( - )(\\d{1,})(.*)",
             "replace": "\\1I Parry Everything\\3\\4\\5"
