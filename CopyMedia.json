@@ -55,6 +55,11 @@
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
         },
         {
+            "name": "Possibly the Greatest Alchemist of All Time",
+            "regex": "(.*)(Izure Saikyou no Renkinjutsushi)( - )(\\d{1,})(.*)",
+            "replace": "\\Possibly the Greatest Alchemist of All Time\\3\\4\\5"
+        },
+        {
             "name": "The Do Over Damsel Conquers the Dragon Emperor",
             "regex": "(.*)(Yarinaoshi Reijou wa Ryuutei Heika wo Kouryakuchuu)( - )(\\d{1,})(.*)",
             "replace": "\\1The Do Over Damsel Conquers the Dragon Emperor\\3\\4\\5"
