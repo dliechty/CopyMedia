@@ -63,6 +63,11 @@
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
         },
         {
+            "name": "I'm a Noble on the Brink of Ruin, So I Might as Well Try Mastering Magic",
+            "regex": "(.*)(Botsuraku Yotei no Kizoku dakedo, Hima Datta kara Mahou wo Kiwametemita)( - )(\\d{1,})(.*)",
+            "replace": "\\1I'm a Noble on the Brink of Ruin, So I Might as Well Try Mastering Magic\\3\\4\\5"
+        },
+        {
             "name": "Possibly the Greatest Alchemist of All Time",
             "regex": "(.*)(Izure Saikyou no Renkinjutsushi)( - )(\\d{1,})(.*)",
             "replace": "\\1Possibly the Greatest Alchemist of All Time\\3\\4\\5"
