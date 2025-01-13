@@ -54,6 +54,10 @@
             "regex": "(.*)(Kinomi Master)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Mahoutsukai no Yakusoku",
+            "regex": "(.*)(Mahoutsukai no Yakusoku)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Girumasu",
             "regex": "(.*)(Girumasu)( - )(\\d{1,})(.*)"
         },
