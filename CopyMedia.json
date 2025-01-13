@@ -50,6 +50,10 @@
             "regex": "(.*)(Tsue to Tsurugi no Wistoria)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Kinomi Master",
+            "regex": "(.*)(Kinomi Master)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "So I'm a Spider, So What",
             "regex": "(.*)(Kumo Desu ga, Nani ka)( - )(\\d{1,})(.*)",
             "replace": "\\1So I'm a Spider, So What\\3\\4\\5"
