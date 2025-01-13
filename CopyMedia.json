@@ -61,7 +61,7 @@
         {
             "name": "Possibly the Greatest Alchemist of All Time",
             "regex": "(.*)(Izure Saikyou no Renkinjutsushi)( - )(\\d{1,})(.*)",
-            "replace": "\\Possibly the Greatest Alchemist of All Time\\3\\4\\5"
+            "replace": "\\1Possibly the Greatest Alchemist of All Time\\3\\4\\5"
         },
         {
             "name": "The Do Over Damsel Conquers the Dragon Emperor",
