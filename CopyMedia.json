@@ -27,7 +27,8 @@
         },
         {
             "name": "Kusuriya no Hitorigoto",
-            "regex": "(.*)(Kusuriya no Hitorigoto)( - )(\\d{1,})(.*)"
+            "regex": "(.*)(Kusuriya no Hitorigoto)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\3S02E\\4\\5"
         },
         {
             "name": "The New Gate",
