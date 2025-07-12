@@ -17,6 +17,10 @@
             "regex": "(.*)(Yami Healer)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "The Water Magician",
+            "regex": "(.*)(Mizuzokusei no Mahoutsukai)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Jujutsu Kaisen",
             "regex": "(.*)(Jujutsu Kaisen)( 2nd Season)( - )(\\d{1,})(.*)",
             "replace": "\\1\\2\\4S02E\\5\\6"
