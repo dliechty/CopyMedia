@@ -30,6 +30,10 @@
             "regex": "(.*)(Leadale no Daichi nite)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Secrets of the Silent Witch",
+            "regex": "(.*)(Silent Witch - Chinmoku no Majo no Kakushigoto)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Unnamed Memory",
             "regex": "(.*)(Unnamed Memory)( - )(\\d{1,})(.*)"
         },
