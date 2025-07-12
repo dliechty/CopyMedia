@@ -21,6 +21,10 @@
             "regex": "(.*)(Mizuzokusei no Mahoutsukai)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Private Tutor to the Duke’s Daughter",
+            "regex": "(.*)(Koujo Denka no Kateikyoushi)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Jujutsu Kaisen",
             "regex": "(.*)(Jujutsu Kaisen)( 2nd Season)( - )(\\d{1,})(.*)",
             "replace": "\\1\\2\\4S02E\\5\\6"
