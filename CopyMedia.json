@@ -244,6 +244,11 @@
             "regex": "(.*)(Mushoku no Eiyuu)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Mikata ga Yowasugite Hojo Mahou",
+            "destination":"Mikata ga Yowasugite Hojo Mahou",
+            "regex": "(.*)(Mikata ga Yowasugite Hojo Mahou)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Sozai Saishuka no Isekai Ryokouki",
             "destination":"Sozai Saishuka no Isekai Ryokouki",
             "regex": "(.*)(Sozai Saishuka no Isekai Ryokouki)( - )(\\d{1,})(.*)"
