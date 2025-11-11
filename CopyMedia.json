@@ -239,6 +239,11 @@
             "regex": "(.*)(One-Punch Man)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Mushoku no Eiyuu",
+            "destination":"Mushoku no Eiyuu",
+            "regex": "(.*)(Mushoku no Eiyuu)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "The Irregular at Magic High School",
             "destination":"Mahouka",
             "regex": "(.*)(Mahouka Koukou no Rettousei S3)( - )(\\d{1,})(.*)",
