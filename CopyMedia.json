@@ -244,6 +244,11 @@
             "regex": "(.*)(Mushoku no Eiyuu)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Chichi wa Eiyuu, Haha wa Seirei, Musume no Watashi wa Tenseisha",
+            "destination":"Chichi wa Eiyuu, Haha wa Seirei, Musume no Watashi wa Tenseisha",
+            "regex": "(.*)(Chichi wa Eiyuu, Haha wa Seirei, Musume no Watashi wa Tenseisha.)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Mikata ga Yowasugite Hojo Mahou",
             "destination":"Mikata ga Yowasugite Hojo Mahou",
             "regex": "(.*)(Mikata ga Yowasugite Hojo Mahou)( - )(\\d{1,})(.*)"
