@@ -246,6 +246,12 @@
             "replace": "\\1One-Punch Man\\3S02E\\4\\5"
         },
         {
+            "name": "One Punch Man S3",
+            "destination":"One Punch Man",
+            "regex": "(.*)(One Punch Man S3)( - )(\\d{1,})(.*)",
+            "replace": "\\1One-Punch Man\\3S03E\\4\\5"
+        },
+        {
             "name": "Rakudai Kishi no Cavalry",
             "regex": "(.*)(Rakudai Kishi no Cavalry)( - )(\\d{1,})(.*)"
         },
