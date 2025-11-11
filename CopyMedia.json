@@ -230,7 +230,7 @@
         },
         {
             "name": "My Status as an Assassin Obviously Exceeds the Hero's",
-            "regex": "(.*)(Arifureta Shokugyou de Sekai Saikyou)( - )(\\d{1,})(.*)",
+            "regex": "(.*)(Ansatsusha de Aru Ore no Status ga Yuusha yori mo Akiraka ni Tsuyoi no da ga)( - )(\\d{1,})(.*)",
             "replace": "\\1My Status as an Assassin Obviously Exceeds the Hero's\\3\\4\\5"
         },
         {
