@@ -30,6 +30,11 @@
             "replace": "\\1\\2\\4S02E\\5\\6"
         },
         {
+            "name": "Frieren_Beyond_Journeys_End",
+            "regex": "(.*)(Sousou no Frieren)( S2)( - )(\\d{1,})(.*)",
+            "replace": "\\1\\2\\4S02E\\5\\6"
+        },
+        {
             "name": "Leadale no Daichi nite",
             "regex": "(.*)(Leadale no Daichi nite)( - )(\\d{1,})(.*)"
         },
