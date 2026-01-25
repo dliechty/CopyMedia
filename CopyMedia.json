@@ -39,6 +39,10 @@
             "regex": "(.*)(Leadale no Daichi nite)( - )(\\d{1,})(.*)"
         },
         {
+            "name": "Kizoku Tensei - Megumareta Umare kara Saikyou no Chikara wo Eru",
+            "regex": "(.*)(Kizoku Tensei - Megumareta Umare kara Saikyou no Chikara wo Eru)( - )(\\d{1,})(.*)"
+        },
+        {
             "name": "Secrets of the Silent Witch",
             "regex": "(.*)(Silent Witch - Chinmoku no Majo no Kakushigoto)( - )(\\d{1,})(.*)"
         },
