@@ -52,7 +52,7 @@
         },
         {
             "name": "Sentenced to be a Hero",
-            "regex": "(.*)(Silent Witch - Chinmoku no Majo no Kakushigoto)( - )(\\d{1,})(.*)"
+            "regex": "(.*)(Yuusha-kei ni Shosu)( - )(\\d{1,})(.*)"
         },
         {
             "name": "Unnamed Memory",
