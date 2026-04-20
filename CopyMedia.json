@@ -176,8 +176,9 @@
         },
         {
             "name": "Ascendance of a Bookworm",
-            "regex": "(.*)(Honzuki no Gekokujou)( - )(\\d{1,})(.*)",
-            "replace": "\\1Ascendance of a Bookworm\\3\\4\\5"
+            "regex": "(.*)(Honzuki no Gekokujou S4)( - )(\\d{1,})(.*)",
+            "replace": "\\1Ascendance of a Bookworm\\3S01E\\4\\5",
+            "episode_num_sub": "-36"
         },
         {
             "name": "That Time I Got Reincarnated as a Slime",
