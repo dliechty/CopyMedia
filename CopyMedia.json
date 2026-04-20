@@ -82,7 +82,8 @@
         },
         {
             "name": "Tsue to Tsurugi no Wistoria",
-            "regex": "(.*)(Tsue to Tsurugi no Wistoria)( - )(\\d{1,})(.*)"
+            "regex": "(.*)(Tsue to Tsurugi no Wistoria S2)( - )(\\d{1,})(.*)",
+            "replace": "\\1Tsue to Tsurugi no Wistoria\\3S02E\\4\\5"
         },
         {
             "name": "Kinomi Master",
