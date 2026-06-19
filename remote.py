@@ -22,9 +22,10 @@ def rsync(src, dest):
     cmd_src = src.rstrip('/') + '/' if is_dir else src
     cmd_dest = dest.rstrip('/') + '/' if is_dir else dest
 
-    result = subprocess.run(['rsync', '-a', '--mkpath', cmd_src, cmd_dest])
+    result = subprocess.run(['rsync', '-a', '--mkpath', cmd_src, cmd_dest], capture_output=True)
     if result.returncode != 0:
-        logging.error('rsync failed [exit %d]: [%s] -> [%s]', result.returncode, src, dest)
+        logging.error('rsync failed [exit %d]: [%s] -> [%s]\n%s',
+                      result.returncode, src, dest, result.stderr.decode(errors='replace'))
         return False
 
     if is_dir:
