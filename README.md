@@ -10,7 +10,6 @@ The configuration file is a simple json structure, like so:
     "seriesDir": "Z:\\Shared Videos\\Anime",
     "movieDir": "Z:\\Shared Videos\\Movies",
     "ntfyUrl": "https://ntfy.sh/your-topic",
-    "ntfyToken": "your-auth-token",
     "series": [
         {
             "name": "One-Punch Man",
@@ -34,8 +33,7 @@ Possible top-level config fields are:
 - `scanDir` : directory to scan for new downloads
 - `seriesDir` : destination root for TV series. May be a local path or a remote rsync destination in the form `user@host:/path`
 - `movieDir` : destination root for movies. May be a local path or a remote rsync destination in the form `user@host:/path`
-- `ntfyUrl` : (optional) full URL to an [ntfy](https://ntfy.sh) topic, e.g. `https://ntfy.sh/your-topic`. Used to send a push notification if a remote copy fails.
-- `ntfyToken` : (optional) Bearer auth token for the ntfy topic. Both `ntfyUrl` and `ntfyToken` must be set for notifications to be sent.
+- `ntfyUrl` : (optional) full URL to an [ntfy](https://ntfy.sh) topic, e.g. `https://ntfy.sh/your-topic`. Used to send push notifications on success or failure.
 
 Possible series tags are:
 - `name` : the name of the series, as well as the default destination folder name if not specified by `destination`
@@ -65,7 +63,7 @@ If a file is not found within your defined series, then a query can be made agai
 Here is the usage text:
 
 ```
-usage: copy_files.py [-h] [-f FILE] [-d DEST] [-m MOVIEDEST] [-s SCAN] [-i IFTTT] [-c CONFIG] [-t TMDB] [-l LOG] [delugeArgs [delugeArgs ...]]
+usage: copy_files.py [-h] [-f FILE] [-d DEST] [-m MOVIEDEST] [-s SCAN] [-i IFTTT] [-c CONFIG] [-t TMDB] [-n NTFY_TOKEN] [-l LOG] [delugeArgs [delugeArgs ...]]
 
 Copy/transform large files.
 
@@ -84,5 +82,7 @@ optional arguments:
   -c CONFIG, --config CONFIG
                         Configuration file
   -t TMDB, --tmdb TMDB  The Movie DB API key
+  -n NTFY_TOKEN, --ntfy-token NTFY_TOKEN
+                        ntfy access token
   -l LOG, --log LOG     Log file
 ```

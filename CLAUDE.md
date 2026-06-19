@@ -10,6 +10,7 @@ CopyMedia is a Python script that automates sorting downloaded media files into 
 3. For unmatched files/directories, queries The Movie DB (TMDB) API to identify movies
 4. Processes movie directories: finds the largest file, renames it `<title>.<year>.<ext>`, handles english subtitles (`.en.srt`), strips metadata via `ffmpeg`, and moves to `movieDir`
 5. Optionally sends an IFTTT push notification on success
+6. Optionally sends ntfy push notifications on success or failure (requires `-n`/`--ntfy-token` CLI arg and `ntfyUrl` in config)
 
 ## Running
 
@@ -60,8 +61,9 @@ Each series entry requires `name` (used as destination folder name) and `regex`.
 All logic lives in `copy_files.py` as the `CopyMedia` class. The `__init__` method loads config and merges CLI args with JSON config (CLI takes precedence). The `execute()` method drives everything.
 
 Supporting modules:
-- `tmdb.py` — wraps TMDB REST API; `clean_name()` delegates parsing to `PTN`; `is_movie()` returns `False` when no year is found (intentional — queries without year are unreliable)
+- `tmdb.py` — wraps TMDB REST API; `clean_name()` delegates parsing to `PTN` then post-processes titles to extract years ≥ 2020 (PTN v1.1.1 year regex only covers up to 2019); `is_movie()` returns `False` when no year is found (intentional — queries without year are unreliable)
 - `ifttt.py` — single `send_notification()` call to IFTTT webhooks
+- `ntfy.py` — single `send_notification()` call to ntfy; token supplied via CLI (`-n`/`--ntfy-token`), URL from config (`ntfyUrl`)
 - `logger.py` — configures `logging` with a custom `TRACE` level (below `DEBUG`) and optional Cygwin path conversion
 - `exceptions.py` — defines `ConfigurationError` raised for missing required config
 
