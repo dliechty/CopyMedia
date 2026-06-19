@@ -93,6 +93,10 @@ class CopyMedia:
         logging.debug('Movie directory: [%s]', self.moviedir)
         logging.debug('TMDB key: [%s]', self.tmdb_key)
 
+    def _notify_error(self, message):
+        if self.ntfy_url and self.ntfy_token:
+            ntfy.send_notification(self.ntfy_url, self.ntfy_token, message)
+
     def execute(self):
         """Initiate the scanning, matching, transformation, and movement of media."""
 
@@ -403,6 +407,18 @@ class CopyMedia:
            new media. It also determines the destination root level directory
            and executes a validation step against all the configured series."""
 
+        # Load ntfy credentials first so error notifications can be sent on
+        # any subsequent ConfigurationError raised in this method.
+        if self.ntfy_url is None and 'ntfyUrl' in config:
+            self.ntfy_url = config['ntfyUrl']
+        if self.ntfy_token is None and 'ntfyToken' in config:
+            self.ntfy_token = config['ntfyToken']
+
+        if self.ntfy_url and self.ntfy_token:
+            logging.debug('ntfy URL: [%s]', self.ntfy_url)
+        else:
+            logging.debug('ntfy notification not configured.')
+
         # if an individual file is specified either by
         # deluge or via the command line, then just use that.
         # Otherwise, look for a directory to scan and scan the
@@ -453,16 +469,6 @@ class CopyMedia:
         else:
             logging.debug('IFTTT notification url not provided.')
 
-        if self.ntfy_url is None and 'ntfyUrl' in config:
-            self.ntfy_url = config['ntfyUrl']
-        if self.ntfy_token is None and 'ntfyToken' in config:
-            self.ntfy_token = config['ntfyToken']
-
-        if self.ntfy_url and self.ntfy_token:
-            logging.debug('ntfy URL: [%s]', self.ntfy_url)
-        else:
-            logging.debug('ntfy notification not configured.')
-
         if self.tmdb_key:
             logging.debug('TMDB API Key: [%s]', self.tmdb_key)
         else:
@@ -511,11 +517,9 @@ class CopyMedia:
             logging.debug('Moving [%s] to [%s]...', start_path, dest_path)
             if remote.is_remote(move_dir):
                 if not remote.rsync(start_path, dest_path):
-                    if self.ntfy_url and self.ntfy_token:
-                        ntfy.send_notification(
-                            self.ntfy_url, self.ntfy_token,
-                            'CopyMedia: rsync failed moving [%s] to [%s]' % (start_path, dest_path)
-                        )
+                    self._notify_error(
+                        'CopyMedia: rsync failed moving [%s] to [%s]' % (start_path, dest_path)
+                    )
             else:
                 shutil.move(start_path, dest_path)
                 logging.info('Successfully moved [%s] to [%s]', start_path, dest_path)
@@ -542,11 +546,9 @@ class CopyMedia:
             if remote.is_remote(move_dir):
                 logging.debug('Moving [%s] to [%s]...', src_path, dest_path)
                 if not remote.rsync(src_path, dest_path):
-                    if self.ntfy_url and self.ntfy_token:
-                        ntfy.send_notification(
-                            self.ntfy_url, self.ntfy_token,
-                            'CopyMedia: rsync failed moving [%s] to [%s]' % (src_path, dest_path)
-                        )
+                    self._notify_error(
+                        'CopyMedia: rsync failed moving [%s] to [%s]' % (src_path, dest_path)
+                    )
             else:
                 if not path.exists(dest):
                     logging.info('Destination does not exist; creating [%s]', dest)
@@ -645,13 +647,16 @@ def main():
         file = args.file
 
     # Now execute file transforms/copy
+    c = None
     try:
         c = CopyMedia(logfile=args.log, config_file=args.config, ifttt_url=trigger_url,
                       scandir=args.scan, seriesdir=args.dest, file=file, tmdb_key=args.tmdb,
                       moviedir=args.moviedest)
         c.execute()
-    except Exception:
+    except Exception as e:
         logging.exception('Error on execution.')
+        if c is not None:
+            c._notify_error('CopyMedia error: %s' % e)
         raise
 
 
