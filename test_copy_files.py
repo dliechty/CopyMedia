@@ -180,9 +180,9 @@ class TestCopyMedia(unittest.TestCase):
         movie_path = '/remote/test/movies'
         test_file = '/home/test/dir/file'
 
-        # ntfy config loaded from file when not supplied via constructor
+        # ntfy URL loaded from config; token must be supplied via constructor
         c = CopyMedia(config_file=TEST_CONFIG, seriesdir=series_path, file=test_file,
-                      moviedir=movie_path)
+                      moviedir=movie_path, ntfy_token='test-token-abc')
         self.assertEqual('https://ntfy.sh/test-topic', c.ntfy_url)
         self.assertEqual('test-token-abc', c.ntfy_token)
 

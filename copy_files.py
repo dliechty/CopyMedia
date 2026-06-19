@@ -34,6 +34,7 @@ argParser.add_argument('-i', '--ifttt', help='IFTTT trigger URL context and API 
 argParser.add_argument('-c', '--config', help='Configuration file',
                        default=CONFIG_FILE)
 argParser.add_argument('-t', '--tmdb', help='The Movie DB API key')
+argParser.add_argument('-n', '--ntfy-token', help='ntfy access token', dest='ntfy_token')
 argParser.add_argument('-l', '--log', help='Log file')
 argParser.add_argument('delugeArgs', default=[], nargs='*',
                        help='If deluge is used, there will be three args,'
@@ -411,8 +412,6 @@ class CopyMedia:
         # any subsequent ConfigurationError raised in this method.
         if self.ntfy_url is None and 'ntfyUrl' in config:
             self.ntfy_url = config['ntfyUrl']
-        if self.ntfy_token is None and 'ntfyToken' in config:
-            self.ntfy_token = config['ntfyToken']
 
         if self.ntfy_url and self.ntfy_token:
             logging.debug('ntfy URL: [%s]', self.ntfy_url)
@@ -651,7 +650,7 @@ def main():
     try:
         c = CopyMedia(logfile=args.log, config_file=args.config, ifttt_url=trigger_url,
                       scandir=args.scan, seriesdir=args.dest, file=file, tmdb_key=args.tmdb,
-                      moviedir=args.moviedest)
+                      moviedir=args.moviedest, ntfy_token=args.ntfy_token)
         c.execute()
     except Exception as e:
         logging.exception('Error on execution.')
