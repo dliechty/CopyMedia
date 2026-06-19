@@ -175,6 +175,24 @@ class TestCopyMedia(unittest.TestCase):
 
         self.assertEqual(scan_path, c.scandir)
 
+    def test_process_configs_ntfy(self):
+        series_path = '/remote/test/series'
+        movie_path = '/remote/test/movies'
+        test_file = '/home/test/dir/file'
+
+        # ntfy config loaded from file when not supplied via constructor
+        c = CopyMedia(config_file=TEST_CONFIG, seriesdir=series_path, file=test_file,
+                      moviedir=movie_path)
+        self.assertEqual('https://ntfy.sh/test-topic', c.ntfy_url)
+        self.assertEqual('test-token-abc', c.ntfy_token)
+
+        # constructor args override config file values
+        c2 = CopyMedia(config_file=TEST_CONFIG, seriesdir=series_path, file=test_file,
+                       moviedir=movie_path, ntfy_url='https://ntfy.sh/override',
+                       ntfy_token='override-token')
+        self.assertEqual('https://ntfy.sh/override', c2.ntfy_url)
+        self.assertEqual('override-token', c2.ntfy_token)
+
     def test_series_file_rename(self):
         config = {'name': 'That Time I Got Reincarnated as a Slime',
                   'regex': '(.*)(Tensei Shitara Slime Datta Ken)( - )(\\d{1,})(.*)',

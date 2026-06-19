@@ -13,6 +13,8 @@ from os.path import isdir, isfile, join, split
 
 import ifttt
 import logger
+import ntfy
+import remote
 import tmdb
 from exceptions import ConfigurationError
 
@@ -48,11 +50,14 @@ class CopyMedia:
     seriesdir = None
     moviedir = None
     tmdb_key = None
+    ntfy_url = None
+    ntfy_token = None
 
     series = None
 
     def __init__(self, logfile=None, config_file=None, ifttt_url=None, scandir=None,
-                 seriesdir=None, file=None, tmdb_key=None, moviedir=None):
+                 seriesdir=None, file=None, tmdb_key=None, moviedir=None,
+                 ntfy_url=None, ntfy_token=None):
         self.file = file
         self.logfile = logfile
         self.config_file = config_file
@@ -61,6 +66,8 @@ class CopyMedia:
         self.seriesdir = seriesdir
         self.moviedir = moviedir
         self.tmdb_key = tmdb_key
+        self.ntfy_url = ntfy_url
+        self.ntfy_token = ntfy_token
 
         # initialize logging
         if self.logfile:
@@ -446,6 +453,16 @@ class CopyMedia:
         else:
             logging.debug('IFTTT notification url not provided.')
 
+        if self.ntfy_url is None and 'ntfyUrl' in config:
+            self.ntfy_url = config['ntfyUrl']
+        if self.ntfy_token is None and 'ntfyToken' in config:
+            self.ntfy_token = config['ntfyToken']
+
+        if self.ntfy_url and self.ntfy_token:
+            logging.debug('ntfy URL: [%s]', self.ntfy_url)
+        else:
+            logging.debug('ntfy notification not configured.')
+
         if self.tmdb_key:
             logging.debug('TMDB API Key: [%s]', self.tmdb_key)
         else:
@@ -484,22 +501,26 @@ class CopyMedia:
                 int(show['episode_num_sub'])
         return True
 
-    @staticmethod
-    def move_movies(movie_files, move_dir):
+    def move_movies(self, movie_files, move_dir):
         """Move movie files to the specified destination directory"""
 
         logging.debug('Moving movie files: [%s]', movie_files)
         for movie in movie_files:
-
-            # Move file to destination folder, renaming on the way
             start_path = movie
             dest_path = join(move_dir, path.basename(movie))
             logging.debug('Moving [%s] to [%s]...', start_path, dest_path)
-            shutil.move(start_path, dest_path)
-            logging.info('Successfully moved [%s] to [%s]', start_path, dest_path)
+            if remote.is_remote(move_dir):
+                if not remote.rsync(start_path, dest_path):
+                    if self.ntfy_url and self.ntfy_token:
+                        ntfy.send_notification(
+                            self.ntfy_url, self.ntfy_token,
+                            'CopyMedia: rsync failed moving [%s] to [%s]' % (start_path, dest_path)
+                        )
+            else:
+                shutil.move(start_path, dest_path)
+                logging.info('Successfully moved [%s] to [%s]', start_path, dest_path)
 
-    @staticmethod
-    def move_series(matches, move_dir, start_dir):
+    def move_series(self, matches, move_dir, start_dir):
         """Move matching series files to their respective destination directory"""
 
         destinations = set()
@@ -508,7 +529,6 @@ class CopyMedia:
 
             dest_file_name = CopyMedia.build_new_name(file_name, config_entry)
 
-            # Build destination directory path
             if 'destination' in config_entry:
                 dest = join(move_dir, config_entry['destination'])
             else:
@@ -516,17 +536,24 @@ class CopyMedia:
 
             logging.debug('Destination directory: [%s]', dest)
 
-            # Create destination directory if it doesn't already exist
-            if not path.exists(dest):
-                logging.info('Destination does not exist; creating [%s]', dest)
-                makedirs(dest)
+            src_path = join(start_dir, file_name)
+            dest_path = join(dest, dest_file_name)
 
-            # Move file to destination folder, renaming on the way
-            logging.debug('Moving [%s] to [%s]...',
-                          join(start_dir, file_name), join(dest, dest_file_name))
-            shutil.move(join(start_dir, file_name), join(dest, dest_file_name))
-            logging.info('Successfully moved [%s] to [%s]',
-                         join(start_dir, file_name), join(dest, dest_file_name))
+            if remote.is_remote(move_dir):
+                logging.debug('Moving [%s] to [%s]...', src_path, dest_path)
+                if not remote.rsync(src_path, dest_path):
+                    if self.ntfy_url and self.ntfy_token:
+                        ntfy.send_notification(
+                            self.ntfy_url, self.ntfy_token,
+                            'CopyMedia: rsync failed moving [%s] to [%s]' % (src_path, dest_path)
+                        )
+            else:
+                if not path.exists(dest):
+                    logging.info('Destination does not exist; creating [%s]', dest)
+                    makedirs(dest)
+                logging.debug('Moving [%s] to [%s]...', src_path, dest_path)
+                shutil.move(src_path, dest_path)
+                logging.info('Successfully moved [%s] to [%s]', src_path, dest_path)
 
             destinations.add(dest)
 

@@ -1,4 +1,6 @@
 {
+    "ntfyUrl": "https://ntfy.sh/test-topic",
+    "ntfyToken": "test-token-abc",
     "series": [
         {
             "name": "World Trigger",
