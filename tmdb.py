@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 import urllib
 import PTN
 
@@ -21,6 +22,13 @@ def clean_name(name):
 
     meta = PTN.parse(name)
     logging.log(logger.TRACE, 'Parsed meta-data: [%s]', meta)
+
+    # PTN's year regex only covers up to 2019; strip trailing years >= 2020 from title
+    if 'year' not in meta:
+        match = re.search(r'\b(20[2-9]\d)\s*$', meta['title'])
+        if match:
+            meta['year'] = int(match.group(1))
+            meta['title'] = meta['title'][:match.start()].rstrip()
 
     logging.debug('Parsed title: [%s]', meta['title'])
     return meta
