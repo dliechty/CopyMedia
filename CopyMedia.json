@@ -1,7 +1,8 @@
 {
   "scanDir": "/mnt/fastdata/downloads",
-  "seriesDir": "/mnt/fastdata/plexlibrary/Anime",
-  "movieDir": "/mnt/fastdata/plexlibrary/Movies",
+  "seriesDir": "david@10.5.2.20:/volume1/media/anime",
+  "movieDir": "david@10.5.2.20:/volume1/media/movies",
+  "ntfyUrl": "https://ntfy.qwertyshoe.com/alerts",
   "series": [
     {
       "name": "Shinmai Maou no Testament BURST",
