@@ -517,6 +517,10 @@
       "regex": "(.*)(Trickster)( - )(\\d{1,})(.*)"
     },
     {
+      "name": "Rakudai Kenja no Gakuin Musou",
+      "regex": "(.*)(Rakudai Kenja no Gakuin Musou)( - )(\\d{1,})(.*)"
+    },
+    {
       "name": "Bloodivores",
       "regex": "(.*)(Bloodivores)( - )(\\d{1,})(.*)"
     },
