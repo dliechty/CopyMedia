@@ -525,6 +525,10 @@
       "regex": "(.*)(Bloodivores)( - )(\\d{1,})(.*)"
     },
     {
+      "name": "Lv999 no Murabito",
+      "regex": "(.*)(Lv999 no Murabito)( - )(\\d{1,})(.*)"
+    },
+    {
       "name": "Hand Shakers",
       "regex": "(.*)(Hand Shakers)( - )(\\d{1,})(.*)"
     },
