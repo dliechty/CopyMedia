@@ -526,8 +526,8 @@
     },
     {
       "name": "Saga of Tanya the Evil",
-      "regex": "(.*)(Youjo Senki)( - )(\\d{1,})(.*)",
-      "replace": "\\1Saga of Tanya the Evil\\3S01E\\4\\5"
+      "regex": "(.*)(Youjo Senki S2)( - )(\\d{1,})(.*)",
+      "replace": "\\1Saga of Tanya the Evil\\3S02E\\4\\5"
     },
     {
       "name": "Heavy Object",
